@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Script_admGameTudo : MonoBehaviour
 {
@@ -11,6 +11,9 @@ public class Script_admGameTudo : MonoBehaviour
     [SerializeField] GameObject obj_player;
     [SerializeField] GameObject obj_ia;
     [SerializeField] GameObject obj_ml;
+
+    [SerializeField] GameObject[] obj_chao_01;
+    [SerializeField] GameObject[] obj_chao_02;
 
     [SerializeField] Transform[] t_camera;
     [SerializeField] float distanciaZ;
@@ -31,5 +34,14 @@ public class Script_admGameTudo : MonoBehaviour
         txt_playerDist.text = obj_player.transform.position.z.ToString() + "m";
         txt_iaDist.text = obj_ia.transform.position.z.ToString() + "m";
         txt_mlDist.text = obj_ml.transform.position.z.ToString() + "m";
+
+        if (obj_player.transform.position.z - obj_chao_01[0].transform.position.z > 120) obj_chao_01[0].transform.position += Vector3.forward * 200;
+        if (obj_player.transform.position.z - obj_chao_02[0].transform.position.z > 120) obj_chao_02[0].transform.position += Vector3.forward * 200;
+
+        if (obj_ia.transform.position.z - obj_chao_01[1].transform.position.z > 120) obj_chao_01[1].transform.position += Vector3.forward * 200;
+        if (obj_ia.transform.position.z - obj_chao_02[1].transform.position.z > 120) obj_chao_02[1].transform.position += Vector3.forward * 200;
+
+        if (obj_ml.transform.position.z - obj_chao_01[2].transform.position.z > 120) obj_chao_01[2].transform.position += Vector3.forward * 200;
+        if (obj_ml.transform.position.z - obj_chao_02[2].transform.position.z > 120) obj_chao_02[2].transform.position += Vector3.forward * 200;
     }
 }
