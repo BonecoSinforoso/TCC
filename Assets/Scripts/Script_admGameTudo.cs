@@ -4,10 +4,7 @@ using UnityEngine.UI;
 
 public class Script_admGameTudo : MonoBehaviour
 {
-    [SerializeField] Text txt_playerDist;
-    [SerializeField] Text txt_iaDist;
-    [SerializeField] Text txt_mlDist;
-
+    [SerializeField] Text[] txt_distancia;
     [SerializeField] Text[] txt_pontos;
 
     [SerializeField] GameObject[] obj_jogador;
@@ -18,6 +15,7 @@ public class Script_admGameTudo : MonoBehaviour
     [SerializeField] Transform[] t_camera;
     [SerializeField] float distanciaZ;
 
+    [SerializeField] GameObject[] prefab_obj_objeto;
     [SerializeField] float posUltima;
 
     void Start()
@@ -31,12 +29,9 @@ public class Script_admGameTudo : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            t_camera[i].position = Vector3.Lerp(t_camera[i].position, new Vector3(t_camera[0].position.x, 3, obj_jogador[i].transform.position.z - distanciaZ), 1f);
+            t_camera[i].position = Vector3.Lerp(t_camera[i].position, new Vector3(t_camera[i].position.x, 3, obj_jogador[i].transform.position.z - distanciaZ), 1f);
+            txt_distancia[i].text = obj_jogador[0].transform.position.z.ToString("f2") + "m";
         }
-
-        txt_playerDist.text = obj_jogador[0].transform.position.z.ToString("f2") + "m";
-        txt_iaDist.text = obj_jogador[1].transform.position.z.ToString("f2") + "m";
-        txt_mlDist.text = obj_jogador[2].transform.position.z.ToString("f2") + "m";
 
         ChaoPosChange();
     }
@@ -50,19 +45,33 @@ public class Script_admGameTudo : MonoBehaviour
             if (obj_jogador[i].transform.position.z - obj_chao_01[i].transform.position.z > 120)
             {
                 obj_chao_01[i].transform.position += Vector3.forward * 200;
+
+                if (obj_chao_01[i].transform.position.z > posUltima)
+                {
+                    _spawnar = true;
+                    posUltima = obj_chao_01[i].transform.position.z;
+                }
             }
             if (obj_jogador[i].transform.position.z - obj_chao_02[i].transform.position.z > 120)
             {
                 obj_chao_02[i].transform.position += Vector3.forward * 200;
+
+                if (obj_chao_02[i].transform.position.z > posUltima)
+                {
+                    _spawnar = true;
+                    posUltima = obj_chao_02[i].transform.position.z;
+                }
             }
         }
+
+        if (_spawnar) ObjetosSpawnar(posUltima);
     }
 
     void ObjetosSpawnar(float _pos)
     {
         for (int i = 0; i < 3; i++)
         {
-
+            Instantiate(prefab_obj_objeto[Random.Range(0, prefab_obj_objeto.Length)], new Vector3(20 * i, 0.5f, _pos), Quaternion.identity);
         }
     }
 

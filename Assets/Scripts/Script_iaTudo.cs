@@ -24,7 +24,8 @@ public class Script_iaTudo : MonoBehaviour
         if (other.CompareTag("Energetico"))
         {
             pontos += 10;
-            obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(0, pontos);
+            obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(1, pontos);
+            Destroy(other.gameObject);
         }
     }
 }

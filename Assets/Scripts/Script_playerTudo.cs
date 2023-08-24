@@ -28,6 +28,7 @@ public class Script_playerTudo : MonoBehaviour
         {
             pontos += 10;
             obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(0, pontos);
+            Destroy(other.gameObject);
         }
     }
 }
