@@ -69,9 +69,11 @@ public class Script_admGameTudo : MonoBehaviour
 
     void ObjetosSpawnar(float _pos)
     {
+        int _pos_rand = Random.Range(0, 3);
+
         for (int i = 0; i < 3; i++)
         {
-            Instantiate(prefab_obj_objeto[Random.Range(0, prefab_obj_objeto.Length)], new Vector3(20 * i, 0.5f, _pos), Quaternion.identity);
+            Instantiate(prefab_obj_objeto[Random.Range(0, prefab_obj_objeto.Length)], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos), Quaternion.identity);
         }
     }
 
