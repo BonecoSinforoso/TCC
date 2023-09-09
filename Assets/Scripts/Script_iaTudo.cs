@@ -17,6 +17,10 @@ public class Script_iaTudo : MonoBehaviour
     bool cen = false;
     bool dir = false;
 
+    bool bloq_esq;
+    bool bloq_cen;
+    bool bloq_dir;
+
     void Start()
     {
         obj_adm = GameObject.FindGameObjectWithTag("ADM");
@@ -41,7 +45,7 @@ public class Script_iaTudo : MonoBehaviour
                     if (Mathf.Abs(transform.position.z - _hit1.point.z) <= puloDist)
                     {
                         Pulo();
-                    }                    
+                    }
                 }
             }
         }
@@ -117,6 +121,13 @@ public class Script_iaTudo : MonoBehaviour
         rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
     }
 
+    void Perdeu()
+    {
+        perdeu = true;
+        rb.velocity = Vector3.zero;
+        obj_adm.GetComponent<Script_admGameTudo>().PerdeuSet(1);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Energetico"))
@@ -131,14 +142,12 @@ public class Script_iaTudo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Carro"))
         {
-            perdeu = true;
-            rb.velocity = Vector3.zero;
+            Perdeu();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("Onibus"))
         {
-            perdeu = true;
-            rb.velocity = Vector3.zero;
+            Perdeu();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("Chao"))

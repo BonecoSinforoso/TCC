@@ -27,9 +27,15 @@ public class Script_admGameTudo : MonoBehaviour
     [SerializeField] bool objTipo_edit;
     [SerializeField] int objTipo;
 
+    bool[] perdeu = new bool[3];
+
     void Start()
     {
         Application.targetFrameRate = 60;
+
+        TextoPontosChange(0, 0);
+        TextoPontosChange(1, 0);
+        TextoPontosChange(2, 0);
     }
 
     void Update()
@@ -79,18 +85,20 @@ public class Script_admGameTudo : MonoBehaviour
     void ObjetosSpawnar(float _pos, int _quant)
     {
         float _posIni = 50;
-        float _posCoef = 10;
-
-        int _pos_rand = Random.Range(0, 3);
-        int _obj_rand = Random.Range(0, prefab_obj_objeto.Length);
-
-        if (spawnPos_edit) _pos_rand = spawnPos;
-        if (objTipo_edit) _obj_rand = objTipo;
+        float _posCoef = 10;        
 
         for (int j = 0; j < _quant; j++)
         {
+            int _pos_rand = Random.Range(0, 3);
+            int _obj_rand = Random.Range(0, prefab_obj_objeto.Length);
+
+            if (spawnPos_edit) _pos_rand = spawnPos;
+            if (objTipo_edit) _obj_rand = objTipo;
+
             for (int i = 0; i < 3; i++)
             {
+                if (perdeu[i]) continue;
+
                 GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos - _posIni + (_posCoef * j)), Quaternion.identity);
 
                 if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
@@ -101,5 +109,10 @@ public class Script_admGameTudo : MonoBehaviour
     public void TextoPontosChange(int _index, int _pontos)
     {
         txt_pontos[_index].text = _pontos.ToString();
+    }
+
+    public void PerdeuSet(int _index)
+    {
+        perdeu[_index] = true;
     }
 }

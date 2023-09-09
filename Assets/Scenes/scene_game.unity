@@ -776,9 +776,9 @@ MonoBehaviour:
   - {fileID: 1646981259178978, guid: 754177c93e1d1ab429299992a0258158, type: 3}
   posUltima: 0
   spawnQuant_edit: 3
-  spawnPos_edit: 1
+  spawnPos_edit: 0
   spawnPos: 1
-  objTipo_edit: 1
+  objTipo_edit: 0
   objTipo: 1
 --- !u!1 &547622085
 GameObject:
@@ -1664,10 +1664,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3517767622728148231, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
-      propertyPath: puloDist
-      value: 2.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7850403804932038275, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
       propertyPath: m_Name
       value: prefab_obj_ia

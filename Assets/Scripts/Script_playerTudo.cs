@@ -35,6 +35,13 @@ public class Script_playerTudo : MonoBehaviour
         rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
     }
 
+    void Perdeu()
+    {
+        perdeu = true;
+        rb.velocity = Vector3.zero;
+        obj_adm.GetComponent<Script_admGameTudo>().PerdeuSet(0);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Energetico"))
@@ -49,14 +56,12 @@ public class Script_playerTudo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Carro"))
         {
-            perdeu = true;
-            rb.velocity = Vector3.zero;
+            Perdeu();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("Onibus"))
         {
-            perdeu = true;
-            rb.velocity = Vector3.zero;
+            Perdeu();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("Chao"))
