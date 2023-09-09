@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Energetico
   - ADM
+  - Carro
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,7 @@ public class Script_playerTudo : MonoBehaviour
     GameObject obj_adm;
     Rigidbody rb;
     int pontos = 0;
+    bool perdeu = false;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class Script_playerTudo : MonoBehaviour
 
     void Update()
     {
+        if (perdeu) return;
         if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeedX, rb.velocity.y, 0);
     }
@@ -29,6 +31,12 @@ public class Script_playerTudo : MonoBehaviour
             pontos += 10;
             obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(0, pontos);
             Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("Carro"))
+        {
+            perdeu = true;
+            rb.velocity = Vector3.zero;
         }
     }
 }

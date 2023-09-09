@@ -7,6 +7,7 @@ public class Script_mlTudo : MonoBehaviour
     GameObject obj_adm;
     Rigidbody rb;
     int pontos = 0;
+    bool perdeu = false;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class Script_mlTudo : MonoBehaviour
 
     void Update()
     {
+        if (perdeu) return;
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
     }
 
@@ -26,6 +28,12 @@ public class Script_mlTudo : MonoBehaviour
             pontos += 10;
             obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(2, pontos);
             Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("Carro"))
+        {
+            perdeu = true;
+            rb.velocity = Vector3.zero;
         }
     }
 }

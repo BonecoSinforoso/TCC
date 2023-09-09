@@ -774,6 +774,10 @@ MonoBehaviour:
   - {fileID: 1824740314020665111, guid: 8830e68ecccae7143bb9228dc6dc6ab4, type: 3}
   - {fileID: 1646981259178978, guid: dc9966ae7fb28a34f89e472a4ae4b223, type: 3}
   posUltima: 0
+  spawnPos_edit: 1
+  spawnPos: 0
+  objTipo_edit: 1
+  objTipo: 1
 --- !u!1 &547622085
 GameObject:
   m_ObjectHideFlags: 0
