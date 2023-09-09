@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  puloForca: 7
 --- !u!54 &7850403804932038273
 Rigidbody:
   m_ObjectHideFlags: 0

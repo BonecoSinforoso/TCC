@@ -20,6 +20,8 @@ public class Script_admGameTudo : MonoBehaviour
 
     //[Space(100f)]
     [Header("Testes")]
+    [SerializeField] int spawnQuant_edit;
+    [Space]
     [SerializeField] bool spawnPos_edit;
     [SerializeField] int spawnPos;
     [SerializeField] bool objTipo_edit;
@@ -43,7 +45,7 @@ public class Script_admGameTudo : MonoBehaviour
         ChaoPosChange();
     }
 
-    void ChaoPosChange()
+    void ChaoPosChange() //isso vai dar merda se a diferença de posicao for grande -> usar eskema do mario kart... deixo para vc icaro do futuro
     {
         bool _spawnar = false;
 
@@ -71,23 +73,29 @@ public class Script_admGameTudo : MonoBehaviour
             }
         }
 
-        if (_spawnar) ObjetosSpawnar(posUltima);
+        if (_spawnar) ObjetosSpawnar(posUltima, spawnQuant_edit <= 0 ? 1 : spawnQuant_edit);
     }
 
-    void ObjetosSpawnar(float _pos)
+    void ObjetosSpawnar(float _pos, int _quant)
     {
+        float _posIni = 50;
+        float _posCoef = 10;
+
         int _pos_rand = Random.Range(0, 3);
         int _obj_rand = Random.Range(0, prefab_obj_objeto.Length);
 
         if (spawnPos_edit) _pos_rand = spawnPos;
         if (objTipo_edit) _obj_rand = objTipo;
 
-        for (int i = 0; i < 3; i++)
+        for (int j = 0; j < _quant; j++)
         {
-            GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos - 50), Quaternion.identity);
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos - _posIni + (_posCoef * j)), Quaternion.identity);
 
-            if (_obj_rand == 1) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
-        }
+                if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
+            }
+        }        
     }
 
     public void TextoPontosChange(int _index, int _pontos)

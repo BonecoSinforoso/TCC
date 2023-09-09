@@ -10,6 +10,7 @@ public class Script_playerTudo : MonoBehaviour
     Rigidbody rb;
     int pontos = 0;
     bool perdeu = false;
+    bool puloPode = false;
 
     void Start()
     {
@@ -20,8 +21,18 @@ public class Script_playerTudo : MonoBehaviour
     void Update()
     {
         if (perdeu) return;
-        if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Pulo();
+        }
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeedX, rb.velocity.y, 0);
+    }
+
+    void Pulo()
+    {
+        if (!puloPode) return;
+        puloPode = false;
+        rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,6 +52,16 @@ public class Script_playerTudo : MonoBehaviour
             perdeu = true;
             rb.velocity = Vector3.zero;
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Onibus"))
+        {
+            perdeu = true;
+            rb.velocity = Vector3.zero;
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Chao"))
+        {
+            puloPode = true;
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1705132168032548221}
   m_Layer: 0
   m_Name: prefab_obj_chao
-  m_TagString: Untagged
+  m_TagString: Chao
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 8642375493559094533}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Chao
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
