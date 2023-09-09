@@ -13,13 +13,15 @@ public class Script_iaTudo : MonoBehaviour
     bool perdeu = false;
     bool puloPode = false;
 
-    bool esq = false;
-    bool cen = false;
-    bool dir = false;
+    [SerializeField] bool esq = false;
+    [SerializeField] bool cen = false;
+    [SerializeField] bool dir = false;
 
-    bool bloq_esq;
-    bool bloq_cen;
-    bool bloq_dir;
+    [SerializeField] bool bloq_esq;
+    [SerializeField] bool bloq_cen;
+    [SerializeField] bool bloq_dir;
+
+    bool sentidoMudarPode = true;
 
     void Start()
     {
@@ -32,66 +34,85 @@ public class Script_iaTudo : MonoBehaviour
         if (perdeu) return;
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
 
-        if (Physics.Raycast(new Vector3(17.5f, 0.5f, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit1, 10f))
+        Debug.DrawRay(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward * 5f, Color.red);
+        Debug.DrawRay(new Vector3(17.5f, 2f, transform.position.z), Vector3.down * 2f, Color.red);
+
+        Debug.DrawRay(new Vector3(20f, 0.5f, transform.position.z), Vector3.forward * 5f, Color.red);
+        Debug.DrawRay(new Vector3(20f, 2f, transform.position.z), Vector3.down * 2f, Color.red);
+
+        Debug.DrawRay(new Vector3(22.5f, 0.5f, transform.position.z), Vector3.forward * 5f, Color.red);
+        Debug.DrawRay(new Vector3(22.5f, 2f, transform.position.z), Vector3.down * 2f, Color.red);
+
+        bloq_esq = false;
+        bloq_cen = false;
+        bloq_dir = false;
+
+        if (Physics.Raycast(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward, 6f, 1 << 3)) bloq_esq = true;
+        if (Physics.Raycast(new Vector3(17.5f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_esq = true;
+
+        if (Physics.Raycast(new Vector3(20f, 0.5f, transform.position.z), Vector3.forward, 6f, 1 << 3)) bloq_cen = true;
+        if (Physics.Raycast(new Vector3(20f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_cen = true;
+
+        if (Physics.Raycast(new Vector3(22.5f, 0.5f, transform.position.z), Vector3.forward, 6f, 1 << 3)) bloq_dir = true;
+        if (Physics.Raycast(new Vector3(22.5f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_dir = true;
+
+        //proprio
+        if (Physics.Raycast(transform.position + Vector3.forward, Vector3.forward, out RaycastHit _hit, 5f))
         {
-            if (!esq && !cen && !dir)
+            if (_hit.collider.CompareTag("Carro"))
             {
-                if (_hit1.collider.CompareTag("Onibus"))
+                if (Mathf.Abs(transform.position.z - _hit.point.z) < puloDist)
                 {
-                    cen = true;
-                }
-                else if (_hit1.collider.CompareTag("Carro"))
-                {
-                    if (Mathf.Abs(transform.position.z - _hit1.point.z) <= puloDist)
-                    {
-                        Pulo();
-                    }
+                    Pulo();
                 }
             }
         }
-        if (Physics.Raycast(new Vector3(20f, 0.5f, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit2, 10f))
+
+        if (bloq_esq)
         {
-            if (!esq && !cen && !dir)
+            if (transform.position.x < 19)
             {
-                if (_hit2.collider.CompareTag("Onibus"))
+                if (bloq_cen)
                 {
-                    if (transform.position.x == 20)
+                    dir = true;
+                }
+                else
+                {
+                    cen = true;
+                }
+            }
+        }
+        if (bloq_cen)
+        {
+            if (transform.position.x >= 19.2f && transform.position.x <= 20.8f)
+            {
+                if (!bloq_esq && !bloq_dir)
+                {
+                    if (sentidoMudarPode)
                     {
+                        sentidoMudarPode = false;
                         esq = Random.Range(0, 2) == 0;
                         dir = !esq;
                     }
-                    else if (transform.position.x < 20)
-                    {
-                        esq = true;
-                    }
-                    else
-                    {
-                        dir = true;
-                    }
                 }
-                else if (_hit2.collider.CompareTag("Carro"))
+                else //nn eh else if pq tenho q tratar quando tudo tiver block
                 {
-                    if (Mathf.Abs(transform.position.z - _hit2.point.z) <= puloDist)
-                    {
-                        Pulo();
-                    }
+                    if (!bloq_esq) esq = true;
+                    if (!bloq_dir) dir = true;
                 }
             }
         }
-        if (Physics.Raycast(new Vector3(22.5f, 0.5f, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit3, 10f))
+        if (bloq_dir)
         {
-            if (!esq && !cen && !dir)
+            if (transform.position.x > 21)
             {
-                if (_hit3.collider.CompareTag("Onibus"))
+                if (bloq_cen)
+                {
+                    esq = true;
+                }
+                else
                 {
                     cen = true;
-                }
-                else if (_hit3.collider.CompareTag("Carro"))
-                {
-                    if (Mathf.Abs(transform.position.z - _hit3.point.z) <= puloDist)
-                    {
-                        Pulo();
-                    }
                 }
             }
         }
@@ -100,17 +121,25 @@ public class Script_iaTudo : MonoBehaviour
         if (esq)
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(17.5f, transform.position.y, transform.position.z), t);
-            if (Mathf.Abs(transform.position.x - 17.5f) < 0.05f) esq = false;
+            if (Mathf.Abs(transform.position.x - 17.5f) < 0.05f)
+            {
+                esq = false;
+                sentidoMudarPode = true;
+            }
         }
-        if (cen)
+        else if (cen)
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(20f, transform.position.y, transform.position.z), t);
             if (Mathf.Abs(transform.position.x - 20f) < 0.05f) cen = false;
         }
-        if (dir)
+        else if (dir)
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(22.5f, transform.position.y, transform.position.z), t);
-            if (Mathf.Abs(transform.position.x - 22.5f) < 0.05f) dir = false;
+            if (Mathf.Abs(transform.position.x - 22.5f) < 0.05f)
+            {
+                dir = false;
+                sentidoMudarPode = true;
+            }
         }
     }
 

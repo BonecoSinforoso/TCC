@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -5347517606775137459}
   - component: {fileID: 2380411188585019314}
   - component: {fileID: 3134145853744373338}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: prefab_obj_onibus
   m_TagString: Onibus
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4435492909062994677}
   - component: {fileID: 4460946869189495719}
   - component: {fileID: 4452899072337032709}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Object020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 4436152408736602529}
   - component: {fileID: 4460846428934230277}
   - component: {fileID: 4452865821494587597}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Object018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 4436500383256993511}
   - component: {fileID: 4461351160907169667}
   - component: {fileID: 4452467486649383701}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Object021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 4435959805110256343}
   - component: {fileID: 4461543927004503241}
   - component: {fileID: 4453668273059890713}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Object022
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 4435963642254766575}
   - component: {fileID: 4460658797363281035}
   - component: {fileID: 4453060742413839225}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Object019
   m_TagString: Untagged
   m_Icon: {fileID: 0}

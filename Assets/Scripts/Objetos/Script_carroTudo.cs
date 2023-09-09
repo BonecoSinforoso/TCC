@@ -14,7 +14,7 @@ public class Script_carroTudo : Script_objDestruir
 
     void Update()
     {
-        if (obj != null) Cu(obj);
+        if (obj != null) DistanciaVerificar(obj);
         rb.velocity = Vector3.back + new Vector3(0, rb.velocity.y, 0);
 
         if (transform.position.y < -2f)
