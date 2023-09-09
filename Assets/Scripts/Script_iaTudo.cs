@@ -27,27 +27,44 @@ public class Script_iaTudo : MonoBehaviour
 
         if (Physics.Raycast(new Vector3(17.5f, 0.5f, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit1, 10f))
         {
-            if (_hit1.collider.CompareTag("Carro"))
+            if (!esq && !cen && !dir)
             {
-                cen = true;
+                if (_hit1.collider.CompareTag("Carro"))
+                {
+                    cen = true;
+                }
             }
         }
         if (Physics.Raycast(new Vector3(20f, 0.5f, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit2, 10f))
         {
-            if (_hit2.collider.CompareTag("Carro"))
+            if (!esq && !cen && !dir)
             {
-                if(transform.position.x == 20)
+                if (_hit2.collider.CompareTag("Carro"))
                 {
-                    esq = Random.Range(0, 2) == 0;
-                    dir = !esq;
+                    if (transform.position.x == 20)
+                    {
+                        esq = Random.Range(0, 2) == 0;
+                        dir = !esq;
+                    }
+                    else if (transform.position.x < 20)
+                    {
+                        esq = true;
+                    }
+                    else
+                    {
+                        dir = true;
+                    }
                 }
             }
         }
         if (Physics.Raycast(new Vector3(22.5f, 0.5f, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit3, 10f))
         {
-            if (_hit3.collider.CompareTag("Carro"))
+            if (!esq && !cen && !dir)
             {
-                cen = true;
+                if (_hit3.collider.CompareTag("Carro"))
+                {
+                    cen = true;
+                }
             }
         }
 
@@ -74,11 +91,15 @@ public class Script_iaTudo : MonoBehaviour
             obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(1, pontos);
             Destroy(other.gameObject);
         }
+    }
 
-        if (other.CompareTag("Carro"))
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Carro"))
         {
             perdeu = true;
             rb.velocity = Vector3.zero;
+            Destroy(collision.gameObject);
         }
     }
 }

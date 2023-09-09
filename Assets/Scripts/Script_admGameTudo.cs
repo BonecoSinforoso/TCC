@@ -37,7 +37,7 @@ public class Script_admGameTudo : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             t_camera[i].position = Vector3.Lerp(t_camera[i].position, new Vector3(t_camera[i].position.x, 3, obj_jogador[i].transform.position.z - distanciaZ), 1f);
-            txt_distancia[i].text = obj_jogador[0].transform.position.z.ToString("f2") + "m";
+            txt_distancia[i].text = obj_jogador[i].transform.position.z.ToString("f2") + "m";
         }
 
         ChaoPosChange();
@@ -84,7 +84,9 @@ public class Script_admGameTudo : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos), Quaternion.identity);
+            GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos - 50), Quaternion.identity);
+
+            if (_obj_rand == 1) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
         }
     }
 

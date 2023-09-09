@@ -775,7 +775,7 @@ MonoBehaviour:
   - {fileID: 1646981259178978, guid: dc9966ae7fb28a34f89e472a4ae4b223, type: 3}
   posUltima: 0
   spawnPos_edit: 1
-  spawnPos: 0
+  spawnPos: 1
   objTipo_edit: 1
   objTipo: 1
 --- !u!1 &547622085

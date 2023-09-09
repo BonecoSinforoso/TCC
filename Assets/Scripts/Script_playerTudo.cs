@@ -32,11 +32,15 @@ public class Script_playerTudo : MonoBehaviour
             obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(0, pontos);
             Destroy(other.gameObject);
         }
+    }
 
-        if (other.CompareTag("Carro"))
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Carro"))
         {
             perdeu = true;
             rb.velocity = Vector3.zero;
+            Destroy(collision.gameObject);
         }
     }
 }
