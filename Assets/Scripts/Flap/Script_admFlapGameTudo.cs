@@ -10,7 +10,7 @@ public class Script_admFlapGameTudo : MonoBehaviour
 
     void Start()
     {
-
+        Application.targetFrameRate = 60;
     }
 
     void Update()

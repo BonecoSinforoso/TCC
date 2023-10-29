@@ -26,10 +26,32 @@ public class Script_playerFlapTudo : MonoBehaviour
 
         if (transform.eulerAngles.z > 300)
         {
-            float bosta = transform.eulerAngles.z;
-            bosta -= 360;
-            if (bosta < -10) bosta = -10;
-            transform.eulerAngles = new Vector3(0, 0, bosta);
+            float _novoAngulo = transform.eulerAngles.z;
+            _novoAngulo -= 360;
+
+            if (_novoAngulo < -10) _novoAngulo = -10;
+            transform.eulerAngles = new Vector3(0, 0, _novoAngulo);
+        }
+        else if (transform.eulerAngles.z > 30)
+        {
+            float _novoAngulo = 30;
+            transform.eulerAngles = new Vector3(0, 0, _novoAngulo);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Chao"))
+        {
+            Debug.LogError("dsajdhas");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Chao"))
+        {
+            Debug.LogError("dsajdhas");
         }
     }
 }
