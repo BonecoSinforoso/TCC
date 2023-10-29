@@ -38,8 +38,8 @@ ModelImporter:
       name: anim_player_jump
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 193
+      firstFrame: 24
+      lastFrame: 151
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

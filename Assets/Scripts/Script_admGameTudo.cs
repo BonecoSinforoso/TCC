@@ -86,7 +86,7 @@ public class Script_admGameTudo : MonoBehaviour
     void ObjetosSpawnar(float _pos, int _quant)
     {
         float _posIni = 50;
-        float _posCoef = 10;        
+        float _posCoef = 10;
 
         for (int j = 0; j < _quant; j++)
         {
@@ -106,7 +106,7 @@ public class Script_admGameTudo : MonoBehaviour
                 if (_obj_rand == 0) _obj.GetComponent<Script_objDestruirTudo>().ObjSet(obj_jogador[i]);
                 if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
             }
-        }        
+        }
     }
 
     public void TextoPontosChange(int _index, int _pontos)

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  puloForca: 5
+  puloForca: 6
   puloDist: 2.5
   t: 0.2
   esq: 0

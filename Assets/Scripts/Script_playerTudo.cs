@@ -5,6 +5,7 @@ public class Script_playerTudo : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float moveSpeedX;
     [SerializeField] float puloForca;
+    [SerializeField] float posLimiteX;
 
     GameObject obj_adm;
     Rigidbody rb;
@@ -34,6 +35,9 @@ public class Script_playerTudo : MonoBehaviour
         animator.SetBool("_jump", !puloPode);
 
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeedX, rb.velocity.y, 0);
+
+        if (transform.position.x < -posLimiteX) transform.position = new Vector3(-posLimiteX, transform.position.y, transform.position.z);
+        else if (transform.position.x > posLimiteX) transform.position = new Vector3(posLimiteX, transform.position.y, transform.position.z);
     }
 
     void Pulo()
