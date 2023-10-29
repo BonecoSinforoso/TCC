@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7798973135578266882}
-  - component: {fileID: 7309717188461321818}
+  - component: {fileID: 1295170795105565668}
   - component: {fileID: 7756373854170426409}
   - component: {fileID: 4110982367209495524}
-  m_Layer: 6
-  m_Name: prefab_obj_playerFlap
+  m_Layer: 7
+  m_Name: prefab_obj_iaFlap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7309717188461321818
+--- !u!114 &1295170795105565668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,12 +43,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7798973135578266885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fff96337193a014d9965433dc732c6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e9bf81a7d5a1a546b0293e485229ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puloForca: 5
-  subidaRot: -30
-  quedaRot: 20
 --- !u!54 &7756373854170426409
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -89,7 +86,7 @@ GameObject:
   - component: {fileID: 5226067733463896902}
   - component: {fileID: 2612481713554641540}
   - component: {fileID: 1989578738532676164}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2bdeb353ab914f64eb9977a26a546068, type: 2}
+  - {fileID: 2100000, guid: cd19eb7f2e97593459fe09752c89e92f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
