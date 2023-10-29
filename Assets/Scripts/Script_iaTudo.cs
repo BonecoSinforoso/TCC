@@ -9,6 +9,8 @@ public class Script_iaTudo : MonoBehaviour
 
     GameObject obj_adm;
     Rigidbody rb;
+    Animator animator;
+
     int pontos = 0;
     bool perdeu = false;
     bool puloPode = false;
@@ -27,11 +29,15 @@ public class Script_iaTudo : MonoBehaviour
     {
         obj_adm = GameObject.FindGameObjectWithTag("ADM");
         rb = GetComponent<Rigidbody>();
+        animator = transform.GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
         if (perdeu) return;
+
+        animator.SetBool("_jump", !puloPode);
+
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
 
         Debug.DrawRay(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward * 5f, Color.red);

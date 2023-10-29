@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveSpeedX: 3
-  puloForca: 7
+  puloForca: 5
 --- !u!54 &7850403804932038273
 Rigidbody:
   m_ObjectHideFlags: 0

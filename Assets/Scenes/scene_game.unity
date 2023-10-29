@@ -1817,14 +1817,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6346880190758839775, guid: cea9a8a4d9334c14d85632efdc69e199, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6b815d4c6f6e24d4893e0bd290899a60, type: 2}
-    - target: {fileID: 6346880190758839775, guid: cea9a8a4d9334c14d85632efdc69e199, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7850403804932038275, guid: cea9a8a4d9334c14d85632efdc69e199, type: 3}
       propertyPath: m_Name
       value: prefab_obj_ml
@@ -1882,14 +1874,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4337120731696191365, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6b815d4c6f6e24d4893e0bd290899a60, type: 2}
-    - target: {fileID: 4337120731696191365, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7850403804932038275, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
       propertyPath: m_Name
       value: prefab_obj_ia
@@ -2259,14 +2243,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3021639009174035294, guid: abce1419bbc5e244cb5e81cdfd898856, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6b815d4c6f6e24d4893e0bd290899a60, type: 2}
-    - target: {fileID: 3021639009174035294, guid: abce1419bbc5e244cb5e81cdfd898856, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7850403804932038275, guid: abce1419bbc5e244cb5e81cdfd898856, type: 3}
       propertyPath: m_Name
       value: prefab_obj_player

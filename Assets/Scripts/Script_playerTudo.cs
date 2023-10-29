@@ -8,6 +8,8 @@ public class Script_playerTudo : MonoBehaviour
 
     GameObject obj_adm;
     Rigidbody rb;
+    Animator animator;
+
     int pontos = 0;
     bool perdeu = false;
     bool puloPode = false;
@@ -16,15 +18,21 @@ public class Script_playerTudo : MonoBehaviour
     {
         obj_adm = GameObject.FindGameObjectWithTag("ADM");
         rb = GetComponent<Rigidbody>();
+
+        animator = transform.GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
         if (perdeu) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Pulo();
         }
+
+        animator.SetBool("_jump", !puloPode);
+
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeedX, rb.velocity.y, 0);
     }
 
