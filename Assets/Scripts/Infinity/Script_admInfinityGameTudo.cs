@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Script_admGameTudo : MonoBehaviour
+public class Script_admInfinityGameTudo : MonoBehaviour
 {
     [SerializeField] Text[] txt_distancia;
     [SerializeField] Text[] txt_pontos;

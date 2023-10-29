@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Script_iaTudo : MonoBehaviour
+public class Script_iaInfinityTudo : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float puloForca;
@@ -160,7 +160,7 @@ public class Script_iaTudo : MonoBehaviour
     {
         perdeu = true;
         rb.velocity = Vector3.zero;
-        obj_adm.GetComponent<Script_admGameTudo>().PerdeuSet(1);
+        obj_adm.GetComponent<Script_admInfinityGameTudo>().PerdeuSet(1);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -168,7 +168,7 @@ public class Script_iaTudo : MonoBehaviour
         if (other.CompareTag("Energetico"))
         {
             pontos += 10;
-            obj_adm.GetComponent<Script_admGameTudo>().TextoPontosChange(1, pontos);
+            obj_adm.GetComponent<Script_admInfinityGameTudo>().TextoPontosChange(1, pontos);
             Destroy(other.gameObject);
         }
     }
