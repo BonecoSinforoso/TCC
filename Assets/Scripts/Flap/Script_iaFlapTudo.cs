@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Script_iaFlapTudo : MonoBehaviour
 {
@@ -17,35 +17,44 @@ public class Script_iaFlapTudo : MonoBehaviour
     int pontos = 0;
 
     bool puloPode = true;
+    bool movel;
 
-    Rigidbody rb;    
+    Rigidbody rb;
 
     void Start()
     {
+        movel = GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().movel;
         rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        for (int i = 0; i < obj_cano.Length; i++)
+        if (movel)
         {
-            if (transform.position.x < obj_cano[i].transform.position.x)
+            //pra vc icaro do futuro
+        }
+        else
+        {
+            for (int i = 0; i < obj_cano.Length; i++)
             {
-                if (obj_cano[i].transform.position.x - transform.position.x <= distanciaCanoFrente)
+                if (transform.position.x < obj_cano[i].transform.position.x)
                 {
-                    if (transform.position.y + coefY < obj_cano[i].transform.position.y)
+                    if (obj_cano[i].transform.position.x - transform.position.x <= distanciaCanoFrente)
                     {
-                        Pulo();
+                        if (transform.position.y + coefY < obj_cano[i].transform.position.y)
+                        {
+                            Pulo();
+                        }
                     }
                 }
-            }
-            else
-            {
-                if (Mathf.Abs(transform.position.x - obj_cano[i].transform.position.x) < 1)
+                else
                 {
-                    if (transform.position.y + coefY < obj_cano[i].transform.position.y)
+                    if (Mathf.Abs(transform.position.x - obj_cano[i].transform.position.x) < 1)
                     {
-                        Pulo();
+                        if (transform.position.y + coefY < obj_cano[i].transform.position.y)
+                        {
+                            Pulo();
+                        }
                     }
                 }
             }
@@ -89,8 +98,8 @@ public class Script_iaFlapTudo : MonoBehaviour
 
         if (other.CompareTag("Ponto"))
         {
-                pontos++;
-                TextPontosSet();
+            pontos++;
+            TextPontosSet();
         }
     }
 
