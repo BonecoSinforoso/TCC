@@ -47,14 +47,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puloForca: 5
-  puloCd: 0.3
+  puloCd: 0.2
   alturaMin: -4
   coefY: 0.5
   obj_cano:
   - {fileID: 0}
   - {fileID: 0}
   distanciaCanoFrente: 4
-  distanciaCanoAtras: 1
+  distanciaCanoAtras: 1.5
 --- !u!54 &7756373854170426409
 Rigidbody:
   m_ObjectHideFlags: 0

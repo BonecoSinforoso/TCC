@@ -67,4 +67,20 @@ public class Script_iaFlapTudo : MonoBehaviour
     {
         puloPode = true;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Chao"))
+        {
+            Time.timeScale = 0;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Cano"))
+        {
+            Time.timeScale = 0;
+        }
+    }
 }
