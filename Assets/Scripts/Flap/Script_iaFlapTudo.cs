@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Script_iaFlapTudo : MonoBehaviour
 {
@@ -12,9 +13,13 @@ public class Script_iaFlapTudo : MonoBehaviour
     [SerializeField] float distanciaCanoFrente;
     [SerializeField] float distanciaCanoAtras;
 
+    [SerializeField] TextMeshProUGUI txt_pontos;
+    int pontos = 0;
+
     bool puloPode = true;
 
     Rigidbody rb;
+    bool pode;
 
     void Start()
     {
@@ -23,7 +28,7 @@ public class Script_iaFlapTudo : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i <= 1; i++)
+        for (int i = 0; i < obj_cano.Length; i++)
         {
             if (transform.position.x < obj_cano[i].transform.position.x)
             {
@@ -78,9 +83,20 @@ public class Script_iaFlapTudo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Cano"))
+        if (other.CompareTag("Cano"))
         {
             Time.timeScale = 0;
         }
+
+        if (other.CompareTag("Ponto"))
+        {
+            pontos++;
+            TextPontosSet();
+        }
+    }
+
+    void TextPontosSet()
+    {
+        txt_pontos.text = pontos.ToString();
     }
 }

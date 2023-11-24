@@ -1,10 +1,14 @@
 using UnityEngine;
+using TMPro;
 
 public class Script_playerFlapTudo : MonoBehaviour
 {
     [SerializeField] float puloForca;
     [SerializeField] float subidaRot;
     [SerializeField] float quedaRot;
+
+    [SerializeField] TextMeshProUGUI txt_pontos;
+    int pontos = 0;
 
     Rigidbody rb;
 
@@ -50,9 +54,20 @@ public class Script_playerFlapTudo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Cano"))
+        if (other.CompareTag("Cano"))
         {
             Debug.LogError("dsajdhas");
         }
+
+        if (other.CompareTag("Ponto"))
+        {
+            pontos++;            
+            TextPontosSet();
+        }
+    }
+
+    void TextPontosSet()
+    {
+        txt_pontos.text = pontos.ToString();
     }
 }
