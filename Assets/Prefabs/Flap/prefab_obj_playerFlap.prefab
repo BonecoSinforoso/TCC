@@ -130,6 +130,7 @@ MonoBehaviour:
   puloForca: 5
   subidaRot: -30
   quedaRot: 40
+  txt_pontos: {fileID: 0}
 --- !u!54 &7756373854170426409
 Rigidbody:
   m_ObjectHideFlags: 0

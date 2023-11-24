@@ -4,11 +4,6 @@ public class Script_rotacionar : MonoBehaviour
 {
     [SerializeField] Vector3 valor;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         transform.Rotate(valor * Time.deltaTime);
