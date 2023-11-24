@@ -6,6 +6,7 @@ public class Script_canosTudo : MonoBehaviour
     [SerializeField] float posMinX;
     [SerializeField] GameObject obj_canosOutro;
     [SerializeField] float alturaMax;
+    [SerializeField] Transform t_ponto;
 
     Rigidbody rb;
 
@@ -24,6 +25,8 @@ public class Script_canosTudo : MonoBehaviour
             transform.position = obj_canosOutro.transform.position + Vector3.right * 6;
             AlturaSet();
         }
+
+        t_ponto.position = transform.position;
     }
 
     void AlturaSet()
