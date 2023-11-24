@@ -10,8 +10,6 @@ public class Script_playerFlapTudo : MonoBehaviour
     [SerializeField] TextMeshProUGUI txt_pontos;
     int pontos = 0;
 
-    bool pode = true;
-
     Rigidbody rb;
 
     void Start()
@@ -50,7 +48,7 @@ public class Script_playerFlapTudo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Chao"))
         {
-            Debug.LogError("dsajdhas");
+            //Debug.LogError("dsajdhas");
         }
     }
 
@@ -58,29 +56,18 @@ public class Script_playerFlapTudo : MonoBehaviour
     {
         if (other.CompareTag("Cano"))
         {
-            Debug.LogError("dsajdhas");
+            //Debug.LogError("dsajdhas");
         }
 
         if (other.CompareTag("Ponto"))
         {
-            if (pode)
-            {
-                pode = false;
-                pontos++;
-                TextPontosSet();
-
-                Invoke(nameof(PodeReset), 0.5f);
-            }
+            pontos++;
+            TextPontosSet();
         }
     }
 
     void TextPontosSet()
     {
         txt_pontos.text = pontos.ToString();
-    }
-
-    void PodeReset()
-    {
-        pode = true;
     }
 }

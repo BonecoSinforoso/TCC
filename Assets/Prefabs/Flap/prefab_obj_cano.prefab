@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5657717358929966595}
   m_Layer: 0
   m_Name: prefab_obj_cano
-  m_TagString: Chao
+  m_TagString: Cano
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 6956557938764477550}
   m_Layer: 0
   m_Name: mesh
-  m_TagString: Untagged
+  m_TagString: Cano
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

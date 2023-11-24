@@ -17,7 +17,6 @@ public class Script_iaFlapTudo : MonoBehaviour
     int pontos = 0;
 
     bool puloPode = true;
-    bool pode = true;
 
     Rigidbody rb;    
 
@@ -90,24 +89,13 @@ public class Script_iaFlapTudo : MonoBehaviour
 
         if (other.CompareTag("Ponto"))
         {
-            if (pode)
-            {
-                pode = false;
                 pontos++;
                 TextPontosSet();
-
-                Invoke(nameof(PodeReset), 0.5f);
-            }            
         }
     }
 
     void TextPontosSet()
     {
         txt_pontos.text = pontos.ToString();
-    }
-
-    void PodeReset()
-    {
-        pode = true;
     }
 }

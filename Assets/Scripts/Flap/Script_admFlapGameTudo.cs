@@ -8,6 +8,8 @@ public class Script_admFlapGameTudo : MonoBehaviour
     [SerializeField] GameObject obj_playerClone;
     [SerializeField] GameObject obj_iaClone;
 
+    public bool movel;
+
     void Start()
     {
         Application.targetFrameRate = 60;

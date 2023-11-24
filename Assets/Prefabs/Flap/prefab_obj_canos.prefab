@@ -47,9 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  subidaSpeed: 1
   posMinX: -6
   obj_canosOutro: {fileID: 0}
   alturaMax: 2.5
+  t_ponto: {fileID: 0}
+  subindo: 0
 --- !u!54 &4120898236038081068
 Rigidbody:
   m_ObjectHideFlags: 0
