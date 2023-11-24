@@ -17,6 +17,7 @@ public class Script_playerFlapTudo : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (transform.eulerAngles.z < 5) transform.eulerAngles += Vector3.forward * 10;
             rb.velocity = Vector3.zero;
             rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
         }
@@ -49,7 +50,7 @@ public class Script_playerFlapTudo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Chao"))
+        if (other.gameObject.CompareTag("Cano"))
         {
             Debug.LogError("dsajdhas");
         }

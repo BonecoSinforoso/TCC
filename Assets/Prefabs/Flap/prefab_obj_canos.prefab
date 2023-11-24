@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4120898236038081068}
   m_Layer: 0
   m_Name: prefab_obj_canos
-  m_TagString: Chao
+  m_TagString: Cano
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   moveSpeed: 2
   posMinX: -6
   obj_canosOutro: {fileID: 0}
+  alturaMax: 2.5
 --- !u!54 &4120898236038081068
 Rigidbody:
   m_ObjectHideFlags: 0

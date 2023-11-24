@@ -15,10 +15,8 @@ public class Script_admFlapGameTudo : MonoBehaviour
 
     void Update()
     {
-        obj_playerClone.transform.position = obj_player.transform.position;
-        obj_playerClone.transform.rotation = obj_player.transform.rotation;
+        obj_playerClone.transform.SetPositionAndRotation(obj_player.transform.position, obj_player.transform.rotation);
 
-        obj_iaClone.transform.position = obj_ia.transform.position;
-        obj_iaClone.transform.rotation = obj_ia.transform.rotation;
+        obj_iaClone.transform.SetPositionAndRotation(obj_ia.transform.position, obj_ia.transform.rotation);
     }
 }

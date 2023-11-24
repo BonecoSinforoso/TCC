@@ -9,6 +9,8 @@ TagManager:
   - Carro
   - Onibus
   - Chao
+  - Cano
+  - IA
   layers:
   - Default
   - TransparentFX
