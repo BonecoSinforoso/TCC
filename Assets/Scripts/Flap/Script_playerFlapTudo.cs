@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Script_playerFlapTudo : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class Script_playerFlapTudo : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI txt_pontos;
     int pontos = 0;
+
+    bool pode = true;
 
     Rigidbody rb;
 
@@ -61,13 +63,24 @@ public class Script_playerFlapTudo : MonoBehaviour
 
         if (other.CompareTag("Ponto"))
         {
-            pontos++;            
-            TextPontosSet();
+            if (pode)
+            {
+                pode = false;
+                pontos++;
+                TextPontosSet();
+
+                Invoke(nameof(PodeReset), 0.5f);
+            }
         }
     }
 
     void TextPontosSet()
     {
         txt_pontos.text = pontos.ToString();
+    }
+
+    void PodeReset()
+    {
+        pode = true;
     }
 }
