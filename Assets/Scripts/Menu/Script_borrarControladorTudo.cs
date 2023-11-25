@@ -8,7 +8,6 @@ public class Script_borrarControladorTudo : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(rect_borrao.offsetMax.y);
         if (descer)
         {
             if (rect_borrao.offsetMax.y > -1080) rect_borrao.offsetMax += moveSpeed * Time.deltaTime * Vector2.down;

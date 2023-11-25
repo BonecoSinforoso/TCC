@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: anim_pongBola
+  m_Name: anim_menu_pong
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
