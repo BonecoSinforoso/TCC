@@ -2,28 +2,20 @@ using UnityEngine;
 
 public class Script_bolaPongTudo : MonoBehaviour
 {
+    GameObject obj_adm;
     Rigidbody rb;
 
     void Start()
     {
+        obj_adm = GameObject.FindGameObjectWithTag("ADM");
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (transform.position.x <= -11f || transform.position.x >= 11f)
         {
-            MoveSpeedHorizontalToggle();
-        }
-
-        if (collision.gameObject.CompareTag("IA"))
-        {
-            MoveSpeedHorizontalToggle();
-        }
-
-        if (collision.gameObject.CompareTag("Parede"))
-        {
-            MoveSpeedVerticalToggle();
+            obj_adm.GetComponent<Script_admPongGameTudo>().BolaReset(transform.position.x < 0 ? 1 : 2);
         }
     }
 
@@ -32,11 +24,13 @@ public class Script_bolaPongTudo : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             MoveSpeedHorizontalToggle();
+            if (transform.position.x < -8.7f) MoveSpeedVerticalToggle();
         }
 
         if (other.gameObject.CompareTag("IA"))
         {
             MoveSpeedHorizontalToggle();
+            if (transform.position.x > 8.7f) MoveSpeedVerticalToggle();
         }
 
         if (other.gameObject.CompareTag("Parede"))
