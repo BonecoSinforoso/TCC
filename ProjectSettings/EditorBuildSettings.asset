@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Scene_inicio.unity
+    guid: 5bb2d7f5308ac41448123277f12abdc8
+  - enabled: 1
     path: Assets/Scenes/Scene_menu.unity
     guid: 2dda870677d2a134da4e3a7de4b13b9e
   - enabled: 1
-    path: Assets/Scenes/scene_gameFlap.unity
+    path: Assets/Scenes/Scene_gameFlap.unity
     guid: b24bf8544520e6046827f515146b71fc
   - enabled: 1
-    path: Assets/Scenes/scene_gameInfinity.unity
+    path: Assets/Scenes/Scene_gameInfinity.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
