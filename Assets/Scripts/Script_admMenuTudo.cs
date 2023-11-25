@@ -10,7 +10,7 @@ public class Script_admMenuTudo : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void Cu()
