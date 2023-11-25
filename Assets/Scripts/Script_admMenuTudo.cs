@@ -8,12 +8,7 @@ public class Script_admMenuTudo : MonoBehaviour
         //Invoke(nameof(Cu), 2f);
     }
 
-    void Update()
-    {
-
-    }
-
-    void Cu()
+    void Scene()
     {
         SceneManager.LoadScene("Scene_gameInfinity");
     }
