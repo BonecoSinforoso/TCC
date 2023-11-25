@@ -12,6 +12,7 @@ TagManager:
   - Cano
   - IA
   - Ponto
+  - Parede
   layers:
   - Default
   - TransparentFX
