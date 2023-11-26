@@ -14,7 +14,11 @@ public class Script_admPongGameTudo : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
+
         rb_bola = obj_bola.GetComponent<Rigidbody>();
+
+        Invoke(nameof(BolaMoveSpeedUp), 10f);
     }
 
     void Update()
@@ -55,5 +59,21 @@ public class Script_admPongGameTudo : MonoBehaviour
     void TextPlacarSet()
     {
         txt_placar.text = pontos[0].ToString() + " x " + pontos[1].ToString();
+    }
+
+    void BolaMoveSpeedUp()
+    {
+        if (Random.Range(0, 2) == 0)
+        {
+            if (rb_bola.velocity.x > 0) rb_bola.velocity += Vector3.right;
+            else rb_bola.velocity += Vector3.left;
+        }
+        else
+        {
+            if (rb_bola.velocity.z > 0) rb_bola.velocity += Vector3.forward;
+            else rb_bola.velocity += Vector3.back;
+        }
+
+        Invoke(nameof(BolaMoveSpeedUp), 10f);
     }
 }

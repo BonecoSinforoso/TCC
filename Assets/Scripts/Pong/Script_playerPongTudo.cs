@@ -3,12 +3,12 @@ using UnityEngine;
 public class Script_playerPongTudo : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
-    [SerializeField] float energiaMax;
-    [SerializeField] float energiaAtual;
 
-    [SerializeField] Transform t_energiaBarra;
+    [SerializeField] float energiaMax;
+    [SerializeField] float energiaAtual;    
     [SerializeField] float energiaConsumo;
     [SerializeField] float energiaRecarga;
+    [SerializeField] Transform t_energiaBarra;
 
     Rigidbody rb;
 
