@@ -7,6 +7,7 @@ public class Script_admPongGameTudo : MonoBehaviour
     int lado = 0;
     [SerializeField] float bolaMoveSpeed;
     [SerializeField] TextMeshPro txt_placar;
+    [SerializeField] TrailRenderer tr_bola;
     readonly int[] pontos = { 0, 0 };
 
     Rigidbody rb_bola;
@@ -33,6 +34,7 @@ public class Script_admPongGameTudo : MonoBehaviour
     {
         if (bolaMovendo) return;
 
+        tr_bola.emitting = true;
         float _bolaMoveSpeedX = Random.Range(5, 8);
         float _bolaMoveSpeedY = 5 + (5 - _bolaMoveSpeedX);
 
@@ -49,6 +51,7 @@ public class Script_admPongGameTudo : MonoBehaviour
         lado = _lado;
         obj_bola.transform.position = Vector3.zero;
         rb_bola.velocity = Vector3.zero;
+        tr_bola.emitting = false;
 
         if (_lado == 1) pontos[1]++;
         else pontos[0]++;

@@ -817,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235ace3efd669e64aa39f73bdebdfcd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7
   t_bola: {fileID: 1355361088}
   rb_bola: {fileID: 1355361087}
   energiaMax: 100
@@ -1760,6 +1760,7 @@ MonoBehaviour:
   obj_bola: {fileID: 1355361085}
   bolaMoveSpeed: 5
   txt_placar: {fileID: 274868297}
+  tr_bola: {fileID: 2093111157}
 --- !u!114 &1921164673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1848,7 +1849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd9363403f6e5e4092a4edb69336677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7
   energiaMax: 100
   energiaAtual: 100
   energiaConsumo: 50
@@ -2021,7 +2022,7 @@ GameObject:
   - component: {fileID: 2093111156}
   - component: {fileID: 2093111157}
   m_Layer: 0
-  m_Name: ps
+  m_Name: tr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2051,7 +2052,7 @@ TrailRenderer:
   m_GameObject: {fileID: 2093111155}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 0
   m_LightProbeUsage: 0
