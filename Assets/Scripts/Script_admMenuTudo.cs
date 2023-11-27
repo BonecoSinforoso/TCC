@@ -3,8 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class Script_admMenuTudo : MonoBehaviour
 {
-    public void SceneChange()
+    [SerializeField] string[] cenaNome;
+
+    public void SceneChange(int _valor)
     {
-        SceneManager.LoadScene("Scene_gameInfinity");
+
+        SceneManager.LoadScene(cenaNome[_valor]);
     }
 }

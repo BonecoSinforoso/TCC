@@ -1138,7 +1138,7 @@ MonoBehaviour:
   obj_ia: {fileID: 1543151161}
   obj_playerClone: {fileID: 1134795305}
   obj_iaClone: {fileID: 1624234808}
-  movel: 1
+  movel: 0
 --- !u!4 &1188740007
 Transform:
   m_ObjectHideFlags: 0

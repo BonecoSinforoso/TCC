@@ -404,7 +404,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1457883535}
         m_TargetAssemblyTypeName: Script_admMenuTudo, Assembly-CSharp
         m_MethodName: SceneChange
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -598,11 +598,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1457883535}
         m_TargetAssemblyTypeName: Script_admMenuTudo, Assembly-CSharp
         m_MethodName: SceneChange
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -950,11 +950,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1457883535}
         m_TargetAssemblyTypeName: Script_admMenuTudo, Assembly-CSharp
         m_MethodName: SceneChange
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2345,6 +2345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb42e41a834fd4043938882d47e41ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cenaNome:
+  - Scene_gameInfinity
+  - Scene_gameFlap
+  - Scene_gamePong
 --- !u!4 &1457883536
 Transform:
   m_ObjectHideFlags: 0
