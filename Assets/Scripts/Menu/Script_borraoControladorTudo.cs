@@ -20,7 +20,6 @@ public class Script_borraoControladorTudo : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        Debug.Log("kasdasd");
         descer = true;
     }
 
