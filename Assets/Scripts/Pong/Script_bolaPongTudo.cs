@@ -45,6 +45,8 @@ public class Script_bolaPongTudo : MonoBehaviour
         {
             MoveSpeedHorizontalToggle();
             if (transform.position.x > 8.7f) MoveSpeedVerticalToggle();
+            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVerticalToggle();
+            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVerticalToggle();
         }
 
         if (other.gameObject.CompareTag("Parede"))
