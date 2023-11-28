@@ -23,9 +23,9 @@ public class Script_iaPongTudo : MonoBehaviour
     {
         bool _andou = false;
 
-        if (rb_bola.velocity.x > 0 && energiaAtual > 0)
+        if (Script_bolaPongTudo.perigo)
         {
-            if (transform.position.z + 1 < t_bola.position.z)
+            if (transform.position.z + 1 < Script_bolaPongTudo.pos)
             {
                 if (transform.position.z < 3.5f)
                 {
@@ -34,7 +34,7 @@ public class Script_iaPongTudo : MonoBehaviour
                 }
             }
 
-            if (transform.position.z - 1 > t_bola.position.z)
+            if (transform.position.z - 1 > Script_bolaPongTudo.pos)
             {
                 if (transform.position.z > -3.5f)
                 {
@@ -64,4 +64,28 @@ public class Script_iaPongTudo : MonoBehaviour
     {
         t_energiaBarra.localScale = new Vector3(1, 1, energiaAtual / energiaMax);
     }
+
+    //void Cu()
+    //{
+    //    if (rb_bola.velocity.x > 0 && energiaAtual > 0)
+    //    {
+    //        if (transform.position.z + 1 < t_bola.position.z)
+    //        {
+    //            if (transform.position.z < 3.5f)
+    //            {
+    //                rb.velocity = Vector3.forward * moveSpeed;
+    //                _andou = true;
+    //            }
+    //        }
+
+    //        if (transform.position.z - 1 > t_bola.position.z)
+    //        {
+    //            if (transform.position.z > -3.5f)
+    //            {
+    //                rb.velocity = Vector3.back * moveSpeed;
+    //                _andou = true;
+    //            }
+    //        }
+    //    }
+    //}
 }

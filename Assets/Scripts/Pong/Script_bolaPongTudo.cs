@@ -7,23 +7,56 @@ public class Script_bolaPongTudo : MonoBehaviour
     GameObject obj_adm;
     Rigidbody rb;
     LayerMask layerMask;
-
     public static bool perigo;
+    public static float pos;
 
     void Start()
     {
         obj_adm = GameObject.FindGameObjectWithTag("ADM");
         rb = GetComponent<Rigidbody>();
-
         layerMask = LayerMask.GetMask("Perigo");
     }
 
     private void Update()
     {
+        perigo = false;
+
         if (rb.velocity != Vector3.zero) t_move.forward = transform.position + new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-        //if (Physics.Raycast(transform.position, t_move.forward, 20f, layerMask)) Debug.Log("xrk");
-        perigo = Physics.Raycast(transform.position, t_move.forward, 20f, layerMask);
+        Vector3 _direcao = t_move.forward;
+
+        Debug.DrawRay(transform.position, _direcao);
+
+        Physics.Raycast(transform.position, t_move.forward, out RaycastHit _hit, layerMask);
+
+        if (_hit.collider)
+        {
+            if (_hit.collider.CompareTag("Parede"))
+            {
+                _direcao = Vector3.Reflect(_direcao, _hit.normal);
+                Debug.DrawRay(_hit.point, _direcao);
+
+                Physics.Raycast(_hit.point, _direcao, out RaycastHit _hit2, layerMask);
+
+                if (_hit2.collider)
+                {
+                    if (_hit2.collider.CompareTag("Perigo"))
+                    {
+                        Debug.Log("kkk");
+
+                        perigo = true;
+                        pos = _hit.point.z;
+                    }
+                }
+            }
+            else if (_hit.collider.CompareTag("Perigo"))
+            {
+                Debug.Log("uekkk");
+
+                perigo = true;
+                pos = _hit.point.z;
+            }
+        }
 
         if (transform.position.x <= -11f || transform.position.x >= 11f)
         {

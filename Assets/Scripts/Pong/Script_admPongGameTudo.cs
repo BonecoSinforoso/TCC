@@ -34,6 +34,7 @@ public class Script_admPongGameTudo : MonoBehaviour
     {
         if (bolaMovendo) return;
 
+        rb_bola.isKinematic = false;
         tr_bola.emitting = true;
         float _bolaMoveSpeedX = Random.Range(5, 8);
         float _bolaMoveSpeedY = 5 + (5 - _bolaMoveSpeedX);
@@ -51,6 +52,7 @@ public class Script_admPongGameTudo : MonoBehaviour
         lado = _lado;
         obj_bola.transform.position = Vector3.zero;
         rb_bola.velocity = Vector3.zero;
+        rb_bola.isKinematic = true;
         tr_bola.emitting = false;
 
         if (_lado == 1) pontos[1]++;
