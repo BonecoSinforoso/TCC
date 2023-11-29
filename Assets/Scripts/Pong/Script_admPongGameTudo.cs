@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class Script_admPongGameTudo : MonoBehaviour
 {
@@ -8,6 +10,14 @@ public class Script_admPongGameTudo : MonoBehaviour
     [SerializeField] float bolaMoveSpeed;
     [SerializeField] TextMeshPro txt_placar;
     [SerializeField] TrailRenderer tr_bola;
+    [Space]
+
+    [Header("FB")]
+    [SerializeField] GameObject obj_fb;
+    [SerializeField] float fbGanharTempo;
+    [SerializeField] TextMeshProUGUI txt_fb;
+    [SerializeField] Color[] color_fb;
+
     readonly int[] pontos = { 0, 0 };
 
     Rigidbody rb_bola;
@@ -17,9 +27,12 @@ public class Script_admPongGameTudo : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
+        Time.timeScale = 1;
+
         rb_bola = obj_bola.GetComponent<Rigidbody>();
 
         Invoke(nameof(BolaMoveSpeedUp), 10f);
+        StartCoroutine(Call_FbSet());
     }
 
     void Update()
@@ -48,6 +61,8 @@ public class Script_admPongGameTudo : MonoBehaviour
 
     public void BolaReset(int _lado)
     {
+        FbSet(obj_bola.transform.position.x < 0 ? 0 : 1);
+
         bolaMovendo = false;
         lado = _lado;
         obj_bola.transform.position = Vector3.zero;
@@ -80,5 +95,22 @@ public class Script_admPongGameTudo : MonoBehaviour
         }
 
         Invoke(nameof(BolaMoveSpeedUp), 10f);
+    }
+
+    IEnumerator Call_FbSet()
+    {
+        yield return new WaitForSeconds(fbGanharTempo);
+
+        FbSet(1);
+    }
+
+    public void FbSet(int _valor)
+    {
+        obj_fb.SetActive(true);
+        obj_fb.GetComponent<Image>().color = color_fb[_valor];
+
+        Time.timeScale = 0;
+
+        txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
     }
 }
