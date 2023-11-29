@@ -3,9 +3,11 @@ using UnityEngine;
 public class Script_bolaPongTudo : MonoBehaviour
 {
     [SerializeField] Transform t_move;
+    [SerializeField] AudioClip[] audiosClip;
 
     GameObject obj_adm;
     Rigidbody rb;
+    AudioSource audioSource;
     LayerMask layerMask;
     public static bool perigo;
     public static float pos;
@@ -14,6 +16,7 @@ public class Script_bolaPongTudo : MonoBehaviour
     {
         obj_adm = GameObject.FindGameObjectWithTag("ADM");
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         layerMask = LayerMask.GetMask("Perigo");
     }
 
@@ -42,7 +45,7 @@ public class Script_bolaPongTudo : MonoBehaviour
                 {
                     if (_hit2.collider.CompareTag("Perigo"))
                     {
-                        Debug.Log("kkk");
+                        //Debug.Log("kkk");
 
                         perigo = true;
                         pos = _hit.point.z;
@@ -51,7 +54,7 @@ public class Script_bolaPongTudo : MonoBehaviour
             }
             else if (_hit.collider.CompareTag("Perigo"))
             {
-                Debug.Log("uekkk");
+                //Debug.Log("uekkk");
 
                 perigo = true;
                 pos = _hit.point.z;
@@ -61,6 +64,8 @@ public class Script_bolaPongTudo : MonoBehaviour
         if (transform.position.x <= -11f || transform.position.x >= 11f)
         {
             obj_adm.GetComponent<Script_admPongGameTudo>().BolaReset(transform.position.x < 0 ? 1 : 2);
+
+            audioSource.PlayOneShot(audiosClip[1]);
         }
     }
 
@@ -72,6 +77,8 @@ public class Script_bolaPongTudo : MonoBehaviour
             if (transform.position.x < -8.7f) MoveSpeedVerticalToggle();
             if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVerticalToggle();
             if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVerticalToggle();
+
+            audioSource.Play();
         }
 
         if (other.gameObject.CompareTag("IA"))
@@ -80,11 +87,15 @@ public class Script_bolaPongTudo : MonoBehaviour
             if (transform.position.x > 8.7f) MoveSpeedVerticalToggle();
             if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVerticalToggle();
             if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVerticalToggle();
+
+            audioSource.Play();
         }
 
         if (other.gameObject.CompareTag("Parede"))
         {
             MoveSpeedVerticalToggle();
+
+            audioSource.Play();
         }
     }
 
