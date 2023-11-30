@@ -751,6 +751,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_obj_chao (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8642375493559094530, guid: cbab99b4ed9e54f468d146d8ce421578, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbab99b4ed9e54f468d146d8ce421578, type: 3}
 --- !u!1 &511523356
@@ -826,7 +830,6 @@ MonoBehaviour:
   - {fileID: 1453125328}
   - {fileID: 2111599830}
   prefab_obj_objeto:
-  - {fileID: 1824740314020665111, guid: 8830e68ecccae7143bb9228dc6dc6ab4, type: 3}
   - {fileID: 1646981259178978, guid: dc9966ae7fb28a34f89e472a4ae4b223, type: 3}
   - {fileID: 1646981259178978, guid: 754177c93e1d1ab429299992a0258158, type: 3}
   posUltima: 0
@@ -1094,7 +1097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &862322719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3153,6 +3156,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.5666131
       objectReference: {fileID: 0}
+    - target: {fileID: 7850403804932038273, guid: cea9a8a4d9334c14d85632efdc69e199, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 7850403804932038275, guid: cea9a8a4d9334c14d85632efdc69e199, type: 3}
       propertyPath: m_Name
       value: prefab_obj_ml
@@ -4930,6 +4937,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_obj_chao (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8642375493559094530, guid: cbab99b4ed9e54f468d146d8ce421578, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbab99b4ed9e54f468d146d8ce421578, type: 3}
 --- !u!1 &1909084996
@@ -5130,10 +5141,6 @@ PrefabInstance:
     - target: {fileID: 7850403804932038278, guid: abce1419bbc5e244cb5e81cdfd898856, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8310616251981832630, guid: abce1419bbc5e244cb5e81cdfd898856, type: 3}
-      propertyPath: posLimiteX
-      value: 2.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abce1419bbc5e244cb5e81cdfd898856, type: 3}

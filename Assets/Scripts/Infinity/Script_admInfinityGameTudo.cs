@@ -34,6 +34,8 @@ public class Script_admInfinityGameTudo : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
+        Time.timeScale = 1;
+
         TextoPontosChange(0, 0);
         TextoPontosChange(1, 0);
         TextoPontosChange(2, 0);
@@ -90,20 +92,20 @@ public class Script_admInfinityGameTudo : MonoBehaviour
 
         for (int j = 0; j < _quant; j++)
         {
-            int _pos_rand = Random.Range(0, 3);
+            int _pos_rand = Random.Range(0, 2);
             int _obj_rand = Random.Range(0, prefab_obj_objeto.Length);
 
             if (spawnPos_edit) _pos_rand = spawnPos;
             if (objTipo_edit) _obj_rand = objTipo;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 if (perdeu[i]) continue;
 
                 GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos - _posIni + (_posCoef * j)), Quaternion.identity);
                 _obj.transform.parent = emp_pai[_obj_rand].transform;
 
-                if (_obj_rand == 0) _obj.GetComponent<Script_objDestruirTudo>().ObjSet(obj_jogador[i]);
+                //if (_obj_rand == 0) _obj.GetComponent<Script_objDestruirTudo>().ObjSet(obj_jogador[i]);
                 if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
             }
         }

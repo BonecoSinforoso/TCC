@@ -49,6 +49,8 @@ public class Script_playerFlapTudo : MonoBehaviour
         if (collision.gameObject.CompareTag("Chao"))
         {
             //Debug.LogError("dsajdhas");
+
+            GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(0);
         }
     }
 
@@ -57,12 +59,16 @@ public class Script_playerFlapTudo : MonoBehaviour
         if (other.CompareTag("Cano"))
         {
             //Debug.LogError("dsajdhas");
+
+            GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(0);
         }
 
         if (other.CompareTag("Ponto"))
         {
             pontos++;
             TextPontosSet();
+
+            if (pontos >= Script_admFlapGameTudo.pontosParaGanhar) GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(1);
         }
     }
 
