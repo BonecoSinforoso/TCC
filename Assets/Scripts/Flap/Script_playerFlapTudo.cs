@@ -68,7 +68,7 @@ public class Script_playerFlapTudo : MonoBehaviour
             pontos++;
             TextPontosSet();
 
-            if (pontos >= Script_admFlapGameTudo.pontosParaGanhar) GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(1);
+            if (pontos >= 50) GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(1);
         }
     }
 

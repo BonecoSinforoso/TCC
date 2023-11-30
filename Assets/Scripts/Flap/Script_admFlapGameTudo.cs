@@ -14,7 +14,6 @@ public class Script_admFlapGameTudo : MonoBehaviour
 
     [Header("FB")]
     [SerializeField] GameObject obj_fb;
-    public static int pontosParaGanhar = 2;
     [SerializeField] TextMeshProUGUI txt_fb;
     [SerializeField] Color[] color_fb;
 
