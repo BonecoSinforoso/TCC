@@ -10,6 +10,8 @@ public class Script_admMenuTudo : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+
         Invoke(nameof(PontosSet), 0.1f);
     }
 
