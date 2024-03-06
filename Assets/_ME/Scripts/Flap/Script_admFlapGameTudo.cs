@@ -1,9 +1,12 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class Script_admFlapGameTudo : MonoBehaviour
 {
+    public static Script_admFlapGameTudo instance;
+
     [SerializeField] GameObject obj_player;
     [SerializeField] GameObject obj_ia;
 
@@ -16,9 +19,12 @@ public class Script_admFlapGameTudo : MonoBehaviour
     [SerializeField] GameObject obj_fb;
     [SerializeField] TextMeshProUGUI txt_fb;
     [SerializeField] Color[] color_fb;
+    public int pontuacaoParaVencer;
 
     void Start()
     {
+        instance = this;
+
         Application.targetFrameRate = 60;
 
         Time.timeScale = 1;
@@ -39,5 +45,10 @@ public class Script_admFlapGameTudo : MonoBehaviour
         Time.timeScale = 0;
 
         txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
+    }
+
+    public void SceneMenu()
+    {
+        SceneManager.LoadScene("Scene_menu");
     }
 }

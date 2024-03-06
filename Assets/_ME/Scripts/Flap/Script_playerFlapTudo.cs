@@ -50,7 +50,7 @@ public class Script_playerFlapTudo : MonoBehaviour
         {
             //Debug.LogError("dsajdhas");
 
-            GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(0);
+            Script_admFlapGameTudo.instance.FbSet(0);
         }
     }
 
@@ -60,7 +60,7 @@ public class Script_playerFlapTudo : MonoBehaviour
         {
             //Debug.LogError("dsajdhas");
 
-            GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(0);
+            Script_admFlapGameTudo.instance.FbSet(0);
         }
 
         if (other.CompareTag("Ponto"))
@@ -68,7 +68,7 @@ public class Script_playerFlapTudo : MonoBehaviour
             pontos++;
             TextPontosSet();
 
-            if (pontos >= 50) GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().FbSet(1);
+            if (pontos >= Script_admFlapGameTudo.instance.pontuacaoParaVencer) Script_admFlapGameTudo.instance.FbSet(1);
         }
     }
 
