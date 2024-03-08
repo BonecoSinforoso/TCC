@@ -1,7 +1,14 @@
+
+/* Alteração não mesclada do projeto 'Assembly-CSharp.Player'
+Antes:
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+Após:
 using TMPro;
+using UnityEngine;
+*/
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Script_admInfinityGameTudo : MonoBehaviour
 {
