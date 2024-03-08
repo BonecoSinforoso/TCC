@@ -1,11 +1,3 @@
-
-/* Alteração não mesclada do projeto 'Assembly-CSharp.Player'
-Antes:
-using UnityEngine;
-Após:
-using TMPro;
-using UnityEngine;
-*/
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
