@@ -7,7 +7,6 @@ public class Script_playerInfinityTudo : MonoBehaviour
     [SerializeField] float puloForca;
     [SerializeField] float posLimiteX;
 
-    GameObject obj_adm;
     Rigidbody rb;
     Animator animator;
 
@@ -17,7 +16,6 @@ public class Script_playerInfinityTudo : MonoBehaviour
 
     void Start()
     {
-        obj_adm = GameObject.FindGameObjectWithTag("ADM");
         rb = GetComponent<Rigidbody>();
 
         animator = transform.GetComponentInChildren<Animator>();
@@ -51,7 +49,7 @@ public class Script_playerInfinityTudo : MonoBehaviour
     {
         perdeu = true;
         rb.velocity = Vector3.zero;
-        obj_adm.GetComponent<Script_admInfinityGameTudo>().PerdeuSet(0);
+        Script_InfinityManager.instance.PerdeuSet(0);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,7 +57,7 @@ public class Script_playerInfinityTudo : MonoBehaviour
         if (other.CompareTag("Energetico"))
         {
             pontos += 10;
-            obj_adm.GetComponent<Script_admInfinityGameTudo>().TextoPontosChange(0, pontos);
+            Script_InfinityManager.instance.TextoPontosChange(0, pontos);
             Destroy(other.gameObject);
         }
     }

@@ -1,11 +1,15 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Script_admInfinityGameTudo : MonoBehaviour
+public class Script_InfinityManager : MonoBehaviour
 {
+    public static Script_InfinityManager instance;
+
     [SerializeField] Text[] txt_distancia;
     [SerializeField] Text[] txt_pontos;
+    [SerializeField] float distanciaGanhar;
 
     [SerializeField] GameObject[] obj_jogador;
 
@@ -37,6 +41,8 @@ public class Script_admInfinityGameTudo : MonoBehaviour
 
     void Start()
     {
+        instance = this;
+
         Application.targetFrameRate = 60;
 
         Time.timeScale = 1;
@@ -54,7 +60,7 @@ public class Script_admInfinityGameTudo : MonoBehaviour
             txt_distancia[i].text = obj_jogador[i].transform.position.z.ToString("f2") + "m";
         }
 
-        if (obj_jogador[0].transform.position.z >= 1000) FbSet(1);
+        if (obj_jogador[0].transform.position.z >= distanciaGanhar) FbSet(1);
 
         ChaoPosChange();
     }
@@ -136,5 +142,10 @@ public class Script_admInfinityGameTudo : MonoBehaviour
         Time.timeScale = 0;
 
         txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
+    }
+
+    public void SceneMenu()
+    {
+        SceneManager.LoadScene("Scene_menu");
     }
 }

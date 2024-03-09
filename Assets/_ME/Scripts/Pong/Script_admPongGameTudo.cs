@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Script_admPongGameTudo : MonoBehaviour
@@ -8,7 +9,9 @@ public class Script_admPongGameTudo : MonoBehaviour
     [SerializeField] GameObject obj_bola;
     int lado = 0;
     [SerializeField] float bolaMoveSpeed;
+    [SerializeField] TextMeshPro txt_tempo;
     [SerializeField] TextMeshPro txt_placar;
+    [SerializeField] TextMeshPro txt_aperte;
     [SerializeField] TrailRenderer tr_bola;
     [Space]
 
@@ -22,6 +25,7 @@ public class Script_admPongGameTudo : MonoBehaviour
 
     Rigidbody rb_bola;
     bool bolaMovendo = false;
+    int tempoAtual = 0;
 
     void Start()
     {
@@ -29,10 +33,9 @@ public class Script_admPongGameTudo : MonoBehaviour
 
         Time.timeScale = 1;
 
-        rb_bola = obj_bola.GetComponent<Rigidbody>();
+        rb_bola = obj_bola.GetComponent<Rigidbody>();        
 
-        Invoke(nameof(BolaMoveSpeedUp), 10f);
-        StartCoroutine(Call_FbSet());
+        txt_tempo.text = fbGanharTempo.ToString() + "s";
     }
 
     void Update()
@@ -46,6 +49,11 @@ public class Script_admPongGameTudo : MonoBehaviour
     void BolaMover(int _lado)
     {
         if (bolaMovendo) return;
+
+        txt_aperte.gameObject.SetActive(false);
+
+        Invoke(nameof(BolaMoveSpeedUp), 10f);
+        StartCoroutine(Call_FbSet());
 
         rb_bola.isKinematic = false;
         tr_bola.emitting = true;
@@ -99,9 +107,18 @@ public class Script_admPongGameTudo : MonoBehaviour
 
     IEnumerator Call_FbSet()
     {
+        InvokeRepeating(nameof(TempoSet), 1f, 1f);
+
         yield return new WaitForSeconds(fbGanharTempo);
 
         FbSet(1);
+    }
+
+    void TempoSet()
+    {
+        tempoAtual++;
+
+        txt_tempo.text = (fbGanharTempo - tempoAtual).ToString() + "s";
     }
 
     public void FbSet(int _valor)
@@ -112,5 +129,10 @@ public class Script_admPongGameTudo : MonoBehaviour
         Time.timeScale = 0;
 
         txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
+    }
+
+    public void SceneMenu()
+    {
+        SceneManager.LoadScene("Scene_menu");
     }
 }
