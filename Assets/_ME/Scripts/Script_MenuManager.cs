@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Script_admMenuTudo : MonoBehaviour
+public class Script_MenuManager : MonoBehaviour
 {
     [SerializeField] string[] cenaNome;
     [SerializeField] TextMeshProUGUI txt_flapPontos;
@@ -11,6 +11,8 @@ public class Script_admMenuTudo : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
+
+        Time.timeScale = 1;
 
         Invoke(nameof(PontosSet), 0.1f);
     }
@@ -31,5 +33,10 @@ public class Script_admMenuTudo : MonoBehaviour
     void TextFlapPontosSet()
     {
         txt_flapPontos.text = pontos.ToString();
+    }
+
+    public void SceneInicioLoad()
+    {
+        SceneManager.LoadScene("Scene_inicio");
     }
 }

@@ -830,7 +830,7 @@ MonoBehaviour:
   - {fileID: 1808479478}
   - {fileID: 26965898}
   - {fileID: 225347278}
-  distanciaGanhar: 1000
+  distanciaGanhar: 100
   obj_jogador:
   - {fileID: 163663720}
   - {fileID: 1670441189}

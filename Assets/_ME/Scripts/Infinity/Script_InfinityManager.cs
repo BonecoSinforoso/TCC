@@ -8,7 +8,7 @@ public class Script_InfinityManager : MonoBehaviour
     public static Script_InfinityManager instance;
 
     [SerializeField] Text[] txt_distancia;
-    [SerializeField] Text[] txt_pontos;
+    //[SerializeField] Text[] txt_pontos;
     [SerializeField] float distanciaGanhar;
 
     [SerializeField] GameObject[] obj_jogador;
@@ -103,7 +103,7 @@ public class Script_InfinityManager : MonoBehaviour
 
         for (int j = 0; j < _quant; j++)
         {
-            int _pos_rand = Random.Range(0, 2);
+            int _pos_rand = Random.Range(0, 3);
             int _obj_rand = Random.Range(0, prefab_obj_objeto.Length);
 
             if (spawnPos_edit) _pos_rand = spawnPos;
@@ -124,7 +124,7 @@ public class Script_InfinityManager : MonoBehaviour
 
     public void TextoPontosChange(int _index, int _pontos)
     {
-        txt_pontos[_index].text = _pontos.ToString();
+        //txt_pontos[_index].text = _pontos.ToString();
     }
 
     public void PerdeuSet(int _index)
