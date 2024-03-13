@@ -33,10 +33,6 @@ public class Script_PongManager : MonoBehaviour
     {
         instance = this;
 
-        Application.targetFrameRate = 60;
-
-        Time.timeScale = 1;
-
         rb_bola = obj_bola.GetComponent<Rigidbody>();
 
         txt_tempo.text = fbGanharTempo.ToString() + "s";
@@ -146,10 +142,5 @@ public class Script_PongManager : MonoBehaviour
         Time.timeScale = 0;
 
         txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
-    }
-
-    public void SceneMenu()
-    {
-        SceneManager.LoadScene("Scene_menu");
     }
 }

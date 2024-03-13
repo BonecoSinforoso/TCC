@@ -50,7 +50,7 @@ public class Script_playerFlapTudo : MonoBehaviour
         {
             //Debug.LogError("dsajdhas");
 
-            Script_admFlapGameTudo.instance.FbSet(0);
+            Script_FlapManager.instance.FbSet(0);
         }
     }
 
@@ -60,7 +60,7 @@ public class Script_playerFlapTudo : MonoBehaviour
         {
             //Debug.LogError("dsajdhas");
 
-            Script_admFlapGameTudo.instance.FbSet(0);
+            Script_FlapManager.instance.FbSet(0);
         }
 
         if (other.CompareTag("Ponto"))
@@ -68,7 +68,7 @@ public class Script_playerFlapTudo : MonoBehaviour
             pontos++;
             TextPontosSet();
 
-            if (pontos >= Script_admFlapGameTudo.instance.pontuacaoParaVencer) Script_admFlapGameTudo.instance.FbSet(1);
+            if (pontos >= Script_FlapManager.instance.pontuacaoParaVencer) Script_FlapManager.instance.FbSet(1);
         }
     }
 

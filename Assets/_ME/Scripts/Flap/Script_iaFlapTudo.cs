@@ -23,7 +23,7 @@ public class Script_iaFlapTudo : MonoBehaviour
 
     void Start()
     {
-        movel = GameObject.FindGameObjectWithTag("ADM").GetComponent<Script_admFlapGameTudo>().movel;
+        movel = Script_FlapManager.instance.movel;
         rb = GetComponent<Rigidbody>();
     }
 

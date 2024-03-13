@@ -6,6 +6,14 @@ public class Script_GeralManager : MonoBehaviour
     [SerializeField] CanvasGroup cg_pausa;
 
     bool pausado = false;
+    public static Script_GeralManager instance;
+
+    private void Start()
+    {
+        instance = this;
+        Application.targetFrameRate = 60;
+        Time.timeScale = 1;
+    }
 
     void Update()
     {
@@ -19,6 +27,8 @@ public class Script_GeralManager : MonoBehaviour
                     Time.timeScale = 1;
 
                     cg_pausa.alpha = 0;
+                    cg_pausa.blocksRaycasts = false;
+                    cg_pausa.interactable = false;
                 }
             }
             else
@@ -29,6 +39,8 @@ public class Script_GeralManager : MonoBehaviour
                     Time.timeScale = 0;
 
                     cg_pausa.alpha = 1;
+                    cg_pausa.blocksRaycasts = true;
+                    cg_pausa.interactable = true;
                 }
             }
         }
@@ -37,5 +49,10 @@ public class Script_GeralManager : MonoBehaviour
     public void SceneMenuLoad()
     {
         SceneManager.LoadScene("Scene_menu");
+    }
+
+    public void SceneInicioLoad()
+    {
+        SceneManager.LoadScene("Scene_inicio");
     }
 }

@@ -43,10 +43,6 @@ public class Script_InfinityManager : MonoBehaviour
     {
         instance = this;
 
-        Application.targetFrameRate = 60;
-
-        Time.timeScale = 1;
-
         TextoPontosChange(0, 0);
         TextoPontosChange(1, 0);
         TextoPontosChange(2, 0);
@@ -142,10 +138,5 @@ public class Script_InfinityManager : MonoBehaviour
         Time.timeScale = 0;
 
         txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
-    }
-
-    public void SceneMenu()
-    {
-        SceneManager.LoadScene("Scene_menu");
     }
 }

@@ -2,9 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Script_admFlapGameTudo : MonoBehaviour
+public class Script_FlapManager : MonoBehaviour
 {
-    public static Script_admFlapGameTudo instance;
+    public static Script_FlapManager instance;
 
     [SerializeField] GameObject obj_player;
     [SerializeField] GameObject obj_ia;
@@ -23,10 +23,6 @@ public class Script_admFlapGameTudo : MonoBehaviour
     void Start()
     {
         instance = this;
-
-        Application.targetFrameRate = 60;
-
-        Time.timeScale = 1;
     }
 
     void Update()

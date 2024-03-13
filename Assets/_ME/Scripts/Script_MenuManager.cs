@@ -10,10 +10,6 @@ public class Script_MenuManager : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
-
-        Time.timeScale = 1;
-
         Invoke(nameof(PontosSet), 0.1f);
     }
 
