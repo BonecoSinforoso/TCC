@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   t_move: {fileID: 1892591144}
-  audiosClip:
+  audioClip:
   - {fileID: 8300000, guid: f45f29183aed650458dfc3ee84881324, type: 3}
   - {fileID: 8300000, guid: 16a7dab172af61c42856c1e74cd65d56, type: 3}
 --- !u!82 &1355361090
@@ -2403,7 +2403,7 @@ GameObject:
   - component: {fileID: 1921164672}
   - component: {fileID: 1921164673}
   m_Layer: 0
-  m_Name: obj_admGamePong
+  m_Name: obj_pongManager
   m_TagString: ADM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2442,7 +2442,7 @@ MonoBehaviour:
   txt_aperte: {fileID: 176493875}
   tr_bola: {fileID: 2093111157}
   obj_fb: {fileID: 1897322922}
-  fbGanharTempo: 60
+  fbGanharTempo: 10
   txt_fb: {fileID: 1897322921}
   color_fb:
   - {r: 1, g: 0, b: 0, a: 0.19607843}

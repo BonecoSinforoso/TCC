@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &26965895
 RectTransform:
   m_ObjectHideFlags: 0
@@ -826,10 +826,6 @@ MonoBehaviour:
   - {fileID: 999799141}
   - {fileID: 399303772}
   - {fileID: 1486951225}
-  txt_pontos:
-  - {fileID: 1808479478}
-  - {fileID: 26965898}
-  - {fileID: 225347278}
   distanciaGanhar: 100
   obj_jogador:
   - {fileID: 163663720}
@@ -4992,7 +4988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1808479475
 RectTransform:
   m_ObjectHideFlags: 0

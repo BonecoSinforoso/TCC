@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Script_admPongGameTudo : MonoBehaviour
+public class Script_PongManager : MonoBehaviour
 {
+    public static Script_PongManager instance;
+
     [SerializeField] GameObject obj_bola;
     int lado = 0;
     [SerializeField] float bolaMoveSpeed;
@@ -17,7 +19,7 @@ public class Script_admPongGameTudo : MonoBehaviour
 
     [Header("FB")]
     [SerializeField] GameObject obj_fb;
-    [SerializeField] float fbGanharTempo;
+    [SerializeField] int fbGanharTempo;
     [SerializeField] TextMeshProUGUI txt_fb;
     [SerializeField] Color[] color_fb;
 
@@ -29,11 +31,13 @@ public class Script_admPongGameTudo : MonoBehaviour
 
     void Start()
     {
+        instance = this;
+
         Application.targetFrameRate = 60;
 
         Time.timeScale = 1;
 
-        rb_bola = obj_bola.GetComponent<Rigidbody>();        
+        rb_bola = obj_bola.GetComponent<Rigidbody>();
 
         txt_tempo.text = fbGanharTempo.ToString() + "s";
     }
@@ -53,7 +57,8 @@ public class Script_admPongGameTudo : MonoBehaviour
         txt_aperte.gameObject.SetActive(false);
 
         Invoke(nameof(BolaMoveSpeedUp), 10f);
-        StartCoroutine(Call_FbSet());
+        InvokeRepeating(nameof(TempoSet), 1f, 1f);
+        tempoAtual = 0;
 
         rb_bola.isKinematic = false;
         tr_bola.emitting = true;
@@ -67,10 +72,13 @@ public class Script_admPongGameTudo : MonoBehaviour
         else rb_bola.velocity = Vector3.right * _bolaMoveSpeedX + ((Random.Range(0, 2) == 0 ? -1 : 1) * _bolaMoveSpeedY) * Vector3.forward;
     }
 
-    public void BolaReset(int _lado)
+    public void BolaReset(int _lado) //recebe 1 ou 2
     {
-        FbSet(obj_bola.transform.position.x < 0 ? 0 : 1);
+        CancelInvoke();
+        txt_aperte.gameObject.SetActive(true);
+        TextTempoSet(fbGanharTempo);
 
+        //bola
         bolaMovendo = false;
         lado = _lado;
         obj_bola.transform.position = Vector3.zero;
@@ -78,8 +86,12 @@ public class Script_admPongGameTudo : MonoBehaviour
         rb_bola.isKinematic = true;
         tr_bola.emitting = false;
 
+        //
         if (_lado == 1) pontos[1]++;
         else pontos[0]++;
+
+        if (pontos[1] == 3) FbSet(0);
+        else if (pontos[0] == 3) FbSet(1);
 
         TextPlacarSet();
     }
@@ -105,20 +117,25 @@ public class Script_admPongGameTudo : MonoBehaviour
         Invoke(nameof(BolaMoveSpeedUp), 10f);
     }
 
-    IEnumerator Call_FbSet()
-    {
-        InvokeRepeating(nameof(TempoSet), 1f, 1f);
-
-        yield return new WaitForSeconds(fbGanharTempo);
-
-        FbSet(1);
-    }
-
     void TempoSet()
     {
         tempoAtual++;
+        TextTempoSet();
 
-        txt_tempo.text = (fbGanharTempo - tempoAtual).ToString() + "s";
+        if (fbGanharTempo - tempoAtual == 0)
+        {
+            obj_bola.GetComponent<AudioSource>().PlayOneShot(obj_bola.GetComponent<Script_bolaPongTudo>().audioClip[1]);
+            BolaReset(0);
+        }
+    }
+
+    void TextTempoSet(int _valor = -1)
+    {
+        if(_valor == -1) txt_tempo.text = (fbGanharTempo - tempoAtual).ToString() + "s";
+        else
+        {
+            txt_tempo.text = _valor.ToString() + "s";
+        }
     }
 
     public void FbSet(int _valor)

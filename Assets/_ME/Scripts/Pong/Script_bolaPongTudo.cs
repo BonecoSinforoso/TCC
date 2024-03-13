@@ -3,9 +3,8 @@ using UnityEngine;
 public class Script_bolaPongTudo : MonoBehaviour
 {
     [SerializeField] Transform t_move;
-    [SerializeField] AudioClip[] audiosClip;
+    public AudioClip[] audioClip;
 
-    GameObject obj_adm;
     Rigidbody rb;
     AudioSource audioSource;
     LayerMask layerMask;
@@ -14,7 +13,6 @@ public class Script_bolaPongTudo : MonoBehaviour
 
     void Start()
     {
-        obj_adm = GameObject.FindGameObjectWithTag("ADM");
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         layerMask = LayerMask.GetMask("Perigo");
@@ -63,9 +61,9 @@ public class Script_bolaPongTudo : MonoBehaviour
 
         if (transform.position.x <= -11f || transform.position.x >= 11f)
         {
-            obj_adm.GetComponent<Script_admPongGameTudo>().BolaReset(transform.position.x < 0 ? 1 : 2);
+            Script_PongManager.instance.BolaReset(transform.position.x < 0 ? 1 : 2);
 
-            audioSource.PlayOneShot(audiosClip[1]);
+            audioSource.PlayOneShot(audioClip[1]);
         }
     }
 
