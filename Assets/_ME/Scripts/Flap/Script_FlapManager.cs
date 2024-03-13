@@ -13,11 +13,6 @@ public class Script_FlapManager : MonoBehaviour
     [SerializeField] GameObject obj_iaClone;
 
     public bool movel;
-
-    [Header("FB")]
-    [SerializeField] GameObject obj_fb;
-    [SerializeField] TextMeshProUGUI txt_fb;
-    [SerializeField] Color[] color_fb;
     public int pontuacaoParaVencer;
 
     void Start()
@@ -32,13 +27,8 @@ public class Script_FlapManager : MonoBehaviour
         obj_iaClone.transform.SetPositionAndRotation(obj_ia.transform.position, obj_ia.transform.rotation);
     }
 
-    public void FbSet(int _valor)
+    public void Call_FbSet(int _valor)
     {
-        obj_fb.SetActive(true);
-        obj_fb.GetComponent<Image>().color = color_fb[_valor];
-
-        Time.timeScale = 0;
-
-        txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
+        Script_GeralManager.instance.FbSet(_valor);
     }
 }

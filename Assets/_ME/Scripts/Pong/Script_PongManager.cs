@@ -1,8 +1,5 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Script_PongManager : MonoBehaviour
 {
@@ -15,13 +12,8 @@ public class Script_PongManager : MonoBehaviour
     [SerializeField] TextMeshPro txt_placar;
     [SerializeField] TextMeshPro txt_aperte;
     [SerializeField] TrailRenderer tr_bola;
-    [Space]
 
-    [Header("FB")]
-    [SerializeField] GameObject obj_fb;
     [SerializeField] int fbGanharTempo;
-    [SerializeField] TextMeshProUGUI txt_fb;
-    [SerializeField] Color[] color_fb;
 
     readonly int[] pontos = { 0, 0 };
 
@@ -86,8 +78,8 @@ public class Script_PongManager : MonoBehaviour
         if (_lado == 1) pontos[1]++;
         else pontos[0]++;
 
-        if (pontos[1] == 3) FbSet(0);
-        else if (pontos[0] == 3) FbSet(1);
+        if (pontos[1] == 3) Call_FbSet(0);
+        else if (pontos[0] == 3) Call_FbSet(1);
 
         TextPlacarSet();
     }
@@ -134,13 +126,8 @@ public class Script_PongManager : MonoBehaviour
         }
     }
 
-    public void FbSet(int _valor)
+    public void Call_FbSet(int _valor)
     {
-        obj_fb.SetActive(true);
-        obj_fb.GetComponent<Image>().color = color_fb[_valor];
-
-        Time.timeScale = 0;
-
-        txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
+        Script_GeralManager.instance.FbSet(_valor);
     }
 }

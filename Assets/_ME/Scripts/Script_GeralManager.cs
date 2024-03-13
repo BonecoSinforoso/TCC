@@ -1,9 +1,15 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Script_GeralManager : MonoBehaviour
 {
     [SerializeField] CanvasGroup cg_pausa;
+
+    [SerializeField] GameObject obj_fb;
+    [SerializeField] TextMeshProUGUI txt_fb;
+    [SerializeField] Color[] color_fb;
 
     bool pausado = false;
     public static Script_GeralManager instance;
@@ -54,5 +60,15 @@ public class Script_GeralManager : MonoBehaviour
     public void SceneInicioLoad()
     {
         SceneManager.LoadScene("Scene_inicio");
+    }
+
+    public void FbSet(int _valor)
+    {
+        obj_fb.SetActive(true);
+        obj_fb.GetComponent<Image>().color = color_fb[_valor];
+
+        Time.timeScale = 0;
+
+        txt_fb.text = _valor == 0 ? "VOCÊ PERDEU!" : "VOCÊ GANHOU!";
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6744776510371031380}
   - component: {fileID: 7989830978368470104}
   - component: {fileID: 7967356717937599223}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4284000474058527414}
   - component: {fileID: 1499938800501124096}
   - component: {fileID: 8789339988632532749}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 1928959861556114487}
   - component: {fileID: 5517140800066099408}
   - component: {fileID: 2981561438212018947}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1840661319033508601}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: emp_asas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 3513629156064512403}
   - component: {fileID: 3268176242906214709}
   - component: {fileID: 1366295712195751850}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7673044989457641225}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: emp_olhos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 6837647718051059309}
   - component: {fileID: 6729573821553005635}
   - component: {fileID: 2042051193833598372}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

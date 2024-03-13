@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Script_InfinityManager : MonoBehaviour
@@ -34,11 +32,6 @@ public class Script_InfinityManager : MonoBehaviour
 
     bool[] perdeu = new bool[3];
 
-    [Header("FB")]
-    [SerializeField] GameObject obj_fb;
-    [SerializeField] TextMeshProUGUI txt_fb;
-    [SerializeField] Color[] color_fb;
-
     void Start()
     {
         instance = this;
@@ -56,7 +49,7 @@ public class Script_InfinityManager : MonoBehaviour
             txt_distancia[i].text = obj_jogador[i].transform.position.z.ToString("f2") + "m";
         }
 
-        if (obj_jogador[0].transform.position.z >= distanciaGanhar) FbSet(1);
+        if (obj_jogador[0].transform.position.z >= distanciaGanhar) Call_FbSet(1);
 
         ChaoPosChange();
     }
@@ -125,18 +118,13 @@ public class Script_InfinityManager : MonoBehaviour
 
     public void PerdeuSet(int _index)
     {
-        if (_index == 0) FbSet(0);
+        if (_index == 0) Call_FbSet(0);
 
         perdeu[_index] = true;
     }
 
-    public void FbSet(int _valor)
+    public void Call_FbSet(int _valor)
     {
-        obj_fb.SetActive(true);
-        obj_fb.GetComponent<Image>().color = color_fb[_valor];
-
-        Time.timeScale = 0;
-
-        txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
+        Script_GeralManager.instance.FbSet(_valor);
     }
 }
