@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Script_admFlapGameTudo : MonoBehaviour
@@ -45,10 +44,5 @@ public class Script_admFlapGameTudo : MonoBehaviour
         Time.timeScale = 0;
 
         txt_fb.text = _valor == 0 ? "PERDEU!" : "GANHOU!";
-    }
-
-    public void SceneMenu()
-    {
-        SceneManager.LoadScene("Scene_menu");
     }
 }
