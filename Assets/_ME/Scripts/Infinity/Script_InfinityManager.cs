@@ -46,7 +46,7 @@ public class Script_InfinityManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             t_camera[i].position = Vector3.Lerp(t_camera[i].position, new Vector3(t_camera[i].position.x, 3, obj_jogador[i].transform.position.z - distanciaZ), 1f);
-            txt_distancia[i].text = obj_jogador[i].transform.position.z.ToString("f2") + "m";
+            txt_distancia[i].text = obj_jogador[i].transform.position.z.ToString("f0") + "m";
         }
 
         if (obj_jogador[0].transform.position.z >= distanciaGanhar) Call_FbSet(1);
