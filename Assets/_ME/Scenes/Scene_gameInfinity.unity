@@ -825,7 +825,7 @@ MonoBehaviour:
   - {fileID: 999799141}
   - {fileID: 399303772}
   - {fileID: 1486951225}
-  distanciaGanhar: 100
+  distanciaGanhar: 1000
   obj_jogador:
   - {fileID: 163663720}
   - {fileID: 1670441189}
