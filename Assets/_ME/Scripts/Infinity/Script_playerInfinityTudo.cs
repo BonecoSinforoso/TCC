@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Script_playerInfinityTudo : MonoBehaviour
@@ -6,6 +7,7 @@ public class Script_playerInfinityTudo : MonoBehaviour
     [SerializeField] float moveSpeedX;
     [SerializeField] float puloForca;
     [SerializeField] float posLimiteX;
+    [SerializeField] TextMeshProUGUI txt_moveSpeed;
 
     Rigidbody rb;
     Animator animator;
@@ -31,6 +33,9 @@ public class Script_playerInfinityTudo : MonoBehaviour
         }
 
         animator.SetBool("_jump", !puloPode);
+
+        moveSpeed = 5 + ((int)transform.position.z / 100);
+        txt_moveSpeed.text = moveSpeed + "u/s";
 
         //rb.velocity = Vector3.forward * moveSpeed + new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeedX, rb.velocity.y, 0);
         rb.velocity = Vector3.forward * moveSpeed + Vector3.up * rb.velocity.y;

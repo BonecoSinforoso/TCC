@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Script_iaInfinityTudo : MonoBehaviour
@@ -6,6 +7,7 @@ public class Script_iaInfinityTudo : MonoBehaviour
     [SerializeField] float puloForca;
     [SerializeField] float puloDist;
     [SerializeField] float t;
+    [SerializeField] TextMeshProUGUI txt_moveSpeed;
 
     Rigidbody rb;
     Animator animator;
@@ -38,6 +40,9 @@ public class Script_iaInfinityTudo : MonoBehaviour
 
         animator.SetBool("_jump", !puloPode);
 
+        moveSpeed = 5 + ((int)transform.position.z / 100);
+        txt_moveSpeed.text = moveSpeed + "u/s";
+
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
 
         Debug.DrawRay(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward * 5f, Color.red);
@@ -62,38 +67,7 @@ public class Script_iaInfinityTudo : MonoBehaviour
         if (Physics.Raycast(new Vector3(22.5f, 0.5f, transform.position.z), Vector3.forward, 6f, 1 << 3)) bloq_dir = true;
         if (Physics.Raycast(new Vector3(22.5f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_dir = true;
 
-        lr[0].startColor = bloq_esq ? Color.red : Color.green;
-        lr[0].endColor = bloq_esq ? Color.red : Color.green;
-        lr[1].startColor = bloq_esq ? Color.red : Color.green;
-        lr[1].endColor = bloq_esq ? Color.red : Color.green;
-
-        lr[2].startColor = bloq_cen ? Color.red : Color.green;
-        lr[2].endColor = bloq_cen ? Color.red : Color.green;
-        lr[3].startColor = bloq_cen ? Color.red : Color.green;
-        lr[3].endColor = bloq_cen ? Color.red : Color.green;
-
-        lr[4].startColor = bloq_dir ? Color.red : Color.green;
-        lr[4].endColor = bloq_dir ? Color.red : Color.green;
-        lr[5].startColor = bloq_dir ? Color.red : Color.green;
-        lr[5].endColor = bloq_dir ? Color.red : Color.green;
-
-        lr[0].SetPosition(0, new Vector3(17.5f, 0.5f, transform.position.z));
-        lr[0].SetPosition(1, new Vector3(17.5f, 0.5f, transform.position.z + 6f));
-
-        lr[1].SetPosition(0, new Vector3(17.5f, 2f, transform.position.z));
-        lr[1].SetPosition(1, new Vector3(17.5f, 0f, transform.position.z));
-
-        lr[2].SetPosition(0, new Vector3(20f, 0.5f, transform.position.z));
-        lr[2].SetPosition(1, new Vector3(20f, 0.5f, transform.position.z + 6f));
-
-        lr[3].SetPosition(0, new Vector3(20f, 2f, transform.position.z));
-        lr[3].SetPosition(1, new Vector3(20f, 0f, transform.position.z));
-
-        lr[4].SetPosition(0, new Vector3(22.5f, 0.5f, transform.position.z));
-        lr[4].SetPosition(1, new Vector3(22.5f, 0.5f, transform.position.z + 6f));
-
-        lr[5].SetPosition(0, new Vector3(22.5f, 2f, transform.position.z));
-        lr[5].SetPosition(1, new Vector3(22.5f, 0f, transform.position.z));
+        RaioDraw();
 
         bool _carro = false;
 
@@ -204,6 +178,42 @@ public class Script_iaInfinityTudo : MonoBehaviour
         perdeu = true;
         rb.velocity = Vector3.zero;
         Script_InfinityManager.instance.PerdeuSet(1);
+    }
+
+    void RaioDraw()
+    {
+        lr[0].startColor = bloq_esq ? Color.red : Color.green;
+        lr[0].endColor = bloq_esq ? Color.red : Color.green;
+        lr[1].startColor = bloq_esq ? Color.red : Color.green;
+        lr[1].endColor = bloq_esq ? Color.red : Color.green;
+
+        lr[2].startColor = bloq_cen ? Color.red : Color.green;
+        lr[2].endColor = bloq_cen ? Color.red : Color.green;
+        lr[3].startColor = bloq_cen ? Color.red : Color.green;
+        lr[3].endColor = bloq_cen ? Color.red : Color.green;
+
+        lr[4].startColor = bloq_dir ? Color.red : Color.green;
+        lr[4].endColor = bloq_dir ? Color.red : Color.green;
+        lr[5].startColor = bloq_dir ? Color.red : Color.green;
+        lr[5].endColor = bloq_dir ? Color.red : Color.green;
+
+        lr[0].SetPosition(0, new Vector3(17.5f, 0.5f, transform.position.z));
+        lr[0].SetPosition(1, new Vector3(17.5f, 0.5f, transform.position.z + 6f));
+
+        lr[1].SetPosition(0, new Vector3(17.5f, 2f, transform.position.z));
+        lr[1].SetPosition(1, new Vector3(17.5f, 0f, transform.position.z));
+
+        lr[2].SetPosition(0, new Vector3(20f, 0.5f, transform.position.z));
+        lr[2].SetPosition(1, new Vector3(20f, 0.5f, transform.position.z + 6f));
+
+        lr[3].SetPosition(0, new Vector3(20f, 2f, transform.position.z));
+        lr[3].SetPosition(1, new Vector3(20f, 0f, transform.position.z));
+
+        lr[4].SetPosition(0, new Vector3(22.5f, 0.5f, transform.position.z));
+        lr[4].SetPosition(1, new Vector3(22.5f, 0.5f, transform.position.z + 6f));
+
+        lr[5].SetPosition(0, new Vector3(22.5f, 2f, transform.position.z));
+        lr[5].SetPosition(1, new Vector3(22.5f, 0f, transform.position.z));
     }
 
     private void OnTriggerEnter(Collider other)
