@@ -72,10 +72,17 @@ public class Script_iaInfinityTudo : MonoBehaviour
         bool _carro = false;
 
         //proprio
-        if (Physics.Raycast(transform.position + Vector3.forward, Vector3.forward, out RaycastHit _hit, 5f))
+        if (Physics.Raycast(new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit, 5f))
         {
             if (_hit.collider.CompareTag("Carro"))
             {
+                if (rb.velocity.z > 8.5f && !puloPode)
+                {
+                    if (transform.position.x < 19) bloq_esq = true;
+                    else if (transform.position.x < 21) bloq_cen = true;
+                    else bloq_dir = true;
+                }
+
                 if (Mathf.Abs(transform.position.z - _hit.point.z) < puloDist)
                 {
                     Pulo();
@@ -88,8 +95,8 @@ public class Script_iaInfinityTudo : MonoBehaviour
         lr[6].startColor = _carro ? Color.red : Color.green;
         lr[6].endColor = _carro ? Color.red : Color.green;
 
-        lr[6].SetPosition(0, transform.position + Vector3.forward);
-        lr[6].SetPosition(1, transform.position + Vector3.forward * 5);
+        lr[6].SetPosition(0, new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward);
+        lr[6].SetPosition(1, new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward * 6);
 
         if (bloq_esq)
         {

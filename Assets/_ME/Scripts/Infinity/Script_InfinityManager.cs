@@ -87,7 +87,7 @@ public class Script_InfinityManager : MonoBehaviour
 
     void ObjetosSpawnar(float _pos, int _quant)
     {
-        float _posIni = 50;
+        float _posIni = 60;
         float _posCoef = 10;
 
         for (int j = 0; j < _quant; j++)

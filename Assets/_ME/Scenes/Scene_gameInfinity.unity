@@ -846,14 +846,13 @@ MonoBehaviour:
   - {fileID: 1139805865}
   distanciaZ: 8
   emp_pai:
-  - {fileID: 164190092}
   - {fileID: 1453125328}
   - {fileID: 2111599830}
   prefab_obj_objeto:
   - {fileID: 1646981259178978, guid: dc9966ae7fb28a34f89e472a4ae4b223, type: 3}
   - {fileID: 1646981259178978, guid: 754177c93e1d1ab429299992a0258158, type: 3}
   posUltima: 0
-  spawnQuant_edit: 7
+  spawnQuant_edit: 10
   spawnPos_edit: 0
   spawnPos: 1
   objTipo_edit: 0
