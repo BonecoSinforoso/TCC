@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4945,7 +4945,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317841004}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2126889659}
+        m_TargetAssemblyTypeName: Script_InicioManager, Assembly-CSharp
+        m_MethodName: InfoId_Set
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1317841004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5308,7 +5320,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1374908863}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2126889659}
+        m_TargetAssemblyTypeName: Script_InicioManager, Assembly-CSharp
+        m_MethodName: InfoId_Set
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1374908863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5683,6 +5707,42 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1430757786
 MonoBehaviour:
@@ -6805,6 +6865,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1668824395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7876,6 +7972,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1995487104}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1773767516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8681,9 +8813,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995487102}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &2002655439
 GameObject:
@@ -9428,25 +9560,40 @@ MonoBehaviour:
   - {fileID: 1691355750}
   txtFundoChangeCd: 0.2
   img_tutorial: {fileID: 261130078}
+  txt_tutorial: {fileID: 268675786}
   jogoId: 0
   infoId: 0
-  spr_infinity: []
+  spr_infinity:
+  - {fileID: 21300000, guid: cdde5fd6902b48d488b0d7745f28dbb3, type: 3}
+  - {fileID: 21300000, guid: ec24330c6fa36e649a1821d588c74414, type: 3}
+  - {fileID: 21300000, guid: 9e55378d87bfb3946bb1dbe9af79539b, type: 3}
   txt_infinity:
-  - "Seu objetivo \xE9 atingir a dist\xE2ncia de 1000 metros sem colidir com nenhum
+  - "Seu objetivo \xE9 percorrer a dist\xE2ncia de 1000 metros sem colidir com nenhum
     obst\xE1culo."
-  - "Utiliza \"A/D\" ou setas para esquerda e para direita para se mover horizontalmente
-    e pressione a barra de espa\xE7o para pular."
-  - "Aperte \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da IA."
-  spr_flappy: []
+  - "Utilize as teclas \"A/D\" ou setas para esquerda e para direita para se mover
+    horizontalmente e pressione a barra de espa\xE7o para pular."
+  - "Pressione a tecla \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da
+    IA."
+  spr_flappy:
+  - {fileID: 21300000, guid: 75978aa40ac36da46a8e3d0f83bb7156, type: 3}
+  - {fileID: 21300000, guid: d7469ebe8fa58504eb90bf69f6de0e70, type: 3}
+  - {fileID: 21300000, guid: f8a2c06613c595743b6c805c0be6f7c4, type: 3}
   txt_flappy:
   - "Seu objetivo \xE9 evitar a colis\xE3o contra os canos e contra o ch\xE3o."
   - "Para voar, pressione a tecla espa\xE7o."
-  - "Aperte \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da IA."
-  spr_pong: []
+  - "Pressione a tecla \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da
+    IA."
+  spr_pong:
+  - {fileID: 21300000, guid: 3236717a08eefc240be39e01fd15a240, type: 3}
+  - {fileID: 21300000, guid: d32eae7b87dff76449d17c4fe118350d, type: 3}
+  - {fileID: 21300000, guid: 35f77a9ce84a004469b55e999831be0b, type: 3}
   txt_pong:
-  - "Seu objetivo \xE9 ficar sem tomar gol por 60 segundos seguidos."
-  - Para movimentar a raquete, utilize as teclas "W/S" ou seta para cima e para baixo.
-  - "Aperte \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da IA."
+  - "Seu objetivo \xE9 ficar sem tomar nenhum gol por 60 segundos seguidos."
+  - "Utilize as teclas \"W/S\" ou seta para cima e para baixo para movimentar a raquete
+    verticalmente. Cuidado para n\xE3o esgotar a energia, caso isso aconte\xE7a,
+    voc\xEA n\xE3o conseguir\xE1 se movimentar."
+  - "Pressione a tecla \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da
+    IA."
 --- !u!4 &2126889660
 Transform:
   m_ObjectHideFlags: 0

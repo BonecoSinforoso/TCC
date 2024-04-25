@@ -13,14 +13,13 @@ public class Script_bolaPongTudo : MonoBehaviour
     public static bool perigo;
     public static float pos;
 
-    LineRenderer lr;
+    [SerializeField] LineRenderer lr;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         //layerMask = LayerMask.GetMask("Perigo");
-        lr = GetComponent<LineRenderer>();
     }
 
     private void Update()

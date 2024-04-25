@@ -87,6 +87,9 @@ public class Script_InicioManager : MonoBehaviour
     {
         infoId += _valor;
 
+        if (infoId < 0) infoId = 2;
+        if (infoId > 2) infoId = 0;
+
         ImgTutorial_Set();
         TxtTutorial_Set();
     }
@@ -99,10 +102,10 @@ public class Script_InicioManager : MonoBehaviour
                 img_tutorial.sprite = spr_infinity[infoId];
                 break;
             case 1:
-                img_tutorial.sprite = spr_infinity[infoId];
+                img_tutorial.sprite = spr_flappy[infoId];
                 break;
             case 2:
-                img_tutorial.sprite = spr_infinity[infoId];
+                img_tutorial.sprite = spr_pong[infoId];
                 break;
         }
     }
@@ -112,13 +115,13 @@ public class Script_InicioManager : MonoBehaviour
         switch (jogoId)
         {
             case 0:
-                img_tutorial.sprite = spr_infinity[infoId];
+                txt_tutorial.text = txt_infinity[infoId];
                 break;
             case 1:
-                img_tutorial.sprite = spr_infinity[infoId];
+                txt_tutorial.text = txt_flappy[infoId];
                 break;
             case 2:
-                img_tutorial.sprite = spr_infinity[infoId];
+                txt_tutorial.text = txt_pong[infoId];
                 break;
         }
     }
