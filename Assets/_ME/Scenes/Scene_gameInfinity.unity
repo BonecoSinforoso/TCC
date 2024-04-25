@@ -790,6 +790,7 @@ GameObject:
   - component: {fileID: 511523357}
   - component: {fileID: 511523358}
   - component: {fileID: 511523359}
+  - component: {fileID: 511523360}
   m_Layer: 0
   m_Name: obj_admGame
   m_TagString: ADM
@@ -869,6 +870,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a8b705525ed9479d4dc7e42dcbd2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &511523360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511523356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0cdb464c58fdd49ab126bba7bb84a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerIniIndex: 0
+  layer:
+  - Teste
+  - Default
+  obj:
+  - {fileID: 609097154}
+  - {fileID: 1086426267}
+  - {fileID: 1522615737}
+  - {fileID: 2109257737}
+  - {fileID: 2127134412}
+  - {fileID: 557863062}
+  - {fileID: 2118873027}
+  layerAtualIndex: 0
 --- !u!1 &547622085
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +943,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -943,6 +969,11 @@ Transform:
   m_Father: {fileID: 1909084997}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!1 &557863062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1393450688144645133, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
+  m_PrefabInstance: {fileID: 1782069224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &568414403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,6 +1049,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568414403}
   m_CullTransparentMesh: 1
+--- !u!1 &609097154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6805962749131205921, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
+  m_PrefabInstance: {fileID: 1782069224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,6 +1626,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999799137}
   m_CullTransparentMesh: 1
+--- !u!1 &1086426267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8541313817614327788, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
+  m_PrefabInstance: {fileID: 1782069224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1139805862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,6 +2085,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486951221}
   m_CullTransparentMesh: 1
+--- !u!1 &1522615737 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9026723886492934071, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
+  m_PrefabInstance: {fileID: 1782069224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1609090873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6226828965947620684, guid: cbab99b4ed9e54f468d146d8ce421578, type: 3}
@@ -5449,6 +5495,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107175848}
   m_CullTransparentMesh: 1
+--- !u!1 &2109257737 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6843642564371711332, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
+  m_PrefabInstance: {fileID: 1782069224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2111599830
 GameObject:
   m_ObjectHideFlags: 0
@@ -5479,6 +5530,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2118873027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3385174929773994841, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
+  m_PrefabInstance: {fileID: 1782069224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2127134412 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3344776169016397378, guid: c91399a23473f6c46bed4a64feea3a19, type: 3}
+  m_PrefabInstance: {fileID: 1782069224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7850403805357592186
 PrefabInstance:
   m_ObjectHideFlags: 0

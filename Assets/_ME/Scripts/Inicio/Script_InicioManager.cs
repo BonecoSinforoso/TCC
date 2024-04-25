@@ -13,6 +13,7 @@ public class Script_InicioManager : MonoBehaviour
     [SerializeField] float txtFundoChangeCd;
 
     [SerializeField] Image img_tutorial;
+    [SerializeField] TextMeshProUGUI txt_tutorial;
 
     [SerializeField] int jogoId;
     [SerializeField] int infoId;
@@ -29,7 +30,7 @@ public class Script_InicioManager : MonoBehaviour
 
         Time.timeScale = 1;
 
-        Invoke(nameof(TextsFundoSet), txtFundoChangeCd);
+        Invoke(nameof(TextsFundo_Set), txtFundoChangeCd);
     }
 
     public void SceneChange()
@@ -56,7 +57,7 @@ public class Script_InicioManager : MonoBehaviour
         Application.Quit();
     }
 
-    void TextsFundoSet()
+    void TextsFundo_Set()
     {
         foreach (TextMeshProUGUI _txt_fundo in txt_fundo)
         {
@@ -70,25 +71,43 @@ public class Script_InicioManager : MonoBehaviour
             _txt_fundo.text = _txt;
         }
 
-        Invoke(nameof(TextsFundoSet), txtFundoChangeCd);
+        Invoke(nameof(TextsFundo_Set), txtFundoChangeCd);
     }
 
-    public void JogoIdSet(int _valor)
+    public void JogoId_Set(int _valor)
     {
         jogoId = _valor;
         infoId = 0;
 
-        ImgTutorialSet();
+        ImgTutorial_Set();
+        TxtTutorial_Set();
     }
 
-    public void InfoIdSet(int _valor)
+    public void InfoId_Set(int _valor)
     {
         infoId += _valor;
 
-        //if(infoId < 0) infoId = spr
+        ImgTutorial_Set();
+        TxtTutorial_Set();
     }
 
-    private void ImgTutorialSet()
+    void ImgTutorial_Set()
+    {
+        switch (jogoId)
+        {
+            case 0:
+                img_tutorial.sprite = spr_infinity[infoId];
+                break;
+            case 1:
+                img_tutorial.sprite = spr_infinity[infoId];
+                break;
+            case 2:
+                img_tutorial.sprite = spr_infinity[infoId];
+                break;
+        }
+    }
+
+    void TxtTutorial_Set()
     {
         switch (jogoId)
         {
