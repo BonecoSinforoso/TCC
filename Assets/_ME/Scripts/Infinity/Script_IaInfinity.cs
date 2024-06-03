@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Script_iaInfinityTudo : MonoBehaviour
+public class Script_IaInfinity : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float puloForca;
@@ -27,6 +27,8 @@ public class Script_iaInfinityTudo : MonoBehaviour
     [SerializeField] LineRenderer[] lr;
 
     bool sentidoMudarPode = true;
+
+    [SerializeField] float raioFrenteTamanho;
 
     void Start()
     {
@@ -58,13 +60,13 @@ public class Script_iaInfinityTudo : MonoBehaviour
         bloq_cen = false;
         bloq_dir = false;
 
-        if (Physics.Raycast(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward, 6f, 1 << 3)) bloq_esq = true;
+        if (Physics.Raycast(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward, raioFrenteTamanho, 1 << 3)) bloq_esq = true;
         if (Physics.Raycast(new Vector3(17.5f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_esq = true;
 
-        if (Physics.Raycast(new Vector3(20f, 0.5f, transform.position.z), Vector3.forward, 6f, 1 << 3)) bloq_cen = true;
+        if (Physics.Raycast(new Vector3(20f, 0.5f, transform.position.z), Vector3.forward, raioFrenteTamanho, 1 << 3)) bloq_cen = true;
         if (Physics.Raycast(new Vector3(20f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_cen = true;
 
-        if (Physics.Raycast(new Vector3(22.5f, 0.5f, transform.position.z), Vector3.forward, 6f, 1 << 3)) bloq_dir = true;
+        if (Physics.Raycast(new Vector3(22.5f, 0.5f, transform.position.z), Vector3.forward, raioFrenteTamanho, 1 << 3)) bloq_dir = true;
         if (Physics.Raycast(new Vector3(22.5f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_dir = true;
 
         RaioDraw();
@@ -96,7 +98,7 @@ public class Script_iaInfinityTudo : MonoBehaviour
         lr[6].endColor = _carro ? Color.red : Color.green;
 
         lr[6].SetPosition(0, new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward);
-        lr[6].SetPosition(1, new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward * 6);
+        lr[6].SetPosition(1, new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward * raioFrenteTamanho);
 
         if (bloq_esq)
         {
@@ -184,7 +186,7 @@ public class Script_iaInfinityTudo : MonoBehaviour
     {
         perdeu = true;
         rb.velocity = Vector3.zero;
-        Script_InfinityManager.instance.PerdeuSet(1);
+        Script_InfinityManager.instance.Perdeu_Set(1);
     }
 
     void RaioDraw()
@@ -205,32 +207,22 @@ public class Script_iaInfinityTudo : MonoBehaviour
         lr[5].endColor = bloq_dir ? Color.red : Color.green;
 
         lr[0].SetPosition(0, new Vector3(17.5f, 0.5f, transform.position.z));
-        lr[0].SetPosition(1, new Vector3(17.5f, 0.5f, transform.position.z + 6f));
+        lr[0].SetPosition(1, new Vector3(17.5f, 0.5f, transform.position.z + raioFrenteTamanho));
 
         lr[1].SetPosition(0, new Vector3(17.5f, 2f, transform.position.z));
         lr[1].SetPosition(1, new Vector3(17.5f, 0f, transform.position.z));
 
         lr[2].SetPosition(0, new Vector3(20f, 0.5f, transform.position.z));
-        lr[2].SetPosition(1, new Vector3(20f, 0.5f, transform.position.z + 6f));
+        lr[2].SetPosition(1, new Vector3(20f, 0.5f, transform.position.z + raioFrenteTamanho));
 
         lr[3].SetPosition(0, new Vector3(20f, 2f, transform.position.z));
         lr[3].SetPosition(1, new Vector3(20f, 0f, transform.position.z));
 
         lr[4].SetPosition(0, new Vector3(22.5f, 0.5f, transform.position.z));
-        lr[4].SetPosition(1, new Vector3(22.5f, 0.5f, transform.position.z + 6f));
+        lr[4].SetPosition(1, new Vector3(22.5f, 0.5f, transform.position.z + raioFrenteTamanho));
 
         lr[5].SetPosition(0, new Vector3(22.5f, 2f, transform.position.z));
         lr[5].SetPosition(1, new Vector3(22.5f, 0f, transform.position.z));
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Energetico"))
-        {
-            pontos += 10;
-            Script_InfinityManager.instance.TextoPontosChange(1, pontos);
-            Destroy(other.gameObject);
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -249,5 +241,24 @@ public class Script_iaInfinityTudo : MonoBehaviour
         {
             puloPode = true;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Energetico"))
+        {
+            pontos += 10;
+            Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("Oculos"))
+        {
+            Script_InfinityManager.instance.PlayerCegar();
+        }
+    }
+
+    public void RaioFrenteTamanho_Set(float _valor)
+    {
+        raioFrenteTamanho = _valor;
     }
 }

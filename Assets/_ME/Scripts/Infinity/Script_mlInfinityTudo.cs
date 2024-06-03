@@ -37,7 +37,7 @@ public class Script_mlInfinityTudo : MonoBehaviour
     {
         perdeu = true;
         rb.velocity = Vector3.zero;
-        Script_InfinityManager.instance.PerdeuSet(2);
+        Script_InfinityManager.instance.Perdeu_Set(2);
     }
 
 
@@ -46,7 +46,6 @@ public class Script_mlInfinityTudo : MonoBehaviour
         if (other.CompareTag("Energetico"))
         {
             pontos += 10;
-            Script_InfinityManager.instance.TextoPontosChange(2, pontos);
             Destroy(other.gameObject);
         }
     }

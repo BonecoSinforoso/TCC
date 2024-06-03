@@ -6,7 +6,6 @@ public class Script_InfinityManager : MonoBehaviour
     public static Script_InfinityManager instance;
 
     [SerializeField] Text[] txt_distancia;
-    //[SerializeField] Text[] txt_pontos;
     [SerializeField] float distanciaGanhar;
 
     [SerializeField] GameObject[] obj_jogador;
@@ -21,7 +20,9 @@ public class Script_InfinityManager : MonoBehaviour
     [SerializeField] GameObject[] prefab_obj_objeto;
     [SerializeField] float posUltima;
 
-    //[Space(100f)]
+    [Header("Outros")]
+    [SerializeField] GameObject prefab_obj_oculos;
+
     [Header("Testes")]
     [SerializeField] int spawnQuant_edit;
     [Space]
@@ -35,10 +36,6 @@ public class Script_InfinityManager : MonoBehaviour
     void Start()
     {
         instance = this;
-
-        TextoPontosChange(0, 0);
-        TextoPontosChange(1, 0);
-        TextoPontosChange(2, 0);
     }
 
     void Update()
@@ -102,21 +99,25 @@ public class Script_InfinityManager : MonoBehaviour
             {
                 if (perdeu[i]) continue;
 
-                GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos - _posIni + (_posCoef * j)), Quaternion.identity);
-                _obj.transform.parent = emp_pai[_obj_rand].transform;
+                for (int k = 0; k < 3; k++)
+                {
+                    if (k != _pos_rand)
+                    {
+                        //GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * _pos_rand) - 2.5f), 0.5f, _pos - _posIni + (_posCoef * j)), Quaternion.identity);
+                        GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * k) - 2.5f), 0.5f, _pos - _posIni + (_posCoef * j)), Quaternion.identity);
+                        _obj.transform.parent = emp_pai[_obj_rand].transform;
 
-                //if (_obj_rand == 0) _obj.GetComponent<Script_objDestruirTudo>().ObjSet(obj_jogador[i]);
-                if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
+                        if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
+                    }
+                }
             }
         }
+
+        Instantiate(prefab_obj_oculos, new Vector3(0f, 1f, _pos - _posIni + (_posCoef * 9)), Quaternion.identity);
+        Instantiate(prefab_obj_oculos, new Vector3(20f, 1f, _pos - _posIni + (_posCoef * 9)), Quaternion.identity);
     }
 
-    public void TextoPontosChange(int _index, int _pontos)
-    {
-        //txt_pontos[_index].text = _pontos.ToString();
-    }
-
-    public void PerdeuSet(int _index)
+    public void Perdeu_Set(int _index)
     {
         if (_index == 0) Call_FbSet(0);
 
@@ -126,5 +127,33 @@ public class Script_InfinityManager : MonoBehaviour
     public void Call_FbSet(int _valor)
     {
         Script_GeralManager.instance.FbSet(_valor);
+    }
+
+    public void PlayerCegar()
+    {
+        t_camera[0].GetComponent<Camera>().farClipPlane = 12;        
+
+        Invoke(nameof(PlayerEnxegar), 5f);
+    }
+
+    void PlayerEnxegar()
+    {
+        t_camera[0].GetComponent<Camera>().farClipPlane = 50;
+    }
+
+    public void IaCegar()
+    {
+        t_camera[1].GetComponent<Camera>().farClipPlane = 12;
+
+        obj_jogador[1].GetComponent<Script_IaInfinity>().RaioFrenteTamanho_Set(4f);
+
+        Invoke(nameof(IaEnxergar), 5f);
+    }
+
+    void IaEnxergar()
+    {
+        t_camera[1].GetComponent<Camera>().farClipPlane = 50;
+
+        obj_jogador[1].GetComponent<Script_IaInfinity>().RaioFrenteTamanho_Set(5f); //sete para o tamanho inicial, deixe de preguica
     }
 }

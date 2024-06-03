@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Script_playerInfinityTudo : MonoBehaviour
+public class Script_PlayerInfinity : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float moveSpeedX;
@@ -65,17 +65,7 @@ public class Script_playerInfinityTudo : MonoBehaviour
     {
         perdeu = true;
         rb.velocity = Vector3.zero;
-        Script_InfinityManager.instance.PerdeuSet(0);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Energetico"))
-        {
-            pontos += 10;
-            Script_InfinityManager.instance.TextoPontosChange(0, pontos);
-            Destroy(other.gameObject);
-        }
+        Script_InfinityManager.instance.Perdeu_Set(0);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -93,6 +83,20 @@ public class Script_playerInfinityTudo : MonoBehaviour
         if (collision.gameObject.CompareTag("Chao"))
         {
             puloPode = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Energetico"))
+        {
+            pontos += 10;
+            Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("Oculos"))
+        {
+            Script_InfinityManager.instance.IaCegar();
         }
     }
 }

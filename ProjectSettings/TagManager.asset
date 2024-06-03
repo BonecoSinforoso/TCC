@@ -14,6 +14,7 @@ TagManager:
   - Ponto
   - Parede
   - Perigo
+  - Oculos
   layers:
   - Default
   - TransparentFX
