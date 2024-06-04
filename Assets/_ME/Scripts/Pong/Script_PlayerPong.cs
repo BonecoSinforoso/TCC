@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Script_playerPongTudo : MonoBehaviour
+public class Script_PlayerPong : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
 
@@ -22,7 +22,7 @@ public class Script_playerPongTudo : MonoBehaviour
         float _v = Input.GetAxisRaw("Vertical");
         bool _andou = false;
 
-        if (energiaAtual > 0)
+        if (energiaAtual > 5)
         {
             _andou = _v != 0;
             rb.velocity = _v * moveSpeed * Vector3.forward;

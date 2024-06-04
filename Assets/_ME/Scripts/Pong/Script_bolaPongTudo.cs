@@ -19,20 +19,20 @@ public class Script_bolaPongTudo : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
-        //layerMask = LayerMask.GetMask("Perigo");
     }
 
     private void Update()
     {
         perigo = false;
 
-        if (rb.velocity != Vector3.zero) t_move.forward = transform.position + new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        if (rb.velocity != Vector3.zero) t_move.forward = transform.position + (new Vector3(rb.velocity.x, 0, rb.velocity.z) * 10);
 
         Vector3 _direcao = t_move.forward;
 
         Debug.DrawRay(transform.position, _direcao);
 
-        Physics.Raycast(transform.position, t_move.forward, out RaycastHit _hit, layerMask);
+        //Physics.Raycast(transform.position, t_move.forward, out RaycastHit _hit, layerMask);
+        Physics.Raycast(transform.position, t_move.forward, out RaycastHit _hit, 50f);
 
         if (_hit.collider)
         {
@@ -46,7 +46,8 @@ public class Script_bolaPongTudo : MonoBehaviour
                 _direcao = Vector3.Reflect(_direcao, _hit.normal);
                 Debug.DrawRay(_hit.point, _direcao);
 
-                Physics.Raycast(_hit.point, _direcao, out RaycastHit _hit2, layerMask);
+                //Physics.Raycast(_hit.point, _direcao, out RaycastHit _hit2, layerMask);
+                Physics.Raycast(_hit.point, _direcao, out RaycastHit _hit2, 50f);
 
                 cu = "so parede";
 

@@ -929,6 +929,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293929294}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &466767923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 466767924}
+  m_Layer: 0
+  m_Name: t_move
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &466767924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466767923}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480198772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,7 +1152,7 @@ MonoBehaviour:
   rb_bola: {fileID: 1355361087}
   energiaMax: 100
   energiaAtual: 100
-  energiaConsumo: 50
+  energiaConsumo: 100
   energiaRecarga: 25
   t_energiaBarra: {fileID: 480198773}
 --- !u!1 &872620845
@@ -1198,7 +1228,6 @@ GameObject:
   m_Component:
   - component: {fileID: 897417556}
   - component: {fileID: 897417555}
-  - component: {fileID: 897417554}
   - component: {fileID: 897417558}
   - component: {fileID: 897417557}
   m_Layer: 0
@@ -1208,14 +1237,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &897417554
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 897417553}
-  m_Enabled: 1
 --- !u!20 &897417555
 Camera:
   m_ObjectHideFlags: 0
@@ -1783,7 +1804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97305a902ef1a4e47a9915dcd6e9761f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  t_move: {fileID: 1892591144}
+  t_move: {fileID: 466767924}
   audioClip:
   - {fileID: 8300000, guid: f45f29183aed650458dfc3ee84881324, type: 3}
   - {fileID: 8300000, guid: 16a7dab172af61c42856c1e74cd65d56, type: 3}
@@ -1814,9 +1835,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1849,7 +1870,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1889,6 +1910,45 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1376777471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1376777473}
+  - component: {fileID: 1376777472}
+  m_Layer: 0
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1376777472
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376777471}
+  m_Enabled: 1
+--- !u!4 &1376777473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376777471}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419137428
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,7 +2458,7 @@ MonoBehaviour:
   txt_placar: {fileID: 1419137429}
   txt_aperte: {fileID: 176493875}
   tr_bola: {fileID: 2093111157}
-  fbGanharTempo: 10
+  fbGanharTempo: 60
 --- !u!114 &1921164673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2509,7 +2569,7 @@ MonoBehaviour:
   moveSpeed: 7
   energiaMax: 100
   energiaAtual: 100
-  energiaConsumo: 50
+  energiaConsumo: 100
   energiaRecarga: 25
   t_energiaBarra: {fileID: 1998034597}
 --- !u!1 &1992133312
