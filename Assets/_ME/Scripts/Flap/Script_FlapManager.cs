@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Script_FlapManager : MonoBehaviour
 {
@@ -14,10 +12,15 @@ public class Script_FlapManager : MonoBehaviour
 
     public bool movel;
     public int pontuacaoParaVencer;
+    [SerializeField] AudioClip[] ac;
+
+    AudioSource audioSource;
 
     void Start()
     {
         instance = this;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -30,5 +33,10 @@ public class Script_FlapManager : MonoBehaviour
     public void Call_FbSet(int _valor)
     {
         Script_GeralManager.instance.FbSet(_valor);
+    }
+
+    public void AS_Play(int _index)
+    {
+        audioSource.PlayOneShot(ac[_index]);
     }
 }

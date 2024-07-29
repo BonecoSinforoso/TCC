@@ -24,6 +24,8 @@ public class Script_playerFlapTudo : MonoBehaviour
             if (transform.eulerAngles.z < 5) transform.eulerAngles += Vector3.forward * 10;
             rb.velocity = Vector3.zero;
             rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
+
+            Script_FlapManager.instance.AS_Play(0);
         }
 
         if (rb.velocity.y < 0) transform.eulerAngles += quedaRot * Time.deltaTime * Vector3.forward;
@@ -67,6 +69,8 @@ public class Script_playerFlapTudo : MonoBehaviour
         {
             pontos++;
             TextPontosSet();
+
+            Script_FlapManager.instance.AS_Play(1);
 
             if (pontos >= Script_FlapManager.instance.pontuacaoParaVencer) Script_FlapManager.instance.Call_FbSet(1);
         }
