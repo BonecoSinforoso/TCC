@@ -52,6 +52,8 @@ public class Script_playerFlapTudo : MonoBehaviour
         {
             //Debug.LogError("dsajdhas");
 
+            Script_FlapManager.instance.AS_Play(2);
+
             Script_FlapManager.instance.Call_FbSet(0);
         }
     }
@@ -61,6 +63,8 @@ public class Script_playerFlapTudo : MonoBehaviour
         if (other.CompareTag("Cano"))
         {
             //Debug.LogError("dsajdhas");
+
+            Script_FlapManager.instance.AS_Play(2);
 
             Script_FlapManager.instance.Call_FbSet(0);
         }
