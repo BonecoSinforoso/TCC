@@ -1218,7 +1218,7 @@ MonoBehaviour:
   obj_playerClone: {fileID: 1134795305}
   obj_iaClone: {fileID: 1624234808}
   movel: 0
-  pontuacaoParaVencer: 5
+  pontuacaoParaVencer: 50
   ac:
   - {fileID: 8300000, guid: 84ed9088d3ae7f9479b9e67f0465808d, type: 3}
   - {fileID: 8300000, guid: b74150b6ac5e56f469f0aa08b55f0ecf, type: 3}
@@ -2093,7 +2093,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

@@ -11,6 +11,7 @@ public class Script_InicioManager : MonoBehaviour
     [SerializeField] CanvasGroup cg_tutorial;
     [SerializeField] TextMeshProUGUI[] txt_fundo;
     [SerializeField] float txtFundoChangeCd;
+    [SerializeField] TextMeshProUGUI txt_versao;
 
     [SerializeField] Image img_tutorial;
     [SerializeField] TextMeshProUGUI txt_tutorial;
@@ -29,6 +30,8 @@ public class Script_InicioManager : MonoBehaviour
         Application.targetFrameRate = 60;
 
         Time.timeScale = 1;
+
+        txt_versao.text = Application.version;
 
         Invoke(nameof(TextsFundo_Set), txtFundoChangeCd);
     }

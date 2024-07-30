@@ -43,6 +43,7 @@ public class Script_IaInfinity : MonoBehaviour
         animator.SetBool("_jump", !puloPode);
 
         moveSpeed = 5 + ((int)transform.position.z / 100);
+        moveSpeed = moveSpeed > 8 ? 8 : moveSpeed;
         txt_moveSpeed.text = moveSpeed + "m/s";
 
         rb.velocity = Vector3.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);

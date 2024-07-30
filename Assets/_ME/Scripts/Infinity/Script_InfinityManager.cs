@@ -48,10 +48,10 @@ public class Script_InfinityManager : MonoBehaviour
 
         if (obj_jogador[0].transform.position.z >= distanciaGanhar) Call_FbSet(1);
 
-        ChaoPosChange();
+        ChaoPos_Change();
     }
 
-    void ChaoPosChange() //isso vai dar merda se a diferença de posicao for grande -> usar eskema do mario kart... deixo para vc icaro do futuro
+    void ChaoPos_Change() //isso vai dar merda se a diferença de posicao for grande -> usar eskema do mario kart... deixo para vc icaro do futuro
     {
         bool _spawnar = false;
 
@@ -113,8 +113,8 @@ public class Script_InfinityManager : MonoBehaviour
             }
         }
 
-        Instantiate(prefab_obj_oculos, new Vector3(0f, 1f, _pos - _posIni + (_posCoef * 9)), Quaternion.identity);
-        Instantiate(prefab_obj_oculos, new Vector3(20f, 1f, _pos - _posIni + (_posCoef * 9)), Quaternion.identity);
+        //Instantiate(prefab_obj_oculos, new Vector3(0f, 1f, _pos - _posIni + (_posCoef * 9)), Quaternion.identity);
+        //Instantiate(prefab_obj_oculos, new Vector3(20f, 1f, _pos - _posIni + (_posCoef * 9)), Quaternion.identity);
     }
 
     public void Perdeu_Set(int _index)
