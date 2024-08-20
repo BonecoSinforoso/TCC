@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Script_carroTudo : Script_objDestruir
+public class Script_Carro : Script_ObjDestruir
 {
     [SerializeField] float moveSpeed;
     Rigidbody rb;
@@ -16,7 +16,7 @@ public class Script_carroTudo : Script_objDestruir
 
     void Update()
     {
-        if (obj != null) DistanciaVerificar(obj);
+        if (obj != null) Distancia_Verificar(obj);
         rb.velocity = Vector3.back + new Vector3(0, rb.velocity.y, 0);
 
         if (transform.position.y < -2f)
@@ -28,7 +28,7 @@ public class Script_carroTudo : Script_objDestruir
         if (transform.position.z + 10 < obj_player.transform.position.z) Destroy(gameObject);
     }
 
-    public void ObjSet(GameObject _obj)
+    public void Obj_Set(GameObject _obj)
     {
         obj = _obj;
     }

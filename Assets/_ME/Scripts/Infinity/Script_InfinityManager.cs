@@ -107,7 +107,7 @@ public class Script_InfinityManager : MonoBehaviour
                         GameObject _obj = Instantiate(prefab_obj_objeto[_obj_rand], new Vector3(20 * i + ((2.5f * k) - 2.5f), 0.5f, _pos - _posIni + (_posCoef * j)), Quaternion.identity);
                         _obj.transform.parent = emp_pai[_obj_rand].transform;
 
-                        if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_carroTudo>().ObjSet(obj_jogador[i]);
+                        if (_obj_rand == 1 || _obj_rand == 2) _obj.GetComponent<Script_Carro>().Obj_Set(obj_jogador[i]);
                     }
                 }
             }
@@ -131,7 +131,7 @@ public class Script_InfinityManager : MonoBehaviour
 
     public void PlayerCegar()
     {
-        t_camera[0].GetComponent<Camera>().farClipPlane = 12;        
+        t_camera[0].GetComponent<Camera>().farClipPlane = 12;
 
         Invoke(nameof(PlayerEnxegar), 5f);
     }

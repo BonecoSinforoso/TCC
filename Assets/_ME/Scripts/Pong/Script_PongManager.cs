@@ -119,7 +119,7 @@ public class Script_PongManager : MonoBehaviour
 
     void TextTempoSet(int _valor = -1)
     {
-        if(_valor == -1) txt_tempo.text = (fbGanharTempo - tempoAtual).ToString() + "s";
+        if (_valor == -1) txt_tempo.text = (fbGanharTempo - tempoAtual).ToString() + "s";
         else
         {
             txt_tempo.text = _valor.ToString() + "s";

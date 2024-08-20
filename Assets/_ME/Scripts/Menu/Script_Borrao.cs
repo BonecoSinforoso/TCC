@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Script_borraoControladorTudo : MonoBehaviour
+public class Script_Borrao : MonoBehaviour
 {
     [SerializeField] RectTransform rect_borrao;
     [SerializeField] float moveSpeed;

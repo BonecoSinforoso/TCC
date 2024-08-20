@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Script_rotacionar : MonoBehaviour
+public class Script_Rotacionar : MonoBehaviour
 {
     [SerializeField] Vector3 valor;
 
