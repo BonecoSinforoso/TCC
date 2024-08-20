@@ -38,7 +38,7 @@ public class Script_InicioManager : MonoBehaviour
 
     public void SceneChange()
     {
-        SceneManager.LoadScene("Scene_menu");
+        SceneManager.LoadScene("Scene_Menu");
     }
 
     public void CgCreditosToggle()

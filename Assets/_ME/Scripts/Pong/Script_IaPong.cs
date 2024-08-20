@@ -25,9 +25,9 @@ public class Script_IaPong : MonoBehaviour
 
         if (energiaAtual > 5)
         {
-            if (Script_bolaPongTudo.perigo)
+            if (Script_BolaPong.perigo)
             {
-                if (transform.position.z + 1 < Script_bolaPongTudo.pos)
+                if (transform.position.z + 1 < Script_BolaPong.pos)
                 {
                     if (transform.position.z < 3.5f)
                     {
@@ -36,7 +36,7 @@ public class Script_IaPong : MonoBehaviour
                     }
                 }
 
-                if (transform.position.z - 1 > Script_bolaPongTudo.pos)
+                if (transform.position.z - 1 > Script_BolaPong.pos)
                 {
                     if (transform.position.z > -3.5f)
                     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Script_bolaPongTudo : MonoBehaviour
+public class Script_BolaPong : MonoBehaviour
 {
     [SerializeField] Transform t_move;
     public AudioClip[] audioClip;

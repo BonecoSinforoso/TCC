@@ -112,7 +112,7 @@ public class Script_PongManager : MonoBehaviour
 
         if (fbGanharTempo - tempoAtual == 0)
         {
-            obj_bola.GetComponent<AudioSource>().PlayOneShot(obj_bola.GetComponent<Script_bolaPongTudo>().audioClip[1]);
+            obj_bola.GetComponent<AudioSource>().PlayOneShot(obj_bola.GetComponent<Script_BolaPong>().audioClip[1]);
             BolaReset(0);
         }
     }

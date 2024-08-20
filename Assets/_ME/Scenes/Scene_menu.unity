@@ -3366,7 +3366,7 @@ GameObject:
   - component: {fileID: 1457883536}
   - component: {fileID: 1457883535}
   m_Layer: 0
-  m_Name: obj_admMenu
+  m_Name: obj_menuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3385,9 +3385,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cenaNome:
-  - Scene_gameInfinity
-  - Scene_gameFlap
-  - Scene_gamePong
+  - Scene_GameInfinity
+  - Scene_GameFlap
+  - Scene_GamePong
   txt_flapPontos: {fileID: 173653412}
 --- !u!4 &1457883536
 Transform:

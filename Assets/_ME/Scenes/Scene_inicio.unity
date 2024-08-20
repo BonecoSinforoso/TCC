@@ -5277,7 +5277,7 @@ GameObject:
   - component: {fileID: 1349888506}
   - component: {fileID: 1349888505}
   m_Layer: 5
-  m_Name: Image
+  m_Name: img_fundo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5417,7 +5417,7 @@ GameObject:
   - component: {fileID: 1369311133}
   - component: {fileID: 1369311134}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: pai_numeros
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6784,7 +6784,7 @@ GameObject:
   - component: {fileID: 1601365347}
   - component: {fileID: 1601365346}
   m_Layer: 5
-  m_Name: Image
+  m_Name: img_versao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9844,7 +9844,7 @@ GameObject:
   - component: {fileID: 2126889660}
   - component: {fileID: 2126889659}
   m_Layer: 0
-  m_Name: obj_admInicio
+  m_Name: obj_inicioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

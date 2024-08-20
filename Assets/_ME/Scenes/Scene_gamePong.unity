@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 164422754}
   - component: {fileID: 164422753}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: mesh_energiaBarra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -957,7 +957,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480198772
 GameObject:
@@ -1516,7 +1516,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1190594235
 GameObject:
@@ -1530,7 +1530,7 @@ GameObject:
   - component: {fileID: 1190594238}
   - component: {fileID: 1190594237}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: mesh_energiaBarra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1947,7 +1947,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419137428
 GameObject:
@@ -2576,6 +2576,10 @@ MonoBehaviour:
   energiaConsumo: 100
   energiaRecarga: 25
   t_energiaBarra: {fileID: 1998034597}
+  mesh_energiaBarra: {fileID: 1190594237}
+  color:
+  - {r: 1, g: 0.8984609, b: 0.44025153, a: 1}
+  - {r: 0, g: 1, b: 0.1528945, a: 1}
 --- !u!1 &1992133312
 GameObject:
   m_ObjectHideFlags: 0
