@@ -19,7 +19,7 @@ public class Script_LayerToggle : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F3))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Layer_Toggle();
         }

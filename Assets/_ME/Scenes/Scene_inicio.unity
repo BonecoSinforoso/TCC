@@ -4031,7 +4031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
+  m_Color: {r: 0.5411765, g: 0.5411765, b: 0.5411765, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9919,8 +9919,7 @@ MonoBehaviour:
     obst\xE1culo."
   - "Utilize as teclas \"A/D\" ou setas para esquerda e para direita para se mover
     horizontalmente e pressione a barra de espa\xE7o para pular."
-  - "Pressione a tecla \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da
-    IA."
+  - "Pressione a tecla \"Q\" para alternar a visualiza\xE7\xE3o dos sensores da IA."
   spr_flappy:
   - {fileID: 21300000, guid: 75978aa40ac36da46a8e3d0f83bb7156, type: 3}
   - {fileID: 21300000, guid: d7469ebe8fa58504eb90bf69f6de0e70, type: 3}
@@ -9928,8 +9927,7 @@ MonoBehaviour:
   txt_flappy:
   - "Seu objetivo \xE9 evitar a colis\xE3o contra os canos e contra o ch\xE3o."
   - "Para voar, pressione a tecla espa\xE7o."
-  - "Pressione a tecla \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da
-    IA."
+  - "Pressione a tecla \"Q\" para alternar a visualiza\xE7\xE3o dos sensores da IA."
   spr_pong:
   - {fileID: 21300000, guid: 3236717a08eefc240be39e01fd15a240, type: 3}
   - {fileID: 21300000, guid: d32eae7b87dff76449d17c4fe118350d, type: 3}
@@ -9939,8 +9937,7 @@ MonoBehaviour:
   - "Utilize as teclas \"W/S\" ou seta para cima e para baixo para movimentar a raquete
     verticalmente. Cuidado para n\xE3o esgotar a energia, caso isso aconte\xE7a,
     voc\xEA n\xE3o conseguir\xE1 se movimentar."
-  - "Pressione a tecla \"F3\" para alternar a visualiza\xE7\xE3o dos sensores da
-    IA."
+  - "Pressione a tecla \"Q\" para alternar a visualiza\xE7\xE3o dos sensores da IA."
 --- !u!4 &2126889660
 Transform:
   m_ObjectHideFlags: 0
