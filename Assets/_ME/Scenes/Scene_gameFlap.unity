@@ -1191,8 +1191,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1188740007}
   - component: {fileID: 1188740006}
-  - component: {fileID: 1188740008}
   - component: {fileID: 1188740009}
+  - component: {fileID: 1188740008}
   - component: {fileID: 1188740010}
   m_Layer: 0
   m_Name: obj_FlapManager

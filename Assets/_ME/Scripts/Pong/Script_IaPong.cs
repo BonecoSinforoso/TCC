@@ -23,11 +23,11 @@ public class Script_IaPong : MonoBehaviour
     {
         bool _andou = false;
 
-        if (energiaAtual > 5)
+        if (energiaAtual > 5) //verifica a energia
         {
-            if (Script_BolaPong.perigo)
+            if (Script_BolaPong.perigo) //verifica se a bola oferece perigo (no caso se está indo em direcao ao gol)
             {
-                if (transform.position.z + 1 < Script_BolaPong.pos)
+                if (transform.position.z + 1 < Script_BolaPong.pos) //verifica se a bola está acima da raquete
                 {
                     if (transform.position.z < 3.5f)
                     {
@@ -36,7 +36,7 @@ public class Script_IaPong : MonoBehaviour
                     }
                 }
 
-                if (transform.position.z - 1 > Script_BolaPong.pos)
+                if (transform.position.z - 1 > Script_BolaPong.pos) //verifica se a bola está abaixo da raquete
                 {
                     if (transform.position.z > -3.5f)
                     {
@@ -47,12 +47,12 @@ public class Script_IaPong : MonoBehaviour
             }
         }
 
-        if (_andou)
+        if (_andou) //se andou diminui a energia
         {
             energiaAtual -= energiaConsumo * Time.deltaTime;
             if (energiaAtual < 0) energiaAtual = 0;
         }
-        else
+        else //se nn andou, aumenta a energia e seta a velocidade da raquete como 0
         {
             energiaAtual += energiaRecarga * Time.deltaTime;
             if (energiaAtual > energiaMax) energiaAtual = energiaMax;

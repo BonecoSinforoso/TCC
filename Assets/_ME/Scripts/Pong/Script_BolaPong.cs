@@ -4,8 +4,8 @@ public class Script_BolaPong : MonoBehaviour
 {
     [SerializeField] Transform t_move;
     public AudioClip[] audioClip;
-    [SerializeField] string cu;
-    [SerializeField] string ue;
+    [SerializeField] string debug_01;
+    [SerializeField] string debug_02;
 
     Rigidbody rb;
     AudioSource audioSource;
@@ -29,40 +29,38 @@ public class Script_BolaPong : MonoBehaviour
 
         Vector3 _direcao = t_move.forward;
 
-        Debug.DrawRay(transform.position, _direcao);
+        Debug.DrawRay(transform.position, _direcao); //mostra o raio no editor da unity
 
-        //Physics.Raycast(transform.position, t_move.forward, out RaycastHit _hit, layerMask);
         Physics.Raycast(transform.position, t_move.forward, out RaycastHit _hit, 50f);
 
-        if (_hit.collider)
+        if (_hit.collider) //se o raycast colidiu com algo
         {
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, _hit.point);
 
-            cu = "so colidiu";
+            debug_01 = "so colidiu";
 
-            if (_hit.collider.CompareTag("Parede"))
+            if (_hit.collider.CompareTag("Parede")) //se colidiu com a parede
             {
                 _direcao = Vector3.Reflect(_direcao, _hit.normal);
                 Debug.DrawRay(_hit.point, _direcao);
 
-                //Physics.Raycast(_hit.point, _direcao, out RaycastHit _hit2, layerMask);
                 Physics.Raycast(_hit.point, _direcao, out RaycastHit _hit2, 50f);
 
-                cu = "so parede";
+                debug_01 = "so parede";
 
-                if (_hit2.collider)
+                if (_hit2.collider) //se segundo raycast colidiu com algo
                 {
                     lr.SetPosition(2, _hit2.point);
 
-                    cu = "parede 2";
+                    debug_01 = "parede 2";
 
-                    if (_hit2.collider.CompareTag("Perigo"))
+                    if (_hit2.collider.CompareTag("Perigo")) //se houve colisao com a baliza do AR
                     {
                         perigo = true;
                         pos = _hit.point.z;
 
-                        cu = "perigo";
+                        debug_01 = "perigo";
                     }
                 }
                 else
@@ -70,9 +68,9 @@ public class Script_BolaPong : MonoBehaviour
                     lr.SetPosition(2, _hit.point);
                 }
             }
-            else if (_hit.collider.CompareTag("Perigo"))
+            else if (_hit.collider.CompareTag("Perigo")) //se a bola colidiu diretamente com o perigo (difere do rebatimento)
             {
-                cu = "so perigo";
+                debug_01 = "so perigo";
 
                 lr.SetPosition(2, _hit.point);
 
@@ -80,9 +78,9 @@ public class Script_BolaPong : MonoBehaviour
                 pos = _hit.point.z;
             }
         }
-        else
+        else //se nn houve colisao
         {
-            cu = "poha ninhua";
+            debug_01 = "nada";
 
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, transform.position);
@@ -96,9 +94,9 @@ public class Script_BolaPong : MonoBehaviour
             audioSource.PlayOneShot(audioClip[1]);
         }
 
-        if (cu == "so colidiu")
+        if (debug_01 == "so colidiu")
         {
-            ue = _hit.collider.name;
+            debug_02 = _hit.collider.name;
         }
     }
 
@@ -106,38 +104,38 @@ public class Script_BolaPong : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            MoveSpeedHorizontalToggle();
-            if (transform.position.x < -8.7f) MoveSpeedVerticalToggle();
-            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVerticalToggle();
-            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVerticalToggle();
+            MoveSpeedHorizontal_Toggle();
+            if (transform.position.x < -8.7f) MoveSpeedVertical_Toggle();
+            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVertical_Toggle();
+            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVertical_Toggle();
 
             audioSource.Play();
         }
 
         if (other.gameObject.CompareTag("IA"))
         {
-            MoveSpeedHorizontalToggle();
-            if (transform.position.x > 8.7f) MoveSpeedVerticalToggle();
-            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVerticalToggle();
-            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVerticalToggle();
+            MoveSpeedHorizontal_Toggle();
+            if (transform.position.x > 8.7f) MoveSpeedVertical_Toggle();
+            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVertical_Toggle();
+            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVertical_Toggle();
 
             audioSource.Play();
         }
 
         if (other.gameObject.CompareTag("Parede"))
         {
-            MoveSpeedVerticalToggle();
+            MoveSpeedVertical_Toggle();
 
             audioSource.Play();
         }
     }
 
-    void MoveSpeedHorizontalToggle()
+    void MoveSpeedHorizontal_Toggle()
     {
         rb.velocity = new Vector3(-rb.velocity.x, 0, rb.velocity.z);
     }
 
-    void MoveSpeedVerticalToggle()
+    void MoveSpeedVertical_Toggle()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, -rb.velocity.z);
     }

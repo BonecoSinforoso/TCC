@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class Script_GeralManager : MonoBehaviour
 {
+    public static Script_GeralManager instance;
+
     [SerializeField] CanvasGroup cg_pausa;
 
     [SerializeField] GameObject obj_fb;
     [SerializeField] TextMeshProUGUI txt_fb;
     [SerializeField] Color[] color_fb;
 
-    bool pausado = false;
-    public static Script_GeralManager instance;
+    bool pausado = false;    
 
-    private void Start()
+    void Start()
     {
         instance = this;
+
         Application.targetFrameRate = 60;
         Time.timeScale = 1;
     }

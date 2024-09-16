@@ -61,6 +61,7 @@ public class Script_IaInfinity : MonoBehaviour
         bloq_cen = false;
         bloq_dir = false;
 
+        //logica para definir qual espaco esta bloqueado/livre
         if (Physics.Raycast(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward, raioFrenteTamanho, 1 << 3)) bloq_esq = true;
         if (Physics.Raycast(new Vector3(17.5f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_esq = true;
 
@@ -70,11 +71,12 @@ public class Script_IaInfinity : MonoBehaviour
         if (Physics.Raycast(new Vector3(22.5f, 0.5f, transform.position.z), Vector3.forward, raioFrenteTamanho, 1 << 3)) bloq_dir = true;
         if (Physics.Raycast(new Vector3(22.5f, 2f, transform.position.z), Vector3.down, 2f, 1 << 3)) bloq_dir = true;
 
-        RaioDraw();
+        Raio_Draw();
 
         bool _carro = false;
 
-        //proprio
+        // Raycast emitido a partir da base do personagem, posicionado próximo ao chão
+        // Sua função é detectar obstáculos quando o personagem está caindo após um pulo        
         if (Physics.Raycast(new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit, 5f))
         {
             if (_hit.collider.CompareTag("Carro"))
@@ -101,6 +103,7 @@ public class Script_IaInfinity : MonoBehaviour
         lr[6].SetPosition(0, new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward);
         lr[6].SetPosition(1, new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward * raioFrenteTamanho);
 
+        //logica q define a acao se baseando nos locais livres/bloqueados
         if (bloq_esq)
         {
             if (transform.position.x < 19)
@@ -150,8 +153,8 @@ public class Script_IaInfinity : MonoBehaviour
             }
         }
 
-        //
-        if (esq)
+        //define para qual lugar ir
+        if (esq) //vai para esquerda
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(17.5f, transform.position.y, transform.position.z), t);
             if (Mathf.Abs(transform.position.x - 17.5f) < 0.05f)
@@ -160,12 +163,12 @@ public class Script_IaInfinity : MonoBehaviour
                 sentidoMudarPode = true;
             }
         }
-        else if (cen)
+        else if (cen) //vai para centro
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(20f, transform.position.y, transform.position.z), t);
             if (Mathf.Abs(transform.position.x - 20f) < 0.05f) cen = false;
         }
-        else if (dir)
+        else if (dir) //vai para direita
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(22.5f, transform.position.y, transform.position.z), t);
             if (Mathf.Abs(transform.position.x - 22.5f) < 0.05f)
@@ -190,7 +193,7 @@ public class Script_IaInfinity : MonoBehaviour
         Script_InfinityManager.instance.Perdeu_Set(1);
     }
 
-    void RaioDraw()
+    void Raio_Draw() //aqui eh onde os raios sao desenhados para o jogador
     {
         lr[0].startColor = bloq_esq ? Color.red : Color.green;
         lr[0].endColor = bloq_esq ? Color.red : Color.green;
