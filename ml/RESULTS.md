@@ -33,6 +33,14 @@ Modelo atual em `Assets/_ME/Models/Flap.onnx`: Flap01 (final). A meta do jogo eh
 | Run | Data | Passos | Tempo | Configuracao | Recompensas | Resultado |
 |---|---|---|---|---|---|---|
 | Infinity01 | 2026-11-16 | 400 mil (interrompido; previsto 1 M) | ~11 min | 3 raios (um por faixa) + 5 obs, decisao a cada 5 steps, 1a fileira a 30m | +0.02 por metro, bater -1 | nao aprendeu: recompensa de -0.40 a -0.30, morre na 1a ou 2a fileira (~32m) |
-| Infinity02 | 2026-11-16 | em andamento (previsto 1 M) | - | igual, com a 1a fileira a 15m | +0.1 por metro, bater -1 | a preencher |
+| Infinity02 | 2026-11-16 | ~100 mil (interrompido; previsto 1 M) | - | igual, com a 1a fileira a 15m | +0.1 por metro, bater -1 | nao aprendeu, igual ao Infinity01 |
+| Infinity03 | 2026-11-17 | 1 M | ~26 min | acao de faixa relativa (fica / uma para a esquerda / uma para a direita), troca de faixa na hora, uma acao por decisao | +0.1 por metro, bater -1 | aprendeu: recompensa de 0,85 para 11,5, ainda subindo no fim |
 
-Sem modelo do Infinity em `Assets/_ME/Models/` ainda.
+Medicao do Infinity03 (8 pistas da `InfinityTraining`, modelo em inferencia): media de 116 m por tentativa em
+582 tentativas, maximo 807 m, nenhuma chegada aos 1000 m (`_distanceToWin`).
+
+Modelo atual em `Assets/_ME/Models/Infinity.onnx`: Infinity03 (final).
+
+Leitura: o que destravou foi a acao de faixa. Com faixa absoluta (0/1/2) a politica aleatoria do inicio ficava
+oscilando em volta do meio e morria sempre na 1a fileira. A curva nao estabilizou em 1 M, entao mais passos
+devem melhorar.

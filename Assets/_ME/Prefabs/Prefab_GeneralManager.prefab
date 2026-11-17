@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 313640564640872539}
   - component: {fileID: 1158914241477071806}
   m_Layer: 5
-  m_Name: cg_pausa
+  m_Name: Cg_Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -922,7 +922,7 @@ GameObject:
   - component: {fileID: -8211785108775228152}
   - component: {fileID: 5582376355698141111}
   m_Layer: 0
-  m_Name: prefab_GeneralManager
+  m_Name: Prefab_GeneralManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -958,7 +958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseCg: {fileID: 1158914241477071806}
   _resultObject: {fileID: 4336631397073377752}
-  _resultText: {fileID: 0}
+  _resultText: {fileID: 4336631395256501748}
   _resultColors:
   - {r: 1, g: 0, b: 0, a: 0.78431374}
   - {r: 0, g: 1, b: 0.123636246, a: 0.78431374}
@@ -1232,6 +1232,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff9b2e989cda71f4c8f0d6f7f39d0050, type: 3}
+--- !u!114 &4336631395256501748 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5369296219278625156, guid: ff9b2e989cda71f4c8f0d6f7f39d0050, type: 3}
+  m_PrefabInstance: {fileID: 8551593735700434032}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4336631397073377752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5369296219610551720, guid: ff9b2e989cda71f4c8f0d6f7f39d0050, type: 3}

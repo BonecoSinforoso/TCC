@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7313433925927170175}
   - component: {fileID: 5549776138853576814}
   m_Layer: 0
-  m_Name: prefab_ps_fumaca
+  m_Name: Prefab_Ps_Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

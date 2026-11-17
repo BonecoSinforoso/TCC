@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1705132168032548221}
   m_Layer: 0
-  m_Name: prefab_obj_chao
+  m_Name: Prefab_Ground
   m_TagString: Chao
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

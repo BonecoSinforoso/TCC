@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 7756373854170426409}
   - component: {fileID: 6218854997009340821}
   m_Layer: 6
-  m_Name: prefab_obj_playerFlap
+  m_Name: Prefab_PlayerFlap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

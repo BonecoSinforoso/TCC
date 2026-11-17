@@ -155,7 +155,34 @@ namespace TCC
 
             PositionSensors();
 
-            if (_arena != null && pos.z - _startZ >= _distanceToWin) EndEpisode(); //chegou ao fim da pista
+            if (_arena != null && pos.z - _startZ >= _distanceToWin) //chegou ao fim da pista
+            {
+                Wins++;
+                CountEpisode();
+                EndEpisode();
+            }
+        }
+
+        //placar desde o Play (somado em todas as pistas), para medir o modelo
+        public static int Episodes;
+        public static int Wins;
+        public static float TotalDistance;
+        public static float MaxDistance;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetScore()
+        {
+            Episodes = 0;
+            Wins = 0;
+            TotalDistance = 0;
+            MaxDistance = 0;
+        }
+
+        private void CountEpisode()
+        {
+            Episodes++;
+            TotalDistance += Distance;
+            if (Distance > MaxDistance) MaxDistance = Distance;
         }
 
         private void PositionSensors()
@@ -175,6 +202,7 @@ namespace TCC
 
         private void Crash()
         {
+            CountEpisode();
             AddReward(_crashReward);
 
             if (_arena != null)

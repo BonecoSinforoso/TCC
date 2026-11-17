@@ -18,6 +18,9 @@ namespace TCC
         // chamado por evento de animacao
         public void PlayAudioClip()
         {
+            if (_footstepClips.Length == 0)
+                return;
+
             _audioSource.PlayOneShot(_footstepClips[Random.Range(0, _footstepClips.Length)]);
         }
 
