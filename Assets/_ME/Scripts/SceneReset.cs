@@ -1,12 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneReset : MonoBehaviour
+namespace TCC
 {
-    private void Update()
+    public class SceneReset : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.R)) ResetScene();
-    }
+        #region membros
 
-    public void ResetScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        #endregion
+
+        #region metodos
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.R)) ResetScene();
+        }
+
+        public void ResetScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        #endregion
+    }
 }

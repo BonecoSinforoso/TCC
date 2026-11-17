@@ -2,190 +2,217 @@
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-// Agente treinado (ML-Agents) da raquete do Pong.
-// Funciona dos dois lados da mesa: as observacoes sao espelhadas pelo lado em que a raquete esta.
-// Na cena de treino quem reinicia a partida eh o PongTrainingArena; na cena do jogo o campo "arena" fica vazio.
-//
-// Observacoes (9): z da raquete, x e z da bola, velocidade x e z da bola, diferenca de z bola-raquete,
-//                  energia, bola vindo na minha direcao, ponto previsto de chegada da bola.
-// Acao (1 ramo discreto de 3): 0 parado, 1 sobe (+z), 2 desce (-z).
-public class AgentPong : Agent
+namespace TCC
 {
-    public const int observacoesQuant = 9;
-    public const int acoesQuant = 3;
-
-    [SerializeField] private float moveSpeed = 7;
-    [SerializeField] private float posLimiteZ = 3.5f;
-    [SerializeField] private Transform t_bola;
-    [SerializeField] private Rigidbody rb_bola;
-
-    [Header("Energia (mesmas regras do Script_IaPong)")]
-    [SerializeField] private float energiaMax = 100;
-    [SerializeField] private float energiaAtual = 100;
-    [SerializeField] private float energiaConsumo = 100;
-    [SerializeField] private float energiaRecarga = 25;
-    [SerializeField] private float energiaMinMover = 5;
-    [SerializeField] private Transform t_energiaBarra;
-
-    [Header("Treino")]
-    [SerializeField] private PongTrainingArena arena;
-    [SerializeField] private float recompensaRebater = 1f;
-    [SerializeField] private float recompensaGolSofrido = -1f;
-    [SerializeField] private float recompensaGolFeito = 1f;
-    [SerializeField] private float recompensaPorStep = 0f; //penalidade por existir (opcional); ligada ela premia tomar gol logo
-
-    //normalizacao das observacoes
-    private const float campoX = 11f;
-    private const float campoZ = 5.5f;
-    private const float bolaSpeedMax = 12f;
-    private const float bolaLimiteZ = 5.25f; //parede (5.5) menos o raio da bola (0.25)
-
-    private Rigidbody rb;
-    private Transform t_centro; //referencia do meio da mesa (a arena no treino, o mundo no jogo)
-    private float lado; //-1 = raquete da esquerda, 1 = raquete da direita
-    private int acaoAtual;
-
-    public override void Initialize()
+    // Agente treinado (ML-Agents) da raquete do Pong.
+    // Funciona dos dois lados da mesa: as observacoes sao espelhadas pelo lado em que a raquete esta.
+    // Na cena de treino quem reinicia a partida eh o PongTrainingArena; na cena do jogo o campo "arena" fica vazio.
+    //
+    // Observacoes (9): z da raquete, x e z da bola, velocidade x e z da bola, diferenca de z bola-raquete,
+    //                  energia, bola vindo na minha direcao, ponto previsto de chegada da bola.
+    // Acao (1 ramo discreto de 3): 0 parado, 1 sobe (+z), 2 desce (-z).
+    public class AgentPong : Agent
     {
-        rb = GetComponent<Rigidbody>();
-        t_centro = arena != null ? arena.transform : null;
-        lado = PosLocal(transform.position).x < 0 ? -1 : 1;
-    }
+        #region membros
 
-    public void Configurar(PongTrainingArena _arena, Transform _t_bola, Rigidbody _rb_bola, Transform _t_energiaBarra)
-    {
-        arena = _arena;
-        t_bola = _t_bola;
-        rb_bola = _rb_bola;
-        t_energiaBarra = _t_energiaBarra;
-    }
+        public const int ObservationCount = 9;
+        public const int ActionCount = 3;
 
-    public override void OnEpisodeBegin()
-    {
-        acaoAtual = 0;
+        [FormerlySerializedAs("moveSpeed")]
+        [SerializeField] private float _moveSpeed = 7;
+        [FormerlySerializedAs("posLimiteZ")]
+        [SerializeField] private float _limitZ = 3.5f;
+        [FormerlySerializedAs("t_bola")]
+        [SerializeField] private Transform _ballTransform;
+        [FormerlySerializedAs("rb_bola")]
+        [SerializeField] private Rigidbody _ballRigidbody;
 
-        if (arena == null) return; //no jogo quem controla a partida eh o Script_PongManager
+        [Header("Energia (mesmas regras do IaPong)")]
+        [FormerlySerializedAs("energiaMax")]
+        [SerializeField] private float _maxEnergy = 100;
+        [FormerlySerializedAs("energiaAtual")]
+        [SerializeField] private float _currentEnergy = 100;
+        [FormerlySerializedAs("energiaConsumo")]
+        [SerializeField] private float _energyConsumption = 100;
+        [FormerlySerializedAs("energiaRecarga")]
+        [SerializeField] private float _energyRecharge = 25;
+        [FormerlySerializedAs("energiaMinMover")]
+        [SerializeField] private float _minEnergyToMove = 5;
+        [FormerlySerializedAs("t_energiaBarra")]
+        [SerializeField] private Transform _energyBarTransform;
 
-        energiaAtual = energiaMax;
-        rb.linearVelocity = Vector3.zero;
+        [Header("Treino")]
+        [FormerlySerializedAs("arena")]
+        [SerializeField] private PongTrainingArena _arena;
+        [FormerlySerializedAs("recompensaRebater")]
+        [SerializeField] private float _hitReward = 1f;
+        [FormerlySerializedAs("recompensaGolSofrido")]
+        [SerializeField] private float _goalConcededReward = -1f;
+        [FormerlySerializedAs("recompensaGolFeito")]
+        [SerializeField] private float _goalScoredReward = 1f;
+        [FormerlySerializedAs("recompensaPorStep")]
+        [SerializeField] private float _rewardPerStep = 0f; //penalidade por existir (opcional); ligada ela premia tomar gol logo
 
-        Vector3 _pos = PosLocal(transform.position);
-        _pos.z = Random.Range(-posLimiteZ, posLimiteZ);
-        transform.position = PosMundo(_pos);
+        //normalizacao das observacoes
+        private const float _fieldX = 11f;
+        private const float _fieldZ = 5.5f;
+        private const float _maxBallSpeed = 12f;
+        private const float _ballLimitZ = 5.25f; //parede (5.5) menos o raio da bola (0.25)
 
-        arena.Reiniciar();
-    }
+        private Rigidbody _rigidbody;
+        private Transform _centerTransform; //referencia do meio da mesa (a arena no treino, o mundo no jogo)
+        private float _side; //-1 = raquete da esquerda, 1 = raquete da direita
+        private int _currentAction;
 
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        Vector3 _raquete = PosLocal(transform.position);
-        Vector3 _bola = PosLocal(t_bola.position);
-        Vector3 _bolaVel = rb_bola.linearVelocity;
+        #endregion
 
-        sensor.AddObservation(_raquete.z / posLimiteZ);
-        sensor.AddObservation(Mathf.Clamp(_bola.x * lado / campoX, -1f, 1f)); //1 = bola no meu gol
-        sensor.AddObservation(Mathf.Clamp(_bola.z / campoZ, -1f, 1f));
-        sensor.AddObservation(Mathf.Clamp(_bolaVel.x * lado / bolaSpeedMax, -1f, 1f));
-        sensor.AddObservation(Mathf.Clamp(_bolaVel.z / bolaSpeedMax, -1f, 1f));
-        sensor.AddObservation(Mathf.Clamp((_bola.z - _raquete.z) / (campoZ * 2), -1f, 1f));
-        sensor.AddObservation(energiaAtual / energiaMax);
-        sensor.AddObservation(_bolaVel.x * lado > 0 ? 1f : 0f); //bola vindo em direcao ao meu gol
-        sensor.AddObservation(Mathf.Clamp(BolaChegada_Calcular(_raquete, _bola, _bolaVel) / (campoZ * 2), -1f, 1f));
-    }
+        #region metodos
 
-    // Onde a bola vai cruzar a linha da raquete (ja contando as rebatidas nas paredes), relativo ao z da raquete.
-    // Eh a mesma informacao que o agente reativo tira dos raycasts de trajetoria do Script_BolaPong.
-    // Com a bola indo para o outro lado devolve 0.
-    private float BolaChegada_Calcular(Vector3 _raquete, Vector3 _bola, Vector3 _bolaVel)
-    {
-        if (_bolaVel.x * lado <= 0) return 0;
-
-        float _tempo = (_raquete.x - _bola.x) / _bolaVel.x;
-        if (_tempo < 0) return 0; //bola ja passou da raquete
-
-        //"desdobra" o caminho da bola como se as paredes fossem espelhos
-        float _z = Mathf.Repeat(_bola.z + _bolaVel.z * _tempo + bolaLimiteZ, bolaLimiteZ * 4);
-        _z = _z < bolaLimiteZ * 2 ? _z - bolaLimiteZ : bolaLimiteZ * 3 - _z;
-
-        return _z - _raquete.z;
-    }
-
-    public override void OnActionReceived(ActionBuffers actions)
-    {
-        acaoAtual = actions.DiscreteActions[0];
-
-        AddReward(recompensaPorStep);
-    }
-
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        ActionSegment<int> _acoes = actionsOut.DiscreteActions;
-        float _v = Input.GetAxisRaw("Vertical");
-
-        _acoes[0] = _v > 0 ? 1 : _v < 0 ? 2 : 0;
-    }
-
-    private void FixedUpdate()
-    {
-        float _z = PosLocal(transform.position).z;
-        bool _andou = false;
-
-        if (energiaAtual > energiaMinMover)
+        public override void Initialize()
         {
-            if (acaoAtual == 1 && _z < posLimiteZ)
+            _rigidbody = GetComponent<Rigidbody>();
+            _centerTransform = _arena != null ? _arena.transform : null;
+            _side = ToLocalPos(transform.position).x < 0 ? -1 : 1;
+        }
+
+        public void Configure(PongTrainingArena arena, Transform newBall, Rigidbody newBallBody, Transform newEnergyBar)
+        {
+            _arena = arena;
+            _ballTransform = newBall;
+            _ballRigidbody = newBallBody;
+            _energyBarTransform = newEnergyBar;
+        }
+
+        public override void OnEpisodeBegin()
+        {
+            _currentAction = 0;
+
+            if (_arena == null) return; //no jogo quem controla a partida eh o PongManager
+
+            _currentEnergy = _maxEnergy;
+            _rigidbody.linearVelocity = Vector3.zero;
+
+            Vector3 pos = ToLocalPos(transform.position);
+            pos.z = Random.Range(-_limitZ, _limitZ);
+            transform.position = ToWorldPos(pos);
+
+            _arena.Restart();
+        }
+
+        public override void CollectObservations(VectorSensor sensor)
+        {
+            Vector3 paddle = ToLocalPos(transform.position);
+            Vector3 ball = ToLocalPos(_ballTransform.position);
+            Vector3 ballVel = _ballRigidbody.linearVelocity;
+
+            sensor.AddObservation(paddle.z / _limitZ);
+            sensor.AddObservation(Mathf.Clamp(ball.x * _side / _fieldX, -1f, 1f)); //1 = bola no meu gol
+            sensor.AddObservation(Mathf.Clamp(ball.z / _fieldZ, -1f, 1f));
+            sensor.AddObservation(Mathf.Clamp(ballVel.x * _side / _maxBallSpeed, -1f, 1f));
+            sensor.AddObservation(Mathf.Clamp(ballVel.z / _maxBallSpeed, -1f, 1f));
+            sensor.AddObservation(Mathf.Clamp((ball.z - paddle.z) / (_fieldZ * 2), -1f, 1f));
+            sensor.AddObservation(_currentEnergy / _maxEnergy);
+            sensor.AddObservation(ballVel.x * _side > 0 ? 1f : 0f); //bola vindo em direcao ao meu gol
+            sensor.AddObservation(Mathf.Clamp(CalculateBallArrival(paddle, ball, ballVel) / (_fieldZ * 2), -1f, 1f));
+        }
+
+        // Onde a bola vai cruzar a linha da raquete (ja contando as rebatidas nas paredes), relativo ao z da raquete.
+        // Eh a mesma informacao que o agente reativo tira dos raycasts de trajetoria do BolaPong.
+        // Com a bola indo para o outro lado devolve 0.
+        private float CalculateBallArrival(Vector3 paddle, Vector3 ball, Vector3 ballVel)
+        {
+            if (ballVel.x * _side <= 0) return 0;
+
+            float time = (paddle.x - ball.x) / ballVel.x;
+            if (time < 0) return 0; //bola ja passou da raquete
+
+            //"desdobra" o caminho da bola como se as paredes fossem espelhos
+            float z = Mathf.Repeat(ball.z + ballVel.z * time + _ballLimitZ, _ballLimitZ * 4);
+            z = z < _ballLimitZ * 2 ? z - _ballLimitZ : _ballLimitZ * 3 - z;
+
+            return z - paddle.z;
+        }
+
+        public override void OnActionReceived(ActionBuffers actions)
+        {
+            _currentAction = actions.DiscreteActions[0];
+
+            AddReward(_rewardPerStep);
+        }
+
+        public override void Heuristic(in ActionBuffers actionsOut)
+        {
+            ActionSegment<int> actionSegment = actionsOut.DiscreteActions;
+            float v = Input.GetAxisRaw("Vertical");
+
+            actionSegment[0] = v > 0 ? 1 : v < 0 ? 2 : 0;
+        }
+
+        private void FixedUpdate()
+        {
+            float z = ToLocalPos(transform.position).z;
+            bool moved = false;
+
+            if (_currentEnergy > _minEnergyToMove)
             {
-                rb.linearVelocity = Vector3.forward * moveSpeed;
-                _andou = true;
+                if (_currentAction == 1 && z < _limitZ)
+                {
+                    _rigidbody.linearVelocity = Vector3.forward * _moveSpeed;
+                    moved = true;
+                }
+                else if (_currentAction == 2 && z > -_limitZ)
+                {
+                    _rigidbody.linearVelocity = Vector3.back * _moveSpeed;
+                    moved = true;
+                }
             }
-            else if (acaoAtual == 2 && _z > -posLimiteZ)
+
+            if (moved) //se andou diminui a energia
             {
-                rb.linearVelocity = Vector3.back * moveSpeed;
-                _andou = true;
+                _currentEnergy -= _energyConsumption * Time.fixedDeltaTime;
+                if (_currentEnergy < 0) _currentEnergy = 0;
             }
+            else //se nn andou, aumenta a energia e para a raquete
+            {
+                _currentEnergy += _energyRecharge * Time.fixedDeltaTime;
+                if (_currentEnergy > _maxEnergy) _currentEnergy = _maxEnergy;
+
+                _rigidbody.linearVelocity = Vector3.zero;
+            }
+
+            if (_energyBarTransform != null) _energyBarTransform.localScale = new Vector3(1, 1, _currentEnergy / _maxEnergy);
         }
 
-        if (_andou) //se andou diminui a energia
+        //chamados pela arena de treino
+        public void HitBall()
         {
-            energiaAtual -= energiaConsumo * Time.fixedDeltaTime;
-            if (energiaAtual < 0) energiaAtual = 0;
+            AddReward(_hitReward);
         }
-        else //se nn andou, aumenta a energia e para a raquete
+
+        public void ConcedeGoal()
         {
-            energiaAtual += energiaRecarga * Time.fixedDeltaTime;
-            if (energiaAtual > energiaMax) energiaAtual = energiaMax;
-
-            rb.linearVelocity = Vector3.zero;
+            AddReward(_goalConcededReward);
+            EndEpisode();
         }
 
-        if (t_energiaBarra != null) t_energiaBarra.localScale = new Vector3(1, 1, energiaAtual / energiaMax);
-    }
+        public void ScoreGoal()
+        {
+            AddReward(_goalScoredReward);
+            EndEpisode();
+        }
 
-    //chamados pela arena de treino
-    public void Rebateu()
-    {
-        AddReward(recompensaRebater);
-    }
+        private Vector3 ToLocalPos(Vector3 pos)
+        {
+            return _centerTransform != null ? _centerTransform.InverseTransformPoint(pos) : pos;
+        }
 
-    public void GolSofrido()
-    {
-        AddReward(recompensaGolSofrido);
-        EndEpisode();
-    }
+        private Vector3 ToWorldPos(Vector3 pos)
+        {
+            return _centerTransform != null ? _centerTransform.TransformPoint(pos) : pos;
+        }
 
-    public void GolFeito()
-    {
-        AddReward(recompensaGolFeito);
-        EndEpisode();
-    }
-
-    private Vector3 PosLocal(Vector3 _pos)
-    {
-        return t_centro != null ? t_centro.InverseTransformPoint(_pos) : _pos;
-    }
-
-    private Vector3 PosMundo(Vector3 _pos)
-    {
-        return t_centro != null ? t_centro.TransformPoint(_pos) : _pos;
+        #endregion
     }
 }

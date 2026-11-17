@@ -8,123 +8,134 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Monta a cena de treino do Infinity (varias pistas lado a lado) pelo menu TCC > ML-Agents.
-// O corredor tem as medidas do prefab_obj_ia (colisor 0.5 x 1 x 0.5, pulo 6); os obstaculos sao criados
-// pelo InfinityTrainingArena ao dar Play.
-public static class InfinityTrainingSceneBuilder
+namespace TCC
 {
-    private const string cenaPath = "Assets/_ME/Scenes/Training/InfinityTraining.unity";
-    private const string behaviorName = "Infinity";
-
-    private const int pistasQuant = 8;
-    private const float espacoX = 20f; //mesma distancia entre as pistas do jogo
-    private const float pistaTamanho = 1300f;
-    private const float faixaDist = 2.5f;
-    private const float raioTamanho = 20f;
-
-    [MenuItem("TCC/ML-Agents/Criar cena de treino - Infinity")]
-    private static void Cena_Criar()
+    // Monta a cena de treino do Infinity (varias pistas lado a lado) pelo menu TCC > ML-Agents.
+    // O corredor tem as medidas do prefab_obj_ia (colisor 0.5 x 1 x 0.5, pulo 6); os obstaculos sao criados
+    // pelo InfinityTrainingArena ao dar Play.
+    public static class InfinityTrainingSceneBuilder
     {
-        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+        #region membros
 
-        Scene _cena = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        private const string _scenePath = "Assets/_ME/Scenes/Training/InfinityTraining.unity";
+        private const string behaviorName = "Infinity";
 
-        GameObject _luz = new GameObject("Directional Light");
-        _luz.AddComponent<Light>().type = LightType.Directional;
-        _luz.transform.rotation = Quaternion.Euler(50, -30, 0);
+        private const int _trackCount = 8;
+        private const float _spacingX = 20f; //mesma distancia entre as pistas do jogo
+        private const float _trackLength = 1300f;
+        private const float _laneDistance = 2.5f;
+        private const float _rayLength = 20f;
 
-        Transform _primeiroAgente = null;
+        #endregion
 
-        for (int i = 0; i < pistasQuant; i++)
+        #region metodos
+
+        [MenuItem("TCC/ML-Agents/Criar cena de treino - Infinity")]
+        private static void CreateScene()
         {
-            Transform _agente = Pista_Criar("pista_" + i.ToString("00"), new Vector3(i * espacoX, 0, 0));
-            if (i == 0) _primeiroAgente = _agente;
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+            GameObject light = new GameObject("Directional Light");
+            light.AddComponent<Light>().type = LightType.Directional;
+            light.transform.rotation = Quaternion.Euler(50, -30, 0);
+
+            Transform firstAgent = null;
+
+            for (int i = 0; i < _trackCount; i++)
+            {
+                Transform agent = CreateTrack("pista_" + i.ToString("00"), new Vector3(i * _spacingX, 0, 0));
+                if (i == 0) firstAgent = agent;
+            }
+
+            //camera presa no primeiro corredor, so para acompanhar o treino
+            GameObject camera = new GameObject("Main Camera") { tag = "MainCamera" };
+            camera.AddComponent<Camera>().farClipPlane = 150;
+            camera.AddComponent<AudioListener>();
+            camera.transform.SetParent(firstAgent, false);
+            camera.transform.localPosition = new Vector3(0, 6, -8);
+            camera.transform.localRotation = Quaternion.Euler(25, 0, 0);
+
+            EditorSceneManager.SaveScene(scene, _scenePath);
+            Debug.Log("Cena de treino do Infinity criada em " + _scenePath);
         }
 
-        //camera presa no primeiro corredor, so para acompanhar o treino
-        GameObject _camera = new GameObject("Main Camera") { tag = "MainCamera" };
-        _camera.AddComponent<Camera>().farClipPlane = 150;
-        _camera.AddComponent<AudioListener>();
-        _camera.transform.SetParent(_primeiroAgente, false);
-        _camera.transform.localPosition = new Vector3(0, 6, -8);
-        _camera.transform.localRotation = Quaternion.Euler(25, 0, 0);
+        private static Transform CreateTrack(string name, Vector3 pos)
+        {
+            GameObject track = new GameObject(name);
+            track.transform.position = pos;
 
-        EditorSceneManager.SaveScene(_cena, cenaPath);
-        Debug.Log("Cena de treino do Infinity criada em " + cenaPath);
-    }
+            InfinityTrainingArena arena = track.AddComponent<InfinityTrainingArena>();
 
-    private static Transform Pista_Criar(string _nome, Vector3 _pos)
-    {
-        GameObject _pista = new GameObject(_nome);
-        _pista.transform.position = _pos;
+            //chao: uma pista comprida so, com a face de cima em y = 0 (no jogo sao dois planos que vao se revezando)
+            GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            ground.name = "obj_chao";
+            ground.tag = "Chao";
+            ground.transform.SetParent(track.transform, false);
+            ground.transform.localPosition = new Vector3(0, -0.5f, _trackLength / 2 - 50);
+            ground.transform.localScale = new Vector3(10, 1, _trackLength);
 
-        InfinityTrainingArena _arena = _pista.AddComponent<InfinityTrainingArena>();
+            //corredor
+            GameObject agentObj = new GameObject("obj_agentInfinity");
+            agentObj.transform.SetParent(track.transform, false);
+            agentObj.transform.localPosition = new Vector3(0, 0.1f, 0);
 
-        //chao: uma pista comprida so, com a face de cima em y = 0 (no jogo sao dois planos que vao se revezando)
-        GameObject _chao = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        _chao.name = "obj_chao";
-        _chao.tag = "Chao";
-        _chao.transform.SetParent(_pista.transform, false);
-        _chao.transform.localPosition = new Vector3(0, -0.5f, pistaTamanho / 2 - 50);
-        _chao.transform.localScale = new Vector3(10, 1, pistaTamanho);
+            BoxCollider col = agentObj.AddComponent<BoxCollider>();
+            col.size = new Vector3(0.5f, 1, 0.5f);
+            col.center = new Vector3(0, 0.5f, 0);
 
-        //corredor
-        GameObject _agenteObj = new GameObject("obj_agentInfinity");
-        _agenteObj.transform.SetParent(_pista.transform, false);
-        _agenteObj.transform.localPosition = new Vector3(0, 0.1f, 0);
+            agentObj.AddComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
-        BoxCollider _col = _agenteObj.AddComponent<BoxCollider>();
-        _col.size = new Vector3(0.5f, 1, 0.5f);
-        _col.center = new Vector3(0, 0.5f, 0);
+            GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            mesh.name = "mesh";
+            Object.DestroyImmediate(mesh.GetComponent<Collider>());
+            mesh.transform.SetParent(agentObj.transform, false);
+            mesh.transform.localPosition = new Vector3(0, 0.5f, 0);
+            mesh.transform.localScale = new Vector3(0.5f, 1, 0.5f);
 
-        _agenteObj.AddComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            //sensores: um raio para frente em cada faixa
+            GameObject sensors = new GameObject("emp_sensores");
+            sensors.transform.SetParent(agentObj.transform, false);
 
-        GameObject _mesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        _mesh.name = "mesh";
-        Object.DestroyImmediate(_mesh.GetComponent<Collider>());
-        _mesh.transform.SetParent(_agenteObj.transform, false);
-        _mesh.transform.localPosition = new Vector3(0, 0.5f, 0);
-        _mesh.transform.localScale = new Vector3(0.5f, 1, 0.5f);
+            CreateSensor(sensors.transform, "RaioFaixa0Esq", -_laneDistance);
+            CreateSensor(sensors.transform, "RaioFaixa1Cen", 0);
+            CreateSensor(sensors.transform, "RaioFaixa2Dir", _laneDistance);
 
-        //sensores: um raio para frente em cada faixa
-        GameObject _sensores = new GameObject("emp_sensores");
-        _sensores.transform.SetParent(_agenteObj.transform, false);
+            AgentInfinity agent = agentObj.AddComponent<AgentInfinity>(); //ja adiciona o Behavior Parameters
+            agent.MaxStep = 0; //o episodio acaba ao bater ou ao chegar nos 1000m
+            agent.Configure(arena, sensors.transform);
 
-        Sensor_Criar(_sensores.transform, "RaioFaixa0Esq", -faixaDist);
-        Sensor_Criar(_sensores.transform, "RaioFaixa1Cen", 0);
-        Sensor_Criar(_sensores.transform, "RaioFaixa2Dir", faixaDist);
+            BehaviorParameters behavior = agentObj.GetComponent<BehaviorParameters>();
+            behavior.BehaviorName = behaviorName;
+            behavior.BrainParameters.VectorObservationSize = AgentInfinity.ObservationCount;
+            behavior.BrainParameters.ActionSpec = ActionSpec.MakeDiscrete(AgentInfinity.LaneCount, 2);
+            behavior.UseChildSensors = true;
 
-        AgentInfinity _agente = _agenteObj.AddComponent<AgentInfinity>(); //ja adiciona o Behavior Parameters
-        _agente.MaxStep = 0; //o episodio acaba ao bater ou ao chegar nos 1000m
-        _agente.Configurar(_arena, _sensores.transform);
+            DecisionRequester decision = agentObj.AddComponent<DecisionRequester>();
+            decision.DecisionPeriod = 5;
+            decision.TakeActionsBetweenDecisions = false; //cada decisao vale um toque de tecla
 
-        BehaviorParameters _behavior = _agenteObj.GetComponent<BehaviorParameters>();
-        _behavior.BehaviorName = behaviorName;
-        _behavior.BrainParameters.VectorObservationSize = AgentInfinity.observacoesQuant;
-        _behavior.BrainParameters.ActionSpec = ActionSpec.MakeDiscrete(AgentInfinity.faixasQuant, 2);
-        _behavior.UseChildSensors = true;
+            return agentObj.transform;
+        }
 
-        DecisionRequester _decisao = _agenteObj.AddComponent<DecisionRequester>();
-        _decisao.DecisionPeriod = 5;
-        _decisao.TakeActionsBetweenDecisions = false; //cada decisao vale um toque de tecla
+        private static void CreateSensor(Transform parent, string name, float x)
+        {
+            GameObject obj = new GameObject(name);
+            obj.transform.SetParent(parent, false);
+            obj.transform.localPosition = new Vector3(x, 0, 0.5f);
 
-        return _agenteObj.transform;
-    }
+            RayPerceptionSensorComponent3D sensor = obj.AddComponent<RayPerceptionSensorComponent3D>();
+            sensor.SensorName = name;
+            sensor.DetectableTags = new List<string> { "Carro", "Onibus" };
+            sensor.RaysPerDirection = 0; //so o raio do meio (para frente)
+            sensor.RayLength = _rayLength;
+            sensor.SphereCastRadius = 0.2f;
+            sensor.StartVerticalOffset = 0.3f;
+            sensor.EndVerticalOffset = 0.3f;
+            sensor.RayLayerMask = (1 << 0) | (1 << 3); //Default (carro) e Obstaculo (onibus)
+        }
 
-    private static void Sensor_Criar(Transform _pai, string _nome, float _x)
-    {
-        GameObject _obj = new GameObject(_nome);
-        _obj.transform.SetParent(_pai, false);
-        _obj.transform.localPosition = new Vector3(_x, 0, 0.5f);
-
-        RayPerceptionSensorComponent3D _sensor = _obj.AddComponent<RayPerceptionSensorComponent3D>();
-        _sensor.SensorName = _nome;
-        _sensor.DetectableTags = new List<string> { "Carro", "Onibus" };
-        _sensor.RaysPerDirection = 0; //so o raio do meio (para frente)
-        _sensor.RayLength = raioTamanho;
-        _sensor.SphereCastRadius = 0.2f;
-        _sensor.StartVerticalOffset = 0.3f;
-        _sensor.EndVerticalOffset = 0.3f;
-        _sensor.RayLayerMask = (1 << 0) | (1 << 3); //Default (carro) e Obstaculo (onibus)
+        #endregion
     }
 }

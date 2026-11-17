@@ -6,131 +6,142 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Monta a cena de treino do Pong (varias mesas lado a lado) pelo menu TCC > ML-Agents.
-// As medidas sao as mesmas da Scene_gamePong: raquetes em x = +-9, paredes em z = +-6, bola com raio 0.25.
-public static class PongTrainingSceneBuilder
+namespace TCC
 {
-    private const string cenaPath = "Assets/_ME/Scenes/Training/PongTraining.unity";
-    private const string behaviorName = "Pong";
-
-    private const int colunas = 4;
-    private const int linhas = 3;
-    private const float espacoX = 32f;
-    private const float espacoZ = 14f;
-
-    [MenuItem("TCC/ML-Agents/Criar cena de treino - Pong")]
-    private static void Cena_Criar()
+    // Monta a cena de treino do Pong (varias mesas lado a lado) pelo menu TCC > ML-Agents.
+    // As medidas sao as mesmas da Scene_PongGame: raquetes em x = +-9, paredes em z = +-6, bola com raio 0.25.
+    public static class PongTrainingSceneBuilder
     {
-        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+        #region membros
 
-        Scene _cena = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        private const string _scenePath = "Assets/_ME/Scenes/Training/PongTraining.unity";
+        private const string behaviorName = "Pong";
 
-        float _largura = (colunas - 1) * espacoX;
-        float _altura = (linhas - 1) * espacoZ;
+        private const int _columns = 4;
+        private const int _rows = 3;
+        private const float _spacingX = 32f;
+        private const float _spacingZ = 14f;
 
-        GameObject _camera = new GameObject("Main Camera") { tag = "MainCamera" };
-        Camera _cam = _camera.AddComponent<Camera>();
-        _cam.orthographic = true;
-        _cam.orthographicSize = (_altura + espacoZ) / 2;
-        _cam.clearFlags = CameraClearFlags.SolidColor;
-        _cam.backgroundColor = new Color(0.1f, 0.1f, 0.12f);
-        _camera.AddComponent<AudioListener>();
-        _camera.transform.SetPositionAndRotation(new Vector3(_largura / 2, 20, _altura / 2), Quaternion.Euler(90, 0, 0));
+        #endregion
 
-        GameObject _luz = new GameObject("Directional Light");
-        _luz.AddComponent<Light>().type = LightType.Directional;
-        _luz.transform.rotation = Quaternion.Euler(60, 30, 0);
+        #region metodos
 
-        for (int l = 0; l < linhas; l++)
+        [MenuItem("TCC/ML-Agents/Criar cena de treino - Pong")]
+        private static void CreateScene()
         {
-            for (int c = 0; c < colunas; c++)
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+            float width = (_columns - 1) * _spacingX;
+            float height = (_rows - 1) * _spacingZ;
+
+            GameObject camera = new GameObject("Main Camera") { tag = "MainCamera" };
+            Camera cam = camera.AddComponent<Camera>();
+            cam.orthographic = true;
+            cam.orthographicSize = (height + _spacingZ) / 2;
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = new Color(0.1f, 0.1f, 0.12f);
+            camera.AddComponent<AudioListener>();
+            camera.transform.SetPositionAndRotation(new Vector3(width / 2, 20, height / 2), Quaternion.Euler(90, 0, 0));
+
+            GameObject light = new GameObject("Directional Light");
+            light.AddComponent<Light>().type = LightType.Directional;
+            light.transform.rotation = Quaternion.Euler(60, 30, 0);
+
+            for (int l = 0; l < _rows; l++)
             {
-                Arena_Criar("arena_" + (l * colunas + c).ToString("00"), new Vector3(c * espacoX, 0, l * espacoZ));
+                for (int c = 0; c < _columns; c++)
+                {
+                    CreateArena("arena_" + (l * _columns + c).ToString("00"), new Vector3(c * _spacingX, 0, l * _spacingZ));
+                }
             }
+
+            EditorSceneManager.SaveScene(scene, _scenePath);
+            Debug.Log("Cena de treino do Pong criada em " + _scenePath);
         }
 
-        EditorSceneManager.SaveScene(_cena, cenaPath);
-        Debug.Log("Cena de treino do Pong criada em " + cenaPath);
-    }
+        private static void CreateArena(string name, Vector3 pos)
+        {
+            GameObject arena = new GameObject(name);
+            arena.transform.position = pos;
 
-    private static void Arena_Criar(string _nome, Vector3 _pos)
-    {
-        GameObject _arena = new GameObject(_nome);
-        _arena.transform.position = _pos;
+            CreateWall(arena.transform, 6);
+            CreateWall(arena.transform, -6);
 
-        Parede_Criar(_arena.transform, 6);
-        Parede_Criar(_arena.transform, -6);
+            //bola
+            GameObject ball = new GameObject("obj_bola");
+            ball.transform.SetParent(arena.transform, false);
+            SphereCollider ballCollider = ball.AddComponent<SphereCollider>();
+            ballCollider.isTrigger = true;
+            ballCollider.radius = 0.25f;
+            Rigidbody ballRigidbody = ball.AddComponent<Rigidbody>();
+            ballRigidbody.useGravity = false;
+            ballRigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+            CreateMesh(ball.transform, PrimitiveType.Sphere, Vector3.one * 0.5f);
+            ball.AddComponent<PongTrainingBall>().Configure(arena.transform);
 
-        //bola
-        GameObject _bola = new GameObject("obj_bola");
-        _bola.transform.SetParent(_arena.transform, false);
-        SphereCollider _bolaCol = _bola.AddComponent<SphereCollider>();
-        _bolaCol.isTrigger = true;
-        _bolaCol.radius = 0.25f;
-        Rigidbody _rb_bola = _bola.AddComponent<Rigidbody>();
-        _rb_bola.useGravity = false;
-        _rb_bola.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-        Mesh_Criar(_bola.transform, PrimitiveType.Sphere, Vector3.one * 0.5f);
-        _bola.AddComponent<PongTrainingBall>().Configurar(_arena.transform);
+            //agente (esquerda, no lugar do jogador) e adversario reativo (direita, igual ao jogo)
+            GameObject agentObj = CreatePaddle(arena.transform, "obj_agentPong", "Player", -9);
+            GameObject opponentObj = CreatePaddle(arena.transform, "obj_oponentePong", "IA", 9);
 
-        //agente (esquerda, no lugar do jogador) e adversario reativo (direita, igual ao jogo)
-        GameObject _agenteObj = Raquete_Criar(_arena.transform, "obj_agentPong", "Player", -9);
-        GameObject _oponenteObj = Raquete_Criar(_arena.transform, "obj_oponentePong", "IA", 9);
+            PongTrainingOpponent opponent = opponentObj.AddComponent<PongTrainingOpponent>();
+            opponent.Configure(arena.transform, ballRigidbody);
 
-        PongTrainingOpponent _oponente = _oponenteObj.AddComponent<PongTrainingOpponent>();
-        _oponente.Configurar(_arena.transform, _rb_bola);
+            PongTrainingArena arenaScript = arena.AddComponent<PongTrainingArena>();
 
-        PongTrainingArena _arenaScript = _arena.AddComponent<PongTrainingArena>();
+            AgentPong agent = agentObj.AddComponent<AgentPong>(); //ja adiciona o Behavior Parameters
+            agent.MaxStep = 3000; //60s de partida (0.02s por step), igual ao _matchDuration
+            agent.Configure(arenaScript, ball.transform, ballRigidbody, null);
 
-        AgentPong _agente = _agenteObj.AddComponent<AgentPong>(); //ja adiciona o Behavior Parameters
-        _agente.MaxStep = 3000; //60s de partida (0.02s por step), igual ao fbGanharTempo
-        _agente.Configurar(_arenaScript, _bola.transform, _rb_bola, null);
+            BehaviorParameters behavior = agentObj.GetComponent<BehaviorParameters>();
+            behavior.BehaviorName = behaviorName;
+            behavior.BrainParameters.VectorObservationSize = AgentPong.ObservationCount;
+            behavior.BrainParameters.ActionSpec = ActionSpec.MakeDiscrete(AgentPong.ActionCount);
 
-        BehaviorParameters _behavior = _agenteObj.GetComponent<BehaviorParameters>();
-        _behavior.BehaviorName = behaviorName;
-        _behavior.BrainParameters.VectorObservationSize = AgentPong.observacoesQuant;
-        _behavior.BrainParameters.ActionSpec = ActionSpec.MakeDiscrete(AgentPong.acoesQuant);
+            DecisionRequester decision = agentObj.AddComponent<DecisionRequester>();
+            decision.DecisionPeriod = 2; //o reativo decide todo frame; decidir mais vezes gasta menos energia a toa
+            decision.TakeActionsBetweenDecisions = true;
 
-        DecisionRequester _decisao = _agenteObj.AddComponent<DecisionRequester>();
-        _decisao.DecisionPeriod = 2; //o reativo decide todo frame; decidir mais vezes gasta menos energia a toa
-        _decisao.TakeActionsBetweenDecisions = true;
+            arenaScript.Configure(ballRigidbody, agent, opponent);
+        }
 
-        _arenaScript.Configurar(_rb_bola, _agente, _oponente);
-    }
+        private static void CreateWall(Transform parent, float z)
+        {
+            GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.name = "col_parede";
+            wall.tag = "Parede";
+            wall.transform.SetParent(parent, false);
+            wall.transform.localPosition = new Vector3(0, 0, z);
+            wall.transform.localScale = new Vector3(30, 1, 1);
+        }
 
-    private static void Parede_Criar(Transform _pai, float _z)
-    {
-        GameObject _parede = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        _parede.name = "col_parede";
-        _parede.tag = "Parede";
-        _parede.transform.SetParent(_pai, false);
-        _parede.transform.localPosition = new Vector3(0, 0, _z);
-        _parede.transform.localScale = new Vector3(30, 1, 1);
-    }
+        private static GameObject CreatePaddle(Transform parent, string name, string tag, float x)
+        {
+            GameObject paddle = new GameObject(name) { tag = tag };
+            paddle.transform.SetParent(parent, false);
+            paddle.transform.localPosition = new Vector3(x, 0, 0);
 
-    private static GameObject Raquete_Criar(Transform _pai, string _nome, string _tag, float _x)
-    {
-        GameObject _raquete = new GameObject(_nome) { tag = _tag };
-        _raquete.transform.SetParent(_pai, false);
-        _raquete.transform.localPosition = new Vector3(_x, 0, 0);
+            paddle.AddComponent<BoxCollider>().size = new Vector3(1, 1, 3);
 
-        _raquete.AddComponent<BoxCollider>().size = new Vector3(1, 1, 3);
+            Rigidbody rb = paddle.AddComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
-        Rigidbody _rb = _raquete.AddComponent<Rigidbody>();
-        _rb.useGravity = false;
-        _rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+            CreateMesh(paddle.transform, PrimitiveType.Cube, new Vector3(1, 0.5f, 3));
 
-        Mesh_Criar(_raquete.transform, PrimitiveType.Cube, new Vector3(1, 0.5f, 3));
+            return paddle;
+        }
 
-        return _raquete;
-    }
+        private static void CreateMesh(Transform parent, PrimitiveType type, Vector3 scale)
+        {
+            GameObject mesh = GameObject.CreatePrimitive(type);
+            mesh.name = "mesh";
+            Object.DestroyImmediate(mesh.GetComponent<Collider>());
+            mesh.transform.SetParent(parent, false);
+            mesh.transform.localScale = scale;
+        }
 
-    private static void Mesh_Criar(Transform _pai, PrimitiveType _tipo, Vector3 _escala)
-    {
-        GameObject _mesh = GameObject.CreatePrimitive(_tipo);
-        _mesh.name = "mesh";
-        Object.DestroyImmediate(_mesh.GetComponent<Collider>());
-        _mesh.transform.SetParent(_pai, false);
-        _mesh.transform.localScale = _escala;
+        #endregion
     }
 }

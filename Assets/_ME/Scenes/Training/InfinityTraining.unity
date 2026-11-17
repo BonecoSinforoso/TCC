@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110
@@ -1980,7 +1980,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110
@@ -2128,7 +2128,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110
@@ -2742,7 +2742,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -3250,7 +3250,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -3778,7 +3778,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -4086,7 +4086,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -4490,7 +4490,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -4770,7 +4770,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110
@@ -4822,7 +4822,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110
@@ -5083,7 +5083,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110
@@ -5205,7 +5205,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d517cd67596be34690191de3930dd44, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgentInfinity
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.AgentInfinity
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
@@ -5325,7 +5325,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f02b92829418484ebcca6e058321326, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfinityTrainingArena
+  m_EditorClassIdentifier: Assembly-CSharp::TCC.InfinityTrainingArena
   fileiraPrimeiraZ: 15
   fileiraDist: 10
   fileirasQuant: 110

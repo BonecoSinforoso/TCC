@@ -1,58 +1,76 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
-// Par de canos da arena de treino. Mesma logica do Script_canosTudo, mas em posicao local da arena
-// e sem depender do Script_FlapManager (singleton), para varias arenas rodarem na mesma cena.
-public class FlapTrainingPipes : MonoBehaviour
+namespace TCC
 {
-    [SerializeField] private float moveSpeed = 2;
-    [SerializeField] private float subidaSpeed = 1;
-    [SerializeField] private float posMinX = -6;
-    [SerializeField] private float canosDist = 6;
-    [SerializeField] private FlapTrainingPipes canosOutro;
-    [SerializeField] private float alturaMax = 2.5f;
-
-    private bool movel;
-    private bool subindo;
-
-    public void Configurar(FlapTrainingPipes _canosOutro)
+    // Par de canos da arena de treino. Mesma logica do FlapPipeController, mas em posicao local da arena
+    // e sem depender do FlapManager (singleton), para varias arenas rodarem na mesma cena.
+    public class FlapTrainingPipes : MonoBehaviour
     {
-        canosOutro = _canosOutro;
-    }
+        #region membros
 
-    public void Reiniciar(float _x, bool _movel)
-    {
-        movel = _movel;
-        subindo = Random.Range(0, 2) == 0;
+        [FormerlySerializedAs("moveSpeed")]
+        [SerializeField] private float _moveSpeed = 2;
+        [FormerlySerializedAs("subidaSpeed")]
+        [SerializeField] private float _riseSpeed = 1;
+        [FormerlySerializedAs("posMinX")]
+        [SerializeField] private float _minX = -6;
+        [FormerlySerializedAs("canosDist")]
+        [SerializeField] private float _pipeDistance = 6;
+        [FormerlySerializedAs("canosOutro")]
+        [SerializeField] private FlapTrainingPipes _otherPipes;
+        [FormerlySerializedAs("alturaMax")]
+        [SerializeField] private float _maxHeight = 2.5f;
 
-        transform.localPosition = new Vector3(_x, Random.Range(-alturaMax, alturaMax), 0);
-    }
+        private bool _movable;
+        private bool _rising;
 
-    private void FixedUpdate()
-    {
-        Vector3 _pos = transform.localPosition;
+        #endregion
 
-        _pos.x -= moveSpeed * Time.fixedDeltaTime;
+        #region metodos
 
-        if (_pos.x < posMinX)
+        public void Configure(FlapTrainingPipes newOther)
         {
-            _pos.x = canosOutro.transform.localPosition.x + canosDist;
-            _pos.y = Random.Range(-alturaMax, alturaMax);
+            _otherPipes = newOther;
         }
 
-        if (movel)
+        public void Restart(float x, bool movable)
         {
-            if (subindo)
-            {
-                _pos.y += subidaSpeed * Time.fixedDeltaTime;
-                if (_pos.y >= alturaMax) subindo = false;
-            }
-            else
-            {
-                _pos.y -= subidaSpeed * Time.fixedDeltaTime;
-                if (_pos.y <= -alturaMax) subindo = true;
-            }
+            _movable = movable;
+            _rising = Random.Range(0, 2) == 0;
+
+            transform.localPosition = new Vector3(x, Random.Range(-_maxHeight, _maxHeight), 0);
         }
 
-        transform.localPosition = _pos;
+        private void FixedUpdate()
+        {
+            Vector3 pos = transform.localPosition;
+
+            pos.x -= _moveSpeed * Time.fixedDeltaTime;
+
+            if (pos.x < _minX)
+            {
+                pos.x = _otherPipes.transform.localPosition.x + _pipeDistance;
+                pos.y = Random.Range(-_maxHeight, _maxHeight);
+            }
+
+            if (_movable)
+            {
+                if (_rising)
+                {
+                    pos.y += _riseSpeed * Time.fixedDeltaTime;
+                    if (pos.y >= _maxHeight) _rising = false;
+                }
+                else
+                {
+                    pos.y -= _riseSpeed * Time.fixedDeltaTime;
+                    if (pos.y <= -_maxHeight) _rising = true;
+                }
+            }
+
+            transform.localPosition = pos;
+        }
+
+        #endregion
     }
 }

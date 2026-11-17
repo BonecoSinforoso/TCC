@@ -2,229 +2,250 @@
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-// Agente treinado (ML-Agents) do passaro do Flap.
-// Na cena de treino quem reinicia os canos eh o FlapTrainingArena; na cena do jogo o campo "arena" fica vazio.
-//
-// Observacoes (8): altura, velocidade vertical, distancia X e diferenca de altura do proximo cano,
-//                  diferenca de altura do cano seguinte, distancia ao chao, se pode pular,
-//                  velocidade vertical do proximo cano (canos moveis).
-// Acao (1 ramo discreto de 2): 0 nada, 1 pular.
-public class AgentFlap : Agent
+namespace TCC
 {
-    public const int observacoesQuant = 8;
-    public const int acoesQuant = 2;
-
-    [SerializeField] private float puloForca = 5;
-    [SerializeField] private float puloCd = 0.2f;
-    [SerializeField] private Transform[] t_cano;
-    [SerializeField] private float chaoY = -5f;
-    [SerializeField] private float tetoY = 7f; //acima disso conta como batida (evita passar por cima dos canos)
-
-    [Header("Treino")]
-    [SerializeField] private FlapTrainingArena arena;
-    [SerializeField] private float recompensaPonto = 1f;
-    [SerializeField] private float recompensaBater = -1f;
-    [SerializeField] private float recompensaPorDecisao = 0.002f;
-
-    //normalizacao das observacoes
-    private const float alturaNorm = 5f;
-    private const float velocidadeNorm = 10f;
-    private const float canoDistNorm = 6f; //distancia entre dois canos
-    private const float canoPassou = 1f; //meia largura do cano + raio do passaro
-
-    private Rigidbody rb;
-    private Transform t_centro; //a arena no treino, o mundo no jogo
-    private float puloTempo;
-    private float[] canoAlturaAnterior;
-    private float[] canoVelocidadeY;
-
-    public int Pontos { get; private set; }
-    public bool Morreu { get; private set; }
-
-    public override void Initialize()
+    // Agente treinado (ML-Agents) do passaro do Flap.
+    // Na cena de treino quem reinicia os canos eh o FlapTrainingArena; na cena do jogo o campo "arena" fica vazio.
+    //
+    // Observacoes (8): altura, velocidade vertical, distancia X e diferenca de altura do proximo cano,
+    //                  diferenca de altura do cano seguinte, distancia ao chao, se pode pular,
+    //                  velocidade vertical do proximo cano (canos moveis).
+    // Acao (1 ramo discreto de 2): 0 nada, 1 pular.
+    public class AgentFlap : Agent
     {
-        rb = GetComponent<Rigidbody>();
-        t_centro = arena != null ? arena.transform : null;
+        #region membros
 
-        canoAlturaAnterior = new float[t_cano.Length];
-        canoVelocidadeY = new float[t_cano.Length];
-        for (int i = 0; i < t_cano.Length; i++) canoAlturaAnterior[i] = PosLocal(t_cano[i].position).y;
-    }
+        public const int ObservationCount = 8;
+        public const int ActionCount = 2;
 
-    public void Configurar(FlapTrainingArena _arena, Transform[] _t_cano)
-    {
-        arena = _arena;
-        t_cano = _t_cano;
-    }
+        [FormerlySerializedAs("puloForca")]
+        [SerializeField] private float _jumpForce = 5;
+        [FormerlySerializedAs("puloCd")]
+        [SerializeField] private float _jumpCooldown = 0.2f;
+        [FormerlySerializedAs("t_cano")]
+        [SerializeField] private Transform[] _pipeTransforms;
+        [FormerlySerializedAs("chaoY")]
+        [SerializeField] private float _groundY = -5f;
+        [FormerlySerializedAs("tetoY")]
+        [SerializeField] private float _ceilingY = 7f; //acima disso conta como batida (evita passar por cima dos canos)
 
-    public override void OnEpisodeBegin()
-    {
-        if (arena == null) return; //no jogo a partida nn reinicia sozinha
+        [Header("Treino")]
+        [FormerlySerializedAs("arena")]
+        [SerializeField] private FlapTrainingArena _arena;
+        [FormerlySerializedAs("recompensaPonto")]
+        [SerializeField] private float _pointReward = 1f;
+        [FormerlySerializedAs("recompensaBater")]
+        [SerializeField] private float _crashReward = -1f;
+        [FormerlySerializedAs("recompensaPorDecisao")]
+        [SerializeField] private float _decisionReward = 0.002f;
 
-        Pontos = 0;
-        Morreu = false;
-        puloTempo = 0;
+        //normalizacao das observacoes
+        private const float _normHeight = 5f;
+        private const float _normSpeed = 10f;
+        private const float _normPipeDistance = 6f; //distancia entre dois canos
+        private const float _pipePassed = 1f; //meia largura do cano + raio do passaro
 
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        transform.SetPositionAndRotation(PosMundo(new Vector3(0, Random.Range(-1f, 1f), 0)), Quaternion.identity);
+        private Rigidbody _rigidbody;
+        private Transform _centerTransform; //a arena no treino, o mundo no jogo
+        private float _jumpTimer;
+        private float[] _pipePrevY;
+        private float[] _pipeVelocityY;
 
-        arena.Reiniciar();
+        public int Score { get; private set; }
+        public bool Dead { get; private set; }
 
-        for (int i = 0; i < t_cano.Length; i++)
+        #endregion
+
+        #region metodos
+
+        public override void Initialize()
         {
-            canoAlturaAnterior[i] = PosLocal(t_cano[i].position).y;
-            canoVelocidadeY[i] = 0;
-        }
-    }
+            _rigidbody = GetComponent<Rigidbody>();
+            _centerTransform = _arena != null ? _arena.transform : null;
 
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        Vector3 _pos = PosLocal(transform.position);
-
-        CanosProximos_Get(_pos.x, out int _cano1, out int _cano2);
-
-        sensor.AddObservation(Mathf.Clamp(_pos.y / alturaNorm, -1.5f, 1.5f));
-        sensor.AddObservation(Mathf.Clamp(rb.linearVelocity.y / velocidadeNorm, -1.5f, 1.5f));
-
-        if (_cano1 >= 0)
-        {
-            Vector3 _cano = PosLocal(t_cano[_cano1].position);
-            sensor.AddObservation(Mathf.Clamp((_cano.x - _pos.x) / canoDistNorm, -1f, 2f));
-            sensor.AddObservation(Mathf.Clamp((_cano.y - _pos.y) / alturaNorm, -2f, 2f));
-        }
-        else
-        {
-            sensor.AddObservation(2f);
-            sensor.AddObservation(0f);
+            _pipePrevY = new float[_pipeTransforms.Length];
+            _pipeVelocityY = new float[_pipeTransforms.Length];
+            for (int i = 0; i < _pipeTransforms.Length; i++) _pipePrevY[i] = ToLocalPos(_pipeTransforms[i].position).y;
         }
 
-        sensor.AddObservation(_cano2 >= 0 ? Mathf.Clamp((PosLocal(t_cano[_cano2].position).y - _pos.y) / alturaNorm, -2f, 2f) : 0f);
-        sensor.AddObservation(Mathf.Clamp((_pos.y - chaoY) / (alturaNorm * 2), 0f, 1.5f));
-        sensor.AddObservation(puloTempo <= 0 ? 1f : 0f);
-        sensor.AddObservation(_cano1 >= 0 ? Mathf.Clamp(canoVelocidadeY[_cano1], -1f, 1f) : 0f);
-    }
-
-    // Proximo cano = o mais perto que ainda nn ficou para tras; seguinte = o que vem depois dele.
-    private void CanosProximos_Get(float _x, out int _cano1, out int _cano2)
-    {
-        _cano1 = -1;
-        _cano2 = -1;
-        float _dist1 = float.MaxValue;
-        float _dist2 = float.MaxValue;
-
-        for (int i = 0; i < t_cano.Length; i++)
+        public void Configure(FlapTrainingArena arena, Transform[] newPipes)
         {
-            float _dist = PosLocal(t_cano[i].position).x - _x;
-            if (_dist < -canoPassou) continue;
+            _arena = arena;
+            _pipeTransforms = newPipes;
+        }
 
-            if (_dist < _dist1)
+        public override void OnEpisodeBegin()
+        {
+            if (_arena == null) return; //no jogo a partida nn reinicia sozinha
+
+            Score = 0;
+            Dead = false;
+            _jumpTimer = 0;
+
+            _rigidbody.linearVelocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            transform.SetPositionAndRotation(ToWorldPos(new Vector3(0, Random.Range(-1f, 1f), 0)), Quaternion.identity);
+
+            _arena.Restart();
+
+            for (int i = 0; i < _pipeTransforms.Length; i++)
             {
-                _cano2 = _cano1;
-                _dist2 = _dist1;
-                _cano1 = i;
-                _dist1 = _dist;
-            }
-            else if (_dist < _dist2)
-            {
-                _cano2 = i;
-                _dist2 = _dist;
+                _pipePrevY[i] = ToLocalPos(_pipeTransforms[i].position).y;
+                _pipeVelocityY[i] = 0;
             }
         }
-    }
 
-    public override void OnActionReceived(ActionBuffers actions)
-    {
-        if (Morreu) return;
-
-        if (actions.DiscreteActions[0] == 1) Pulo();
-
-        AddReward(recompensaPorDecisao);
-    }
-
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        ActionSegment<int> _acoes = actionsOut.DiscreteActions;
-
-        _acoes[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
-    }
-
-    private void FixedUpdate()
-    {
-        if (puloTempo > 0) puloTempo -= Time.fixedDeltaTime;
-
-        for (int i = 0; i < t_cano.Length; i++)
+        public override void CollectObservations(VectorSensor sensor)
         {
-            float _altura = PosLocal(t_cano[i].position).y;
-            canoVelocidadeY[i] = (_altura - canoAlturaAnterior[i]) / Time.fixedDeltaTime;
-            canoAlturaAnterior[i] = _altura;
+            Vector3 pos = ToLocalPos(transform.position);
+
+            GetNearestPipes(pos.x, out int pipe1, out int pipe2);
+
+            sensor.AddObservation(Mathf.Clamp(pos.y / _normHeight, -1.5f, 1.5f));
+            sensor.AddObservation(Mathf.Clamp(_rigidbody.linearVelocity.y / _normSpeed, -1.5f, 1.5f));
+
+            if (pipe1 >= 0)
+            {
+                Vector3 pipe = ToLocalPos(_pipeTransforms[pipe1].position);
+                sensor.AddObservation(Mathf.Clamp((pipe.x - pos.x) / _normPipeDistance, -1f, 2f));
+                sensor.AddObservation(Mathf.Clamp((pipe.y - pos.y) / _normHeight, -2f, 2f));
+            }
+            else
+            {
+                sensor.AddObservation(2f);
+                sensor.AddObservation(0f);
+            }
+
+            sensor.AddObservation(pipe2 >= 0 ? Mathf.Clamp((ToLocalPos(_pipeTransforms[pipe2].position).y - pos.y) / _normHeight, -2f, 2f) : 0f);
+            sensor.AddObservation(Mathf.Clamp((pos.y - _groundY) / (_normHeight * 2), 0f, 1.5f));
+            sensor.AddObservation(_jumpTimer <= 0 ? 1f : 0f);
+            sensor.AddObservation(pipe1 >= 0 ? Mathf.Clamp(_pipeVelocityY[pipe1], -1f, 1f) : 0f);
         }
 
-        if (!Morreu && PosLocal(transform.position).y > tetoY) Bateu();
-    }
-
-    private void Pulo()
-    {
-        if (puloTempo > 0) return;
-        puloTempo = puloCd;
-
-        rb.linearVelocity = Vector3.zero;
-        rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
-    }
-
-    //placar desde o Play (somado em todas as arenas), para medir o modelo
-    public static int Episodios;
-    public static int PontosTotal;
-    public static int PontosMax;
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void Placar_Reset()
-    {
-        Episodios = 0;
-        PontosTotal = 0;
-        PontosMax = 0;
-    }
-
-    private void Bateu()
-    {
-        Episodios++;
-        PontosTotal += Pontos;
-        if (Pontos > PontosMax) PontosMax = Pontos;
-
-        AddReward(recompensaBater);
-
-        if (arena != null) EndEpisode();
-        else Morreu = true; //no jogo o passaro so para de agir; quem decide o fim eh o Script_FlapManager
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (Morreu) return;
-
-        if (collision.gameObject.CompareTag("Chao")) Bateu();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (Morreu) return;
-
-        if (other.CompareTag("Cano")) Bateu();
-
-        if (other.CompareTag("Ponto"))
+        // Proximo cano = o mais perto que ainda nn ficou para tras; seguinte = o que vem depois dele.
+        private void GetNearestPipes(float x, out int pipe1, out int pipe2)
         {
-            Pontos++;
-            AddReward(recompensaPonto);
+            pipe1 = -1;
+            pipe2 = -1;
+            float dist1 = float.MaxValue;
+            float dist2 = float.MaxValue;
+
+            for (int i = 0; i < _pipeTransforms.Length; i++)
+            {
+                float dist = ToLocalPos(_pipeTransforms[i].position).x - x;
+                if (dist < -_pipePassed) continue;
+
+                if (dist < dist1)
+                {
+                    pipe2 = pipe1;
+                    dist2 = dist1;
+                    pipe1 = i;
+                    dist1 = dist;
+                }
+                else if (dist < dist2)
+                {
+                    pipe2 = i;
+                    dist2 = dist;
+                }
+            }
         }
-    }
 
-    private Vector3 PosLocal(Vector3 _pos)
-    {
-        return t_centro != null ? t_centro.InverseTransformPoint(_pos) : _pos;
-    }
+        public override void OnActionReceived(ActionBuffers actions)
+        {
+            if (Dead) return;
 
-    private Vector3 PosMundo(Vector3 _pos)
-    {
-        return t_centro != null ? t_centro.TransformPoint(_pos) : _pos;
+            if (actions.DiscreteActions[0] == 1) Jump();
+
+            AddReward(_decisionReward);
+        }
+
+        public override void Heuristic(in ActionBuffers actionsOut)
+        {
+            ActionSegment<int> actionSegment = actionsOut.DiscreteActions;
+
+            actionSegment[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
+        }
+
+        private void FixedUpdate()
+        {
+            if (_jumpTimer > 0) _jumpTimer -= Time.fixedDeltaTime;
+
+            for (int i = 0; i < _pipeTransforms.Length; i++)
+            {
+                float height = ToLocalPos(_pipeTransforms[i].position).y;
+                _pipeVelocityY[i] = (height - _pipePrevY[i]) / Time.fixedDeltaTime;
+                _pipePrevY[i] = height;
+            }
+
+            if (!Dead && ToLocalPos(transform.position).y > _ceilingY) Crash();
+        }
+
+        private void Jump()
+        {
+            if (_jumpTimer > 0) return;
+            _jumpTimer = _jumpCooldown;
+
+            _rigidbody.linearVelocity = Vector3.zero;
+            _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        }
+
+        //placar desde o Play (somado em todas as arenas), para medir o modelo
+        public static int Episodes;
+        public static int TotalScore;
+        public static int MaxScore;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetScore()
+        {
+            Episodes = 0;
+            TotalScore = 0;
+            MaxScore = 0;
+        }
+
+        private void Crash()
+        {
+            Episodes++;
+            TotalScore += Score;
+            if (Score > MaxScore) MaxScore = Score;
+
+            AddReward(_crashReward);
+
+            if (_arena != null) EndEpisode();
+            else Dead = true; //no jogo o passaro so para de agir; quem decide o fim eh o FlapManager
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (Dead) return;
+
+            if (collision.gameObject.CompareTag("Chao")) Crash();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (Dead) return;
+
+            if (other.CompareTag("Cano")) Crash();
+
+            if (other.CompareTag("Ponto"))
+            {
+                Score++;
+                AddReward(_pointReward);
+            }
+        }
+
+        private Vector3 ToLocalPos(Vector3 pos)
+        {
+            return _centerTransform != null ? _centerTransform.InverseTransformPoint(pos) : pos;
+        }
+
+        private Vector3 ToWorldPos(Vector3 pos)
+        {
+            return _centerTransform != null ? _centerTransform.TransformPoint(pos) : pos;
+        }
+
+        #endregion
     }
 }

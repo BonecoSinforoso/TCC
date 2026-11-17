@@ -2,202 +2,222 @@
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-// Agente treinado (ML-Agents) do corredor do Infinity.
-// Na cena de treino quem reinicia os obstaculos eh o InfinityTrainingArena; na cena do jogo o campo "arena" fica vazio.
-//
-// Observacoes:
-//  - 3 RayPerceptionSensorComponent3D (um raio para frente em cada faixa, tags Carro e Onibus), no filho "emp_sensores".
-//    Eles substituem os raycasts manuais do Script_IaInfinity. O "emp_sensores" fica sempre no meio da pista,
-//    na altura do chao, acompanhando so o Z do corredor.
-//  - vetor (5): faixa atual (-1 a 1), velocidade, altura, velocidade vertical, se pode pular.
-// Acoes (2 ramos discretos): faixa (0 fica, 1 vai uma para a esquerda, 2 uma para a direita) e pulo (0 nada, 1 pular).
-public class AgentInfinity : Agent
+namespace TCC
 {
-    public const int observacoesQuant = 5;
-    public const int faixasQuant = 3;
-
-    [SerializeField] private float puloForca = 6;
-    [SerializeField] private float faixaDist = 2.5f;
-    [SerializeField] private float faixaTrocaSpeed = 1000f; //troca na hora, igual ao jogador
-    [SerializeField] private float distanciaGanhar = 1000f;
-    [SerializeField] private Transform t_sensores;
-
-    [Header("Treino")]
-    [SerializeField] private InfinityTrainingArena arena;
-    [SerializeField] private float recompensaPorMetro = 0.1f;
-    [SerializeField] private float recompensaBater = -1f;
-
-    //mesma conta de velocidade do Script_IaInfinity: 5 + 1 a cada 100m, ate 8
-    private const float moveSpeedMin = 5f;
-    private const float moveSpeedMax = 8f;
-
-    private Rigidbody rb;
-    private Animator animator;
-    private Transform t_centro; //a arena no treino, o mundo no jogo
-    private float faixaCentroX; //x (local) do meio da pista
-    private float zInicial;
-    private float zAnterior;
-    private float moveSpeed = moveSpeedMin;
-    private int faixaAlvo = 1;
-    private bool puloPode;
-
-    public bool Perdeu { get; private set; }
-    public float Distancia => PosLocal(transform.position).z - zInicial;
-
-    public override void Initialize()
+    // Agente treinado (ML-Agents) do corredor do Infinity.
+    // Na cena de treino quem reinicia os obstaculos eh o InfinityTrainingArena; na cena do jogo o campo "arena" fica vazio.
+    //
+    // Observacoes:
+    //  - 3 RayPerceptionSensorComponent3D (um raio para frente em cada faixa, tags Carro e Onibus), no filho "emp_sensores".
+    //    Eles substituem os raycasts manuais do IaInfinity. O "emp_sensores" fica sempre no meio da pista,
+    //    na altura do chao, acompanhando so o Z do corredor.
+    //  - vetor (5): faixa atual (-1 a 1), velocidade, altura, velocidade vertical, se pode pular.
+    // Acoes (2 ramos discretos): faixa (0 fica, 1 vai uma para a esquerda, 2 uma para a direita) e pulo (0 nada, 1 pular).
+    public class AgentInfinity : Agent
     {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponentInChildren<Animator>();
-        t_centro = arena != null ? arena.transform : null;
+        #region membros
 
-        Vector3 _pos = PosLocal(transform.position);
-        faixaCentroX = _pos.x;
-        zInicial = _pos.z;
-        zAnterior = _pos.z;
-    }
+        public const int ObservationCount = 5;
+        public const int LaneCount = 3;
 
-    public void Configurar(InfinityTrainingArena _arena, Transform _t_sensores)
-    {
-        arena = _arena;
-        t_sensores = _t_sensores;
-    }
+        [FormerlySerializedAs("puloForca")]
+        [SerializeField] private float _jumpForce = 6;
+        [FormerlySerializedAs("faixaDist")]
+        [SerializeField] private float _laneDistance = 2.5f;
+        [FormerlySerializedAs("faixaTrocaSpeed")]
+        [SerializeField] private float _laneSwitchSpeed = 1000f; //troca na hora, igual ao jogador
+        [FormerlySerializedAs("distanciaGanhar")]
+        [SerializeField] private float _distanceToWin = 1000f;
+        [FormerlySerializedAs("t_sensores")]
+        [SerializeField] private Transform _sensorsTransform;
 
-    public override void OnEpisodeBegin()
-    {
-        if (arena == null) return; //no jogo a corrida nn reinicia sozinha
+        [Header("Treino")]
+        [FormerlySerializedAs("arena")]
+        [SerializeField] private InfinityTrainingArena _arena;
+        [FormerlySerializedAs("recompensaPorMetro")]
+        [SerializeField] private float _rewardPerMeter = 0.1f;
+        [FormerlySerializedAs("recompensaBater")]
+        [SerializeField] private float _crashReward = -1f;
 
-        Perdeu = false;
-        puloPode = false; //volta a poder pular quando encostar no chao
-        moveSpeed = moveSpeedMin;
+        //mesma conta de velocidade do IaInfinity: 5 + 1 a cada 100m, ate 8
+        private const float moveSpeedMin = 5f;
+        private const float moveSpeedMax = 8f;
 
-        faixaAlvo = Random.Range(0, faixasQuant);
-        Vector3 _pos = new Vector3(faixaCentroX + (faixaAlvo - 1) * faixaDist, 0.1f, zInicial);
+        private Rigidbody _rigidbody;
+        private Animator _animator;
+        private Transform _centerTransform; //a arena no treino, o mundo no jogo
+        private float _laneCenterX; //x (local) do meio da pista
+        private float _startZ;
+        private float _previousZ;
+        private float _moveSpeed = moveSpeedMin;
+        private int _targetLane = 1;
+        private bool _canJump;
 
-        rb.linearVelocity = Vector3.zero;
-        transform.position = PosMundo(_pos);
-        zAnterior = zInicial;
+        public bool Lost { get; private set; }
+        public float Distance => ToLocalPos(transform.position).z - _startZ;
 
-        Sensores_Posicionar();
-        arena.Reiniciar();
-    }
+        #endregion
 
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        Vector3 _pos = PosLocal(transform.position);
+        #region metodos
 
-        sensor.AddObservation(Mathf.Clamp((_pos.x - faixaCentroX) / faixaDist, -1f, 1f));
-        sensor.AddObservation((moveSpeed - moveSpeedMin) / (moveSpeedMax - moveSpeedMin));
-        sensor.AddObservation(Mathf.Clamp(_pos.y / 2f, 0f, 1.5f));
-        sensor.AddObservation(Mathf.Clamp(rb.linearVelocity.y / puloForca, -1.5f, 1.5f));
-        sensor.AddObservation(puloPode ? 1f : 0f);
-    }
-
-    public override void OnActionReceived(ActionBuffers actions)
-    {
-        if (Perdeu) return;
-
-        int _mover = actions.DiscreteActions[0];
-        if (_mover == 1) faixaAlvo = Mathf.Max(faixaAlvo - 1, 0);
-        else if (_mover == 2) faixaAlvo = Mathf.Min(faixaAlvo + 1, faixasQuant - 1);
-
-        if (actions.DiscreteActions[1] == 1) Pulo();
-    }
-
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        ActionSegment<int> _acoes = actionsOut.DiscreteActions;
-        float _h = Input.GetAxisRaw("Horizontal");
-
-        _acoes[0] = _h < 0 ? 1 : _h > 0 ? 2 : 0;
-        _acoes[1] = Input.GetKey(KeyCode.Space) ? 1 : 0;
-    }
-
-    private void FixedUpdate()
-    {
-        if (Perdeu) return;
-
-        if (animator != null) animator.SetBool("_jump", !puloPode);
-
-        Vector3 _pos = PosLocal(transform.position);
-
-        moveSpeed = Mathf.Min(moveSpeedMin + ((int)(_pos.z - zInicial) / 100), moveSpeedMax);
-        rb.linearVelocity = Vector3.forward * moveSpeed + Vector3.up * rb.linearVelocity.y;
-
-        //troca de faixa
-        float _alvoX = faixaCentroX + (faixaAlvo - 1) * faixaDist;
-        if (_pos.x != _alvoX)
+        public override void Initialize()
         {
-            _pos.x = Mathf.MoveTowards(_pos.x, _alvoX, faixaTrocaSpeed * Time.fixedDeltaTime);
-            transform.position = PosMundo(_pos);
+            _rigidbody = GetComponent<Rigidbody>();
+            _animator = GetComponentInChildren<Animator>();
+            _centerTransform = _arena != null ? _arena.transform : null;
+
+            Vector3 pos = ToLocalPos(transform.position);
+            _laneCenterX = pos.x;
+            _startZ = pos.z;
+            _previousZ = pos.z;
         }
 
-        //recompensa pela distancia percorrida
-        AddReward((_pos.z - zAnterior) * recompensaPorMetro);
-        zAnterior = _pos.z;
-
-        Sensores_Posicionar();
-
-        if (arena != null && _pos.z - zInicial >= distanciaGanhar) EndEpisode(); //chegou ao fim da pista
-    }
-
-    private void Sensores_Posicionar()
-    {
-        if (t_sensores == null) return;
-
-        float _z = PosLocal(transform.position).z;
-        t_sensores.SetPositionAndRotation(PosMundo(new Vector3(faixaCentroX, 0, _z)), Quaternion.identity);
-    }
-
-    private void Pulo()
-    {
-        if (!puloPode) return;
-        puloPode = false;
-        rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
-    }
-
-    private void Bateu()
-    {
-        AddReward(recompensaBater);
-
-        if (arena != null)
+        public void Configure(InfinityTrainingArena arena, Transform newSensors)
         {
-            EndEpisode();
+            _arena = arena;
+            _sensorsTransform = newSensors;
         }
-        else //no jogo o corredor para, igual aos outros personagens
+
+        public override void OnEpisodeBegin()
         {
-            Perdeu = true;
-            rb.linearVelocity = Vector3.zero;
+            if (_arena == null) return; //no jogo a corrida nn reinicia sozinha
+
+            Lost = false;
+            _canJump = false; //volta a poder pular quando encostar no chao
+            _moveSpeed = moveSpeedMin;
+
+            _targetLane = Random.Range(0, LaneCount);
+            Vector3 pos = new Vector3(_laneCenterX + (_targetLane - 1) * _laneDistance, 0.1f, _startZ);
+
+            _rigidbody.linearVelocity = Vector3.zero;
+            transform.position = ToWorldPos(pos);
+            _previousZ = _startZ;
+
+            PositionSensors();
+            _arena.Restart();
         }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (Perdeu) return;
-
-        if (collision.gameObject.CompareTag("Carro") || collision.gameObject.CompareTag("Onibus"))
+        public override void CollectObservations(VectorSensor sensor)
         {
-            if (arena == null) Destroy(collision.gameObject);
-            Bateu();
+            Vector3 pos = ToLocalPos(transform.position);
+
+            sensor.AddObservation(Mathf.Clamp((pos.x - _laneCenterX) / _laneDistance, -1f, 1f));
+            sensor.AddObservation((_moveSpeed - moveSpeedMin) / (moveSpeedMax - moveSpeedMin));
+            sensor.AddObservation(Mathf.Clamp(pos.y / 2f, 0f, 1.5f));
+            sensor.AddObservation(Mathf.Clamp(_rigidbody.linearVelocity.y / _jumpForce, -1.5f, 1.5f));
+            sensor.AddObservation(_canJump ? 1f : 0f);
         }
-        else if (collision.gameObject.CompareTag("Chao"))
+
+        public override void OnActionReceived(ActionBuffers actions)
         {
-            puloPode = true;
+            if (Lost) return;
+
+            int move = actions.DiscreteActions[0];
+            if (move == 1) _targetLane = Mathf.Max(_targetLane - 1, 0);
+            else if (move == 2) _targetLane = Mathf.Min(_targetLane + 1, LaneCount - 1);
+
+            if (actions.DiscreteActions[1] == 1) Jump();
         }
-    }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Chao")) puloPode = true;
-    }
+        public override void Heuristic(in ActionBuffers actionsOut)
+        {
+            ActionSegment<int> actionSegment = actionsOut.DiscreteActions;
+            float h = Input.GetAxisRaw("Horizontal");
 
-    private Vector3 PosLocal(Vector3 _pos)
-    {
-        return t_centro != null ? t_centro.InverseTransformPoint(_pos) : _pos;
-    }
+            actionSegment[0] = h < 0 ? 1 : h > 0 ? 2 : 0;
+            actionSegment[1] = Input.GetKey(KeyCode.Space) ? 1 : 0;
+        }
 
-    private Vector3 PosMundo(Vector3 _pos)
-    {
-        return t_centro != null ? t_centro.TransformPoint(_pos) : _pos;
+        private void FixedUpdate()
+        {
+            if (Lost) return;
+
+            if (_animator != null) _animator.SetBool("_jump", !_canJump);
+
+            Vector3 pos = ToLocalPos(transform.position);
+
+            _moveSpeed = Mathf.Min(moveSpeedMin + ((int)(pos.z - _startZ) / 100), moveSpeedMax);
+            _rigidbody.linearVelocity = Vector3.forward * _moveSpeed + Vector3.up * _rigidbody.linearVelocity.y;
+
+            //troca de faixa
+            float targetX = _laneCenterX + (_targetLane - 1) * _laneDistance;
+            if (pos.x != targetX)
+            {
+                pos.x = Mathf.MoveTowards(pos.x, targetX, _laneSwitchSpeed * Time.fixedDeltaTime);
+                transform.position = ToWorldPos(pos);
+            }
+
+            //recompensa pela distancia percorrida
+            AddReward((pos.z - _previousZ) * _rewardPerMeter);
+            _previousZ = pos.z;
+
+            PositionSensors();
+
+            if (_arena != null && pos.z - _startZ >= _distanceToWin) EndEpisode(); //chegou ao fim da pista
+        }
+
+        private void PositionSensors()
+        {
+            if (_sensorsTransform == null) return;
+
+            float z = ToLocalPos(transform.position).z;
+            _sensorsTransform.SetPositionAndRotation(ToWorldPos(new Vector3(_laneCenterX, 0, z)), Quaternion.identity);
+        }
+
+        private void Jump()
+        {
+            if (!_canJump) return;
+            _canJump = false;
+            _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        }
+
+        private void Crash()
+        {
+            AddReward(_crashReward);
+
+            if (_arena != null)
+            {
+                EndEpisode();
+            }
+            else //no jogo o corredor para, igual aos outros personagens
+            {
+                Lost = true;
+                _rigidbody.linearVelocity = Vector3.zero;
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (Lost) return;
+
+            if (collision.gameObject.CompareTag("Carro") || collision.gameObject.CompareTag("Onibus"))
+            {
+                if (_arena == null) Destroy(collision.gameObject);
+                Crash();
+            }
+            else if (collision.gameObject.CompareTag("Chao"))
+            {
+                _canJump = true;
+            }
+        }
+
+        private void OnCollisionStay(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Chao")) _canJump = true;
+        }
+
+        private Vector3 ToLocalPos(Vector3 pos)
+        {
+            return _centerTransform != null ? _centerTransform.InverseTransformPoint(pos) : pos;
+        }
+
+        private Vector3 ToWorldPos(Vector3 pos)
+        {
+            return _centerTransform != null ? _centerTransform.TransformPoint(pos) : pos;
+        }
+
+        #endregion
     }
 }

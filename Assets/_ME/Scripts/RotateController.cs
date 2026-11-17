@@ -1,11 +1,24 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Serialization;
 
-public class RotateController : MonoBehaviour
+namespace TCC
 {
-    [SerializeField] private Vector3 valor;
-
-    private void Update()
+    public class RotateController : MonoBehaviour
     {
-        transform.Rotate(valor * Time.deltaTime);
+        #region membros
+
+        [FormerlySerializedAs("valor")]
+        [SerializeField] private Vector3 _rotationSpeed;
+
+        #endregion
+
+        #region metodos
+
+        private void Update()
+        {
+            transform.Rotate(_rotationSpeed * Time.deltaTime);
+        }
+
+        #endregion
     }
 }

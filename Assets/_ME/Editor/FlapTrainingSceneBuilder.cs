@@ -6,137 +6,148 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Monta a cena de treino do Flap (varias arenas) pelo menu TCC > ML-Agents.
-// Os canos e o ponto sao os mesmos prefabs do jogo (mesmos colisores); o passaro tem as medidas do prefab_obj_iaFlap.
-public static class FlapTrainingSceneBuilder
+namespace TCC
 {
-    private const string cenaPath = "Assets/_ME/Scenes/Training/FlapTraining.unity";
-    private const string canoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_cano.prefab";
-    private const string pontoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_ponto.prefab";
-    private const string behaviorName = "Flap";
-
-    private const int colunas = 4;
-    private const int linhas = 4;
-    private const float espacoX = 40f;
-    private const float espacoY = 30f;
-
-    [MenuItem("TCC/ML-Agents/Criar cena de treino - Flap")]
-    private static void Cena_Criar()
+    // Monta a cena de treino do Flap (varias arenas) pelo menu TCC > ML-Agents.
+    // Os canos e o ponto sao os mesmos prefabs do jogo (mesmos colisores); o passaro tem as medidas do prefab_obj_iaFlap.
+    public static class FlapTrainingSceneBuilder
     {
-        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+        #region membros
 
-        GameObject _canoPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(canoPrefabPath);
-        GameObject _pontoPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(pontoPrefabPath);
+        private const string _scenePath = "Assets/_ME/Scenes/Training/FlapTraining.unity";
+        private const string _pipePrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_cano.prefab";
+        private const string _pointPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_ponto.prefab";
+        private const string behaviorName = "Flap";
 
-        if (_canoPrefab == null || _pontoPrefab == null)
+        private const int _columns = 4;
+        private const int _rows = 4;
+        private const float _spacingX = 40f;
+        private const float _spacingY = 30f;
+
+        #endregion
+
+        #region metodos
+
+        [MenuItem("TCC/ML-Agents/Criar cena de treino - Flap")]
+        private static void CreateScene()
         {
-            Debug.LogError("Prefabs do Flap nn encontrados: " + canoPrefabPath + " / " + pontoPrefabPath);
-            return;
-        }
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
-        Scene _cena = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            GameObject pipePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(_pipePrefabPath);
+            GameObject pointPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(_pointPrefabPath);
 
-        float _largura = (colunas - 1) * espacoX;
-        float _altura = (linhas - 1) * espacoY;
-
-        GameObject _camera = new GameObject("Main Camera") { tag = "MainCamera" };
-        Camera _cam = _camera.AddComponent<Camera>();
-        _cam.orthographic = true;
-        _cam.orthographicSize = (_altura + espacoY) / 2;
-        _cam.clearFlags = CameraClearFlags.SolidColor;
-        _cam.backgroundColor = new Color(0.1f, 0.1f, 0.12f);
-        _camera.AddComponent<AudioListener>();
-        _camera.transform.position = new Vector3(_largura / 2 + 6, _altura / 2, -20);
-
-        GameObject _luz = new GameObject("Directional Light");
-        _luz.AddComponent<Light>().type = LightType.Directional;
-        _luz.transform.rotation = Quaternion.Euler(30, 20, 0);
-
-        for (int l = 0; l < linhas; l++)
-        {
-            for (int c = 0; c < colunas; c++)
+            if (pipePrefab == null || pointPrefab == null)
             {
-                Arena_Criar("arena_" + (l * colunas + c).ToString("00"), new Vector3(c * espacoX, l * espacoY, 0), _canoPrefab, _pontoPrefab);
+                Debug.LogError("Prefabs do Flap nn encontrados: " + _pipePrefabPath + " / " + _pointPrefabPath);
+                return;
             }
+
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+            float width = (_columns - 1) * _spacingX;
+            float height = (_rows - 1) * _spacingY;
+
+            GameObject camera = new GameObject("Main Camera") { tag = "MainCamera" };
+            Camera cam = camera.AddComponent<Camera>();
+            cam.orthographic = true;
+            cam.orthographicSize = (height + _spacingY) / 2;
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = new Color(0.1f, 0.1f, 0.12f);
+            camera.AddComponent<AudioListener>();
+            camera.transform.position = new Vector3(width / 2 + 6, height / 2, -20);
+
+            GameObject light = new GameObject("Directional Light");
+            light.AddComponent<Light>().type = LightType.Directional;
+            light.transform.rotation = Quaternion.Euler(30, 20, 0);
+
+            for (int l = 0; l < _rows; l++)
+            {
+                for (int c = 0; c < _columns; c++)
+                {
+                    CreateArena("arena_" + (l * _columns + c).ToString("00"), new Vector3(c * _spacingX, l * _spacingY, 0), pipePrefab, pointPrefab);
+                }
+            }
+
+            EditorSceneManager.SaveScene(scene, _scenePath);
+            Debug.Log("Cena de treino do Flap criada em " + _scenePath);
         }
 
-        EditorSceneManager.SaveScene(_cena, cenaPath);
-        Debug.Log("Cena de treino do Flap criada em " + cenaPath);
-    }
-
-    private static void Arena_Criar(string _nome, Vector3 _pos, GameObject _canoPrefab, GameObject _pontoPrefab)
-    {
-        GameObject _arena = new GameObject(_nome);
-        _arena.transform.position = _pos;
-
-        //chao (mesma altura do obj_chao do jogo)
-        GameObject _chao = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        _chao.name = "obj_chao";
-        _chao.tag = "Chao";
-        _chao.transform.SetParent(_arena.transform, false);
-        _chao.transform.localPosition = new Vector3(6, -5.5f, 0);
-        _chao.transform.localScale = new Vector3(30, 1, 10);
-
-        //canos
-        FlapTrainingPipes[] _canos = new FlapTrainingPipes[3];
-        Transform[] _t_cano = new Transform[3];
-
-        for (int i = 0; i < 3; i++)
+        private static void CreateArena(string name, Vector3 pos, GameObject pipePrefab, GameObject pointPrefab)
         {
-            GameObject _canosObj = new GameObject("obj_canos_" + i) { tag = "Cano" };
-            _canosObj.transform.SetParent(_arena.transform, false);
-            _canosObj.transform.localPosition = new Vector3(6 * (i + 1), 0, 0);
-            _canosObj.AddComponent<Rigidbody>().isKinematic = true;
+            GameObject arena = new GameObject(name);
+            arena.transform.position = pos;
 
-            Cano_Criar(_canoPrefab, _canosObj.transform, 1.5f, 180);
-            Cano_Criar(_canoPrefab, _canosObj.transform, -1.5f, 0);
+            //chao (mesma altura do obj_chao do jogo)
+            GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            ground.name = "obj_chao";
+            ground.tag = "Chao";
+            ground.transform.SetParent(arena.transform, false);
+            ground.transform.localPosition = new Vector3(6, -5.5f, 0);
+            ground.transform.localScale = new Vector3(30, 1, 10);
 
-            GameObject _ponto = (GameObject)PrefabUtility.InstantiatePrefab(_pontoPrefab, _canosObj.transform);
-            _ponto.transform.localPosition = Vector3.zero;
+            //canos
+            FlapTrainingPipes[] pipes = new FlapTrainingPipes[3];
+            Transform[] pipeTransforms = new Transform[3];
 
-            _canos[i] = _canosObj.AddComponent<FlapTrainingPipes>();
-            _t_cano[i] = _canosObj.transform;
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject pipesObj = new GameObject("obj_canos_" + i) { tag = "Cano" };
+                pipesObj.transform.SetParent(arena.transform, false);
+                pipesObj.transform.localPosition = new Vector3(6 * (i + 1), 0, 0);
+                pipesObj.AddComponent<Rigidbody>().isKinematic = true;
+
+                CreatePipe(pipePrefab, pipesObj.transform, 1.5f, 180);
+                CreatePipe(pipePrefab, pipesObj.transform, -1.5f, 0);
+
+                GameObject point = (GameObject)PrefabUtility.InstantiatePrefab(pointPrefab, pipesObj.transform);
+                point.transform.localPosition = Vector3.zero;
+
+                pipes[i] = pipesObj.AddComponent<FlapTrainingPipes>();
+                pipeTransforms[i] = pipesObj.transform;
+            }
+
+            for (int i = 0; i < 3; i++) pipes[i].Configure(pipes[(i + 2) % 3]); //o "outro" eh o cano que vem logo atras
+
+            FlapTrainingArena arenaScript = arena.AddComponent<FlapTrainingArena>();
+            arenaScript.Configure(pipes);
+
+            //passaro
+            GameObject bird = new GameObject("obj_agentFlap");
+            bird.transform.SetParent(arena.transform, false);
+            bird.AddComponent<SphereCollider>().radius = 0.5f;
+            Rigidbody rb = bird.AddComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+
+            GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            mesh.name = "mesh";
+            Object.DestroyImmediate(mesh.GetComponent<Collider>());
+            mesh.transform.SetParent(bird.transform, false);
+
+            AgentFlap agent = bird.AddComponent<AgentFlap>(); //ja adiciona o Behavior Parameters
+            agent.MaxStep = 15000; //5 minutos de voo (100 canos), mais que a pontuacao para vencer
+            agent.Configure(arenaScript, pipeTransforms);
+
+            BehaviorParameters behavior = bird.GetComponent<BehaviorParameters>();
+            behavior.BehaviorName = behaviorName;
+            behavior.BrainParameters.VectorObservationSize = AgentFlap.ObservationCount;
+            behavior.BrainParameters.ActionSpec = ActionSpec.MakeDiscrete(AgentFlap.ActionCount);
+
+            DecisionRequester decision = bird.AddComponent<DecisionRequester>();
+            decision.DecisionPeriod = 3;
+            decision.TakeActionsBetweenDecisions = false;
         }
 
-        for (int i = 0; i < 3; i++) _canos[i].Configurar(_canos[(i + 2) % 3]); //o "outro" eh o cano que vem logo atras
+        private static void CreatePipe(GameObject pipePrefab, Transform parent, float y, float rotZ)
+        {
+            GameObject pipe = (GameObject)PrefabUtility.InstantiatePrefab(pipePrefab, parent);
+            pipe.transform.localPosition = new Vector3(0, y, 0);
+            pipe.transform.localRotation = Quaternion.Euler(0, 0, rotZ);
 
-        FlapTrainingArena _arenaScript = _arena.AddComponent<FlapTrainingArena>();
-        _arenaScript.Configurar(_canos);
+            //no prefab o mesh fica desligado (o visual do jogo vem de outro objeto); aqui liga para enxergar o treino
+            Transform mesh = pipe.transform.Find("mesh");
+            if (mesh != null) mesh.gameObject.SetActive(true);
+        }
 
-        //passaro
-        GameObject _passaro = new GameObject("obj_agentFlap");
-        _passaro.transform.SetParent(_arena.transform, false);
-        _passaro.AddComponent<SphereCollider>().radius = 0.5f;
-        Rigidbody _rb = _passaro.AddComponent<Rigidbody>();
-        _rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-
-        GameObject _mesh = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        _mesh.name = "mesh";
-        Object.DestroyImmediate(_mesh.GetComponent<Collider>());
-        _mesh.transform.SetParent(_passaro.transform, false);
-
-        AgentFlap _agente = _passaro.AddComponent<AgentFlap>(); //ja adiciona o Behavior Parameters
-        _agente.MaxStep = 15000; //5 minutos de voo (100 canos), mais que a pontuacao para vencer
-        _agente.Configurar(_arenaScript, _t_cano);
-
-        BehaviorParameters _behavior = _passaro.GetComponent<BehaviorParameters>();
-        _behavior.BehaviorName = behaviorName;
-        _behavior.BrainParameters.VectorObservationSize = AgentFlap.observacoesQuant;
-        _behavior.BrainParameters.ActionSpec = ActionSpec.MakeDiscrete(AgentFlap.acoesQuant);
-
-        DecisionRequester _decisao = _passaro.AddComponent<DecisionRequester>();
-        _decisao.DecisionPeriod = 3;
-        _decisao.TakeActionsBetweenDecisions = false;
-    }
-
-    private static void Cano_Criar(GameObject _canoPrefab, Transform _pai, float _y, float _rotZ)
-    {
-        GameObject _cano = (GameObject)PrefabUtility.InstantiatePrefab(_canoPrefab, _pai);
-        _cano.transform.localPosition = new Vector3(0, _y, 0);
-        _cano.transform.localRotation = Quaternion.Euler(0, 0, _rotZ);
-
-        //no prefab o mesh fica desligado (o visual do jogo vem de outro objeto); aqui liga para enxergar o treino
-        Transform _mesh = _cano.transform.Find("mesh");
-        if (_mesh != null) _mesh.gameObject.SetActive(true);
+        #endregion
     }
 }
