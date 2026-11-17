@@ -69,6 +69,13 @@
 2. Trocar `Behavior Type` por script (Heuristic para humano, Inference para IA treinada). Garantir que a IA treinada só roda em modo inferência na build.
 3. Um agente ativo por cena nas cenas de jogo finais.
 
+**Próximos passos (definidos em 2026-11-17), nesta ordem:**
+1. Colocar o agente treinado (ML) na cena do Infinity.
+2. Criar a opção de jogar contra o ML ou contra o agente reativo.
+3. Criar a opção de assistir ML contra agente reativo.
+4. Colocar o pássaro do ML na cena do Flap.
+5. Treinar mais o Pong (o modelo atual, Pong02, ainda perde do reativo: 146 x 307).
+
 ### Fase 5 — Build WebGL
 1. Build WebGL com o pacote e os `.onnx` incluídos.
 2. Testar no navegador: FPS estável, agente se comporta como no Editor.
