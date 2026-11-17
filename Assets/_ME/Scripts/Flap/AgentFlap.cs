@@ -4,7 +4,7 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 // Agente treinado (ML-Agents) do passaro do Flap.
-// Na cena de treino quem reinicia os canos eh o ArenaFlapTreino; na cena do jogo o campo "arena" fica vazio.
+// Na cena de treino quem reinicia os canos eh o FlapTrainingArena; na cena do jogo o campo "arena" fica vazio.
 //
 // Observacoes (8): altura, velocidade vertical, distancia X e diferenca de altura do proximo cano,
 //                  diferenca de altura do cano seguinte, distancia ao chao, se pode pular,
@@ -22,7 +22,7 @@ public class AgentFlap : Agent
     [SerializeField] float tetoY = 7f; //acima disso conta como batida (evita passar por cima dos canos)
 
     [Header("Treino")]
-    [SerializeField] ArenaFlapTreino arena;
+    [SerializeField] FlapTrainingArena arena;
     [SerializeField] float recompensaPonto = 1f;
     [SerializeField] float recompensaBater = -1f;
     [SerializeField] float recompensaPorDecisao = 0.002f;
@@ -52,7 +52,7 @@ public class AgentFlap : Agent
         for (int i = 0; i < t_cano.Length; i++) canoAlturaAnterior[i] = PosLocal(t_cano[i].position).y;
     }
 
-    public void Configurar(ArenaFlapTreino _arena, Transform[] _t_cano)
+    public void Configurar(FlapTrainingArena _arena, Transform[] _t_cano)
     {
         arena = _arena;
         t_cano = _t_cano;

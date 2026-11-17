@@ -3,7 +3,7 @@ using UnityEngine;
 // Adversario da mesa de treino: copia do agente reativo (Script_IaPong).
 // A diferenca eh que a trajetoria da bola eh calculada por conta (no lugar dos raycasts com a tag "Perigo"
 // e das variaveis estaticas do Script_BolaPong), para funcionar com varias mesas e dos dois lados.
-public class OponentePongTreino : MonoBehaviour
+public class PongTrainingOpponent : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 7;
     [SerializeField] Transform t_arena;

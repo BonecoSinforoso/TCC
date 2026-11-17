@@ -2,19 +2,19 @@ using UnityEngine;
 
 // Par de canos da arena de treino. Mesma logica do Script_canosTudo, mas em posicao local da arena
 // e sem depender do Script_FlapManager (singleton), para varias arenas rodarem na mesma cena.
-public class CanosFlapTreino : MonoBehaviour
+public class FlapTrainingPipes : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 2;
     [SerializeField] float subidaSpeed = 1;
     [SerializeField] float posMinX = -6;
     [SerializeField] float canosDist = 6;
-    [SerializeField] CanosFlapTreino canosOutro;
+    [SerializeField] FlapTrainingPipes canosOutro;
     [SerializeField] float alturaMax = 2.5f;
 
     bool movel;
     bool subindo;
 
-    public void Configurar(CanosFlapTreino _canosOutro)
+    public void Configurar(FlapTrainingPipes _canosOutro)
     {
         canosOutro = _canosOutro;
     }

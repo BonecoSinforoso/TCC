@@ -4,7 +4,7 @@ using UnityEngine;
 // Copia a regra de spawn do Script_InfinityManager.ObjetosSpawnar: uma fileira a cada 10m, com 2 das 3 faixas
 // bloqueadas pelo mesmo tipo de objeto (carro ou onibus), e os objetos andando para tras a 1 m/s (Script_Carro).
 // No lugar de Instantiate/Destroy, os objetos sao criados uma vez e so reposicionados a cada episodio.
-public class ArenaInfinityTreino : MonoBehaviour
+public class InfinityTrainingArena : MonoBehaviour
 {
     [SerializeField] float fileiraPrimeiraZ = 30f;
     [SerializeField] float fileiraDist = 10f; //_posCoef do Script_InfinityManager

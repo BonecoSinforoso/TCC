@@ -4,11 +4,11 @@ using UnityEngine;
 // Copia as regras do Script_PongManager / Script_BolaPong, mas sem singleton, sem UI e sem Time.timeScale = 0,
 // para que varias mesas possam rodar ao mesmo tempo na mesma cena.
 // Tudo eh calculado em posicao local da mesa (o objeto que tem este script eh o centro dela).
-public class ArenaPongTreino : MonoBehaviour
+public class PongTrainingArena : MonoBehaviour
 {
     [SerializeField] Rigidbody rb_bola;
     [SerializeField] AgentPong agente;
-    [SerializeField] OponentePongTreino oponente;
+    [SerializeField] PongTrainingOpponent oponente;
     [SerializeField] float golX = 11f; //mesmo limite do Script_BolaPong
     [SerializeField] float bolaAcelerarTempo = 10f; //mesmo intervalo do BolaMoveSpeedUp
     [SerializeField] float bolaSairTempo = 0.5f; //espera antes da bola sair (no jogo eh a barra de espaco)
@@ -29,7 +29,7 @@ public class ArenaPongTreino : MonoBehaviour
         GolsSofridos = 0;
     }
 
-    public void Configurar(Rigidbody _rb_bola, AgentPong _agente, OponentePongTreino _oponente)
+    public void Configurar(Rigidbody _rb_bola, AgentPong _agente, PongTrainingOpponent _oponente)
     {
         rb_bola = _rb_bola;
         agente = _agente;

@@ -4,7 +4,7 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 // Agente treinado (ML-Agents) do corredor do Infinity.
-// Na cena de treino quem reinicia os obstaculos eh o ArenaInfinityTreino; na cena do jogo o campo "arena" fica vazio.
+// Na cena de treino quem reinicia os obstaculos eh o InfinityTrainingArena; na cena do jogo o campo "arena" fica vazio.
 //
 // Observacoes:
 //  - 3 RayPerceptionSensorComponent3D (um raio para frente em cada faixa, tags Carro e Onibus), no filho "emp_sensores".
@@ -24,7 +24,7 @@ public class AgentInfinity : Agent
     [SerializeField] Transform t_sensores;
 
     [Header("Treino")]
-    [SerializeField] ArenaInfinityTreino arena;
+    [SerializeField] InfinityTrainingArena arena;
     [SerializeField] float recompensaPorMetro = 0.02f;
     [SerializeField] float recompensaBater = -1f;
 
@@ -58,7 +58,7 @@ public class AgentInfinity : Agent
         zAnterior = _pos.z;
     }
 
-    public void Configurar(ArenaInfinityTreino _arena, Transform _t_sensores)
+    public void Configurar(InfinityTrainingArena _arena, Transform _t_sensores)
     {
         arena = _arena;
         t_sensores = _t_sensores;

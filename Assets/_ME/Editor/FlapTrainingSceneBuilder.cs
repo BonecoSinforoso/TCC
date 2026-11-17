@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 
 // Monta a cena de treino do Flap (varias arenas) pelo menu TCC > ML-Agents.
 // Os canos e o ponto sao os mesmos prefabs do jogo (mesmos colisores); o passaro tem as medidas do prefab_obj_iaFlap.
-public static class TreinoFlapCriar
+public static class FlapTrainingSceneBuilder
 {
-    const string cenaPath = "Assets/_ME/Scenes/Treino/Scene_treinoFlap.unity";
+    const string cenaPath = "Assets/_ME/Scenes/Training/FlapTraining.unity";
     const string canoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_cano.prefab";
     const string pontoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_ponto.prefab";
     const string behaviorName = "Flap";
@@ -78,7 +78,7 @@ public static class TreinoFlapCriar
         _chao.transform.localScale = new Vector3(30, 1, 10);
 
         //canos
-        CanosFlapTreino[] _canos = new CanosFlapTreino[3];
+        FlapTrainingPipes[] _canos = new FlapTrainingPipes[3];
         Transform[] _t_cano = new Transform[3];
 
         for (int i = 0; i < 3; i++)
@@ -94,13 +94,13 @@ public static class TreinoFlapCriar
             GameObject _ponto = (GameObject)PrefabUtility.InstantiatePrefab(_pontoPrefab, _canosObj.transform);
             _ponto.transform.localPosition = Vector3.zero;
 
-            _canos[i] = _canosObj.AddComponent<CanosFlapTreino>();
+            _canos[i] = _canosObj.AddComponent<FlapTrainingPipes>();
             _t_cano[i] = _canosObj.transform;
         }
 
         for (int i = 0; i < 3; i++) _canos[i].Configurar(_canos[(i + 2) % 3]); //o "outro" eh o cano que vem logo atras
 
-        ArenaFlapTreino _arenaScript = _arena.AddComponent<ArenaFlapTreino>();
+        FlapTrainingArena _arenaScript = _arena.AddComponent<FlapTrainingArena>();
         _arenaScript.Configurar(_canos);
 
         //passaro

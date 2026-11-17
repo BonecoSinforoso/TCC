@@ -25,7 +25,7 @@
   - **1 agente ativo** na cena final.
 - O pacote ML-Agents **fica na build** (é o runtime de inferência).
 - Avast intercepta HTTPS: no `uv`, usar `--system-certs`; se o Package Manager falhar com erro de certificado, desligar o Web Shield temporariamente.
-- Cenas de treino: menu **TCC > ML-Agents > Criar cena de treino** (scripts em `Assets/_ME/Editor/`). Treinar com `ml\treinar.bat <jogo> <run-id>`.
+- Cenas de treino: menu **TCC > ML-Agents > Criar cena de treino** (scripts em `Assets/_ME/Editor/`). Treinar com `ml\train.bat <jogo> <run-id>`.
 
 ## 3. Fases
 
@@ -81,7 +81,7 @@
 - Um agente/jogo por vez, com commit ao fim de cada fase.
 - Não commitar `results/`, `venv/` nem `Library/`.
 - Mudou observações ou ações depois de treinar? **Retreinar** (o `.onnx` antigo fica inválido).
-- Registrar em `ml/RESULTADOS.md`: run-id, config, passos treinados e métrica final (útil para o texto do TCC).
+- Registrar em `ml/RESULTS.md`: run-id, config, passos treinados e métrica final (útil para o texto do TCC).
 
 ## 5. Riscos
 

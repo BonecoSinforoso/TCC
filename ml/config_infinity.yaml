@@ -1,6 +1,6 @@
 # Treino do agente do Infinity (PPO). Formato do mlagents 1.1.0 / com.unity.ml-agents 4.2.0.
 #
-# Uso: ml\treinar.bat infinity Infinity01   (e depois Play na cena Scene_treinoInfinity)
+# Uso: ml\train.bat infinity Infinity01   (e depois Play na cena InfinityTraining)
 # O nome "Infinity" precisa ser igual ao Behavior Name do Behavior Parameters do agente.
 
 behaviors:
@@ -23,7 +23,7 @@ behaviors:
       extrinsic:
         gamma: 0.99
         strength: 1.0
-    max_steps: 3.0e6
+    max_steps: 1.0e6
     time_horizon: 128
     summary_freq: 10000
     checkpoint_interval: 200000

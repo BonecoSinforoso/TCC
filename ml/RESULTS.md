@@ -1,8 +1,8 @@
 # Resultados dos treinos (ML-Agents)
 
 Ambiente: Unity 6000.3.8f1, `com.unity.ml-agents` 4.2.0, `mlagents` 1.1.0, PPO, rede 2 x 64, `time_scale` 20.
-"Placar" = gols do agente x gols do adversario reativo de treino (`OponentePongTreino`, copia do `Script_IaPong`),
-somados nas 12 mesas da `Scene_treinoPong` com o modelo em inferencia. Ainda nao foi medido contra o `Script_IaPong`
+"Placar" = gols do agente x gols do adversario reativo de treino (`PongTrainingOpponent`, copia do `Script_IaPong`),
+somados nas 12 mesas da `PongTraining` com o modelo em inferencia. Ainda nao foi medido contra o `Script_IaPong`
 original na cena do jogo.
 
 ## Pong
@@ -19,7 +19,7 @@ Ele aprende a rebater (a recompensa vem quase toda das rebatidas), nao a fazer g
 
 ## Flap
 
-Medicao: 16 arenas da `Scene_treinoFlap` com o modelo em inferencia, metade das tentativas com canos moveis
+Medicao: 16 arenas da `FlapTraining` com o modelo em inferencia, metade das tentativas com canos moveis
 (`movelChance` 0.5). So entram na conta as tentativas que terminaram em batida.
 
 | Run | Data | Passos | Tempo | Observacoes / decisao | Recompensas | Recompensa media final | Canos por tentativa (inferencia) |

@@ -2,7 +2,7 @@ using UnityEngine;
 
 // Bola da mesa de treino. Mesma logica de rebatida do Script_BolaPong (OnTriggerEnter),
 // mas com posicoes locais da mesa e sem som, raycast de trajetoria ou singleton.
-public class BolaPongTreino : MonoBehaviour
+public class PongTrainingBall : MonoBehaviour
 {
     [SerializeField] Transform t_arena;
 

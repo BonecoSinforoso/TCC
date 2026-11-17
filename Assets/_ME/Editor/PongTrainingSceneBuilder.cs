@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 
 // Monta a cena de treino do Pong (varias mesas lado a lado) pelo menu TCC > ML-Agents.
 // As medidas sao as mesmas da Scene_gamePong: raquetes em x = +-9, paredes em z = +-6, bola com raio 0.25.
-public static class TreinoPongCriar
+public static class PongTrainingSceneBuilder
 {
-    const string cenaPath = "Assets/_ME/Scenes/Treino/Scene_treinoPong.unity";
+    const string cenaPath = "Assets/_ME/Scenes/Training/PongTraining.unity";
     const string behaviorName = "Pong";
 
     const int colunas = 4;
@@ -71,16 +71,16 @@ public static class TreinoPongCriar
         _rb_bola.useGravity = false;
         _rb_bola.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
         Mesh_Criar(_bola.transform, PrimitiveType.Sphere, Vector3.one * 0.5f);
-        _bola.AddComponent<BolaPongTreino>().Configurar(_arena.transform);
+        _bola.AddComponent<PongTrainingBall>().Configurar(_arena.transform);
 
         //agente (esquerda, no lugar do jogador) e adversario reativo (direita, igual ao jogo)
         GameObject _agenteObj = Raquete_Criar(_arena.transform, "obj_agentPong", "Player", -9);
         GameObject _oponenteObj = Raquete_Criar(_arena.transform, "obj_oponentePong", "IA", 9);
 
-        OponentePongTreino _oponente = _oponenteObj.AddComponent<OponentePongTreino>();
+        PongTrainingOpponent _oponente = _oponenteObj.AddComponent<PongTrainingOpponent>();
         _oponente.Configurar(_arena.transform, _rb_bola);
 
-        ArenaPongTreino _arenaScript = _arena.AddComponent<ArenaPongTreino>();
+        PongTrainingArena _arenaScript = _arena.AddComponent<PongTrainingArena>();
 
         AgentPong _agente = _agenteObj.AddComponent<AgentPong>(); //ja adiciona o Behavior Parameters
         _agente.MaxStep = 3000; //60s de partida (0.02s por step), igual ao fbGanharTempo

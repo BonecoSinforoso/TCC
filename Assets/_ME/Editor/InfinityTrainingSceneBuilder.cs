@@ -10,10 +10,10 @@ using UnityEngine.SceneManagement;
 
 // Monta a cena de treino do Infinity (varias pistas lado a lado) pelo menu TCC > ML-Agents.
 // O corredor tem as medidas do prefab_obj_ia (colisor 0.5 x 1 x 0.5, pulo 6); os obstaculos sao criados
-// pelo ArenaInfinityTreino ao dar Play.
-public static class TreinoInfinityCriar
+// pelo InfinityTrainingArena ao dar Play.
+public static class InfinityTrainingSceneBuilder
 {
-    const string cenaPath = "Assets/_ME/Scenes/Treino/Scene_treinoInfinity.unity";
+    const string cenaPath = "Assets/_ME/Scenes/Training/InfinityTraining.unity";
     const string behaviorName = "Infinity";
 
     const int pistasQuant = 8;
@@ -58,7 +58,7 @@ public static class TreinoInfinityCriar
         GameObject _pista = new GameObject(_nome);
         _pista.transform.position = _pos;
 
-        ArenaInfinityTreino _arena = _pista.AddComponent<ArenaInfinityTreino>();
+        InfinityTrainingArena _arena = _pista.AddComponent<InfinityTrainingArena>();
 
         //chao: uma pista comprida so, com a face de cima em y = 0 (no jogo sao dois planos que vao se revezando)
         GameObject _chao = GameObject.CreatePrimitive(PrimitiveType.Cube);

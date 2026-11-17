@@ -5,7 +5,7 @@ using UnityEngine;
 
 // Agente treinado (ML-Agents) da raquete do Pong.
 // Funciona dos dois lados da mesa: as observacoes sao espelhadas pelo lado em que a raquete esta.
-// Na cena de treino quem reinicia a partida eh o ArenaPongTreino; na cena do jogo o campo "arena" fica vazio.
+// Na cena de treino quem reinicia a partida eh o PongTrainingArena; na cena do jogo o campo "arena" fica vazio.
 //
 // Observacoes (9): z da raquete, x e z da bola, velocidade x e z da bola, diferenca de z bola-raquete,
 //                  energia, bola vindo na minha direcao, ponto previsto de chegada da bola.
@@ -29,7 +29,7 @@ public class AgentPong : Agent
     [SerializeField] Transform t_energiaBarra;
 
     [Header("Treino")]
-    [SerializeField] ArenaPongTreino arena;
+    [SerializeField] PongTrainingArena arena;
     [SerializeField] float recompensaRebater = 1f;
     [SerializeField] float recompensaGolSofrido = -1f;
     [SerializeField] float recompensaGolFeito = 1f;
@@ -53,7 +53,7 @@ public class AgentPong : Agent
         lado = PosLocal(transform.position).x < 0 ? -1 : 1;
     }
 
-    public void Configurar(ArenaPongTreino _arena, Transform _t_bola, Rigidbody _rb_bola, Transform _t_energiaBarra)
+    public void Configurar(PongTrainingArena _arena, Transform _t_bola, Rigidbody _rb_bola, Transform _t_energiaBarra)
     {
         arena = _arena;
         t_bola = _t_bola;

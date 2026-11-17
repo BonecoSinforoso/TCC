@@ -1,6 +1,6 @@
 # Treino do agente do Pong (PPO). Formato do mlagents 1.1.0 / com.unity.ml-agents 4.2.0.
 #
-# Uso: ml\treinar.bat pong Pong01   (e depois Play na cena Scene_treinoPong)
+# Uso: ml\train.bat pong Pong01   (e depois Play na cena PongTraining)
 # O nome "Pong" precisa ser igual ao Behavior Name do Behavior Parameters do agente.
 # Rede pequena (2 x 64) de proposito: a inferencia na build WebGL roda em CPU.
 

@@ -1,6 +1,6 @@
 @echo off
 rem Treino dos agentes do TCC (ML-Agents).
-rem Uso: treinar.bat JOGO NOME_DO_TREINO      ex.: treinar.bat pong Pong01
+rem Uso: train.bat JOGO NOME_DO_TREINO      ex.: train.bat pong Pong01
 rem   JOGO = pong | flap | infinity  (usa ml\config_JOGO.yaml)
 rem Se o treino ja existir, continua de onde parou (--resume) automaticamente.
 rem Depois de "Listening on port 5004", aperte Play na cena de treino do jogo.

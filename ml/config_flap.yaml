@@ -1,6 +1,6 @@
 # Treino do agente do Flap (PPO). Formato do mlagents 1.1.0 / com.unity.ml-agents 4.2.0.
 #
-# Uso: ml\treinar.bat flap Flap01   (e depois Play na cena Scene_treinoFlap)
+# Uso: ml\train.bat flap Flap01   (e depois Play na cena FlapTraining)
 # O nome "Flap" precisa ser igual ao Behavior Name do Behavior Parameters do agente.
 
 behaviors:
