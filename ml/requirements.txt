@@ -1,0 +1,7 @@
+mlagents==1.1.0
+torch==2.2.2
+numpy==1.23.5
+protobuf==3.20.3
+onnx==1.15.0
+grpcio==1.48.2
+setuptools<81
