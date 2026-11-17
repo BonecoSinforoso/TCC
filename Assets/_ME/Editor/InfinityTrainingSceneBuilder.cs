@@ -106,7 +106,7 @@ public static class InfinityTrainingSceneBuilder
 
         DecisionRequester _decisao = _agenteObj.AddComponent<DecisionRequester>();
         _decisao.DecisionPeriod = 5;
-        _decisao.TakeActionsBetweenDecisions = true;
+        _decisao.TakeActionsBetweenDecisions = false; //cada decisao vale um toque de tecla
 
         return _agenteObj.transform;
     }
