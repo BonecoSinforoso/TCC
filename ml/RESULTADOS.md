@@ -19,7 +19,14 @@ Ele aprende a rebater (a recompensa vem quase toda das rebatidas), nao a fazer g
 
 ## Flap
 
-Ainda nao treinado.
+Medicao: 16 arenas da `Scene_treinoFlap` com o modelo em inferencia, metade das tentativas com canos moveis
+(`movelChance` 0.5). So entram na conta as tentativas que terminaram em batida.
+
+| Run | Data | Passos | Tempo | Observacoes / decisao | Recompensas | Recompensa media final | Canos por tentativa (inferencia) |
+|---|---|---|---|---|---|---|---|
+| Flap01 | 2026-11-16 | 1 M | ~7 min | 8 obs, decisao a cada 3 steps | cano +1, bater -1, +0.002 por decisao | ~30 a 50 (pico ~53 em 720 mil, oscilando) | media 19,7 em 133 tentativas, maximo 99 |
+
+Modelo atual em `Assets/_ME/Models/Flap.onnx`: Flap01 (final). A meta do jogo eh 50 canos (`pontuacaoParaVencer`).
 
 ## Infinity
 

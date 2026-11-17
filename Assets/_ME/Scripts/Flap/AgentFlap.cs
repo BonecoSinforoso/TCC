@@ -173,8 +173,25 @@ public class AgentFlap : Agent
         rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
     }
 
+    //placar desde o Play (somado em todas as arenas), para medir o modelo
+    public static int Episodios;
+    public static int PontosTotal;
+    public static int PontosMax;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void Placar_Reset()
+    {
+        Episodios = 0;
+        PontosTotal = 0;
+        PontosMax = 0;
+    }
+
     void Bateu()
     {
+        Episodios++;
+        PontosTotal += Pontos;
+        if (Pontos > PontosMax) PontosMax = Pontos;
+
         AddReward(recompensaBater);
 
         if (arena != null) EndEpisode();
