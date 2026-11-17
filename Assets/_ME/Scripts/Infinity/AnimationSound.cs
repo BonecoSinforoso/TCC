@@ -15,6 +15,7 @@ namespace TCC
 
         #region metodos
 
+        // chamado por evento de animacao
         public void PlayAudioClip()
         {
             _audioSource.PlayOneShot(_footstepClips[Random.Range(0, _footstepClips.Length)]);

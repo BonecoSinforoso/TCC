@@ -1,0 +1,3 @@
+﻿pt-br;Português (Brasil)
+Jogar;Jogar
+Sair;Sair

@@ -1,0 +1,71 @@
+﻿v_1.01 - melhoria no script de abrir cenas (tudo centralizado e agora salva o progresso da cena deixada)
+v_1.02 - util para retornar numero randomico (float)
+v_1.03 - script pra abrir cena anterior - scripts colocados na pasta editor
+v_1.04 - ajuste direcaoApontar2D
+v_1.05 - exemplos, script versionamento
+v_1.06 - quadrado arredondado, cg_toggle
+v_1.07 - quadrado, ciculo
+v_1.08 - pasta files, audios basicos
+v_1.09 - sinforoso button
+v_1.10 - produto versao e nome
+v_1.11 - util cg_set
+v_1.12 - pasta criar renderTexture
+v_1.13 - remocao quadrado
+v_1.14 - debug erro
+v_1.15 - pastas novas serao criadas
+v_1.16 - remocao sprite circulo, erroManager corrigido
+v_1.17 - mais pastas para serem criadas
+v_1.18 - atividade criacao (nn funfa)
+v_1.19 - organizacao das pastas - managers gerais adicionados
+v_1.20 - adicao classes
+v_1.21 - gerais, editor (classes e managers), novas pastas no script q cria pastas (avatarMask, lightinSettings e volumeProfiles)
+v_1.22 - sons de passos, normalMaps, gerais
+v_1.23 - mais sons
+v_1.24 - tamanho change, mais sons, util audioSourcePlay, util direcao2D impro, pastas em grupo
+v_1.25 - util funcoes renomeadas (to english), algumas classes renomeadas
+v_1.26 - numeracao comeca em 00... mais nomes para o ingles
+v_1.27 - cenas e pastas para o ingles
+v_1.28 - namespace e mais mudancas pro ingles
+v_1.29 - namespace e muito mais mudancas pro ingles, renomeando classes
+v_1.30 - padronizacao
+v_1.31 - adicao do cheatManager, instance -> Instance, subPastas
+v_1.32 - interfaces, reorganizacao das pastas, ajustes no sistema de tooltips, namespaces nos serializables e ajuste no notification
+v_1.33 - materiais de cor, commandManager, shake melhorado, debug no tradutor
+v_1.34 - interface de visibilidade, ajuste no commandManager e animationEvent
+v_1.35 - refatoracoes, padronizacoes, emissionController, pasta de enums
+v_1.36 - instance com autoProp e mais termos faltantes pro ingles
+v_1.37 - novas pastas, firstCamera, prefabs
+v_1.38 - retirada de "Script_" e linha no final das classes
+v_1.39 - objRenamer
+v_1.40 - adicao de scripts de outros projetos, fix de outros scripts
+v_1.41 - exclusao de controladores de cena (agr tem pacote pra isso), gradiente, freeCamera, shader de sprite com sombra
+v_1.42 - retarget position e adicao do pacote SceneSwitcherPro (modificado por mim)
+v_1.43 - refactor de codigos, script para movimentacao de UI, alguns fixes e melhorias
+v_1.44 - melhorias no debugManager, no persistentManager e no sceneSwitcher
+v_1.44 - melhorias no debugManager, no versionSetter e refactor de varios scripts
+v_1.45 - cores no debugManager e melhoria no versionSetter
+v_1.46 - info -> log, refactor geral, adicao de funcao no util
+v_1.47 - melhoria no sinforosoButton e refactor
+v_1.48 - TestCombat
+v_1.49 - melhoria no DebugManager
+v_1.50 - mudanca de versao da unity e remocao de cena inutil do SceneSwitcher
+v_2.0.0.0 - atualizacao no tradutor, ajuste na organizacao dos scripts
+v_2.0.1.0 - correcao no TranslationManager
+v_2.0.2.0 - adicao de arquivos padrao
+v_2.0.3.0 - fix no ErrorManager
+v_2.0.4.0 - refactor em poucas coisas
+v_2.0.5.0 - fix no AnimationEventController
+v_2.0.6.0 - refactors (notification manager, debug manager), fix no VersionController, criacao do audio mixer e da prefab do persistent manager
+v_2.0.7.0 - melhoria no sistema de cheat
+v_2.0.8.0 - adicao de arquivo de renderer, detector de textura (terreno), sistema de deteccao de som, sistema de inventario e novos scripts do tradutor
+v_2.0.9.0 - comeco do minimap, termReplacer, melhorias no dataManager e listPopulator
+v_2.1.0.0 - melhoria no script de renomear objetos
+v_2.1.1.0 - script para remover scripts nulos e refactor geral
+v_2.1.2.0 - cenas movidas para o pacote, container de layers, sistema de detalhe, sistema de tracking, pasta especifica para alguns sistemas
+v_2.1.3.0 - mudanca para unity 6000.3.8f1, ajustes nos managers filhos
+v_2.1.4.0 - melhoria no util
+v_2.1.5.0 - adicao de pasta de fontes, ajuste no InitialVariator, melhoria no Util, prefab do BlinkManager e ajuste na prefab do player em primeira pessoa
+v_2.1.6.0 - ajuste na verificao de tag e sistema de evento de animacao
+v_2.1.7.0 - melhoria no DebugManager, ajuste nas tags e outras coisinhas
+v_2.1.8.0 - ajuste na prefab do persistent e arquivo do pacote de traducao (sai pra la TOC)
+v_2.1.9.0 - melhorias no sistema de traducao (agora suporta adicao facil de novos idiomas)
