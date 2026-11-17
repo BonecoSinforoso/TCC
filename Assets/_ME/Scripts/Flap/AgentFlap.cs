@@ -7,12 +7,7 @@ using UnityEngine.Serialization;
 namespace TCC
 {
     // Agente treinado (ML-Agents) do passaro do Flap.
-    // Na cena de treino quem reinicia os canos eh o FlapTrainingArena; na cena do jogo o campo "arena" fica vazio.
-    //
-    // Observacoes (8): altura, velocidade vertical, distancia X e diferenca de altura do proximo cano,
-    //                  diferenca de altura do cano seguinte, distancia ao chao, se pode pular,
-    //                  velocidade vertical do proximo cano (canos moveis).
-    // Acao (1 ramo discreto de 2): 0 nada, 1 pular.
+    // Acao: 0 nada, 1 pular.
     public class AgentFlap : Agent
     {
         #region membros

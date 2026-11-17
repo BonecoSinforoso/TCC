@@ -3,8 +3,7 @@ using UnityEngine.Serialization;
 
 namespace TCC
 {
-    // Bola da mesa de treino. Mesma logica de rebatida do BolaPong (OnTriggerEnter),
-    // mas com posicoes locais da mesa e sem som, raycast de trajetoria ou singleton.
+    // Bola da mesa de treino. Mesma rebatida do BolaPong.
     public class PongTrainingBall : MonoBehaviour
     {
         #region membros

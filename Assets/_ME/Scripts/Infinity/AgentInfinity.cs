@@ -7,14 +7,8 @@ using UnityEngine.Serialization;
 namespace TCC
 {
     // Agente treinado (ML-Agents) do corredor do Infinity.
-    // Na cena de treino quem reinicia os obstaculos eh o InfinityTrainingArena; na cena do jogo o campo "arena" fica vazio.
-    //
-    // Observacoes:
-    //  - 3 RayPerceptionSensorComponent3D (um raio para frente em cada faixa, tags Carro e Onibus), no filho "emp_sensores".
-    //    Eles substituem os raycasts manuais do IaInfinity. O "emp_sensores" fica sempre no meio da pista,
-    //    na altura do chao, acompanhando so o Z do corredor.
-    //  - vetor (5): faixa atual (-1 a 1), velocidade, altura, velocidade vertical, se pode pular.
-    // Acoes (2 ramos discretos): faixa (0 fica, 1 vai uma para a esquerda, 2 uma para a direita) e pulo (0 nada, 1 pular).
+    // Enxerga por 3 raios para frente (um por faixa), no filho "emp_sensores".
+    // Acoes: faixa (0 fica, 1 esquerda, 2 direita) e pulo (0 nada, 1 pular).
     public class AgentInfinity : Agent
     {
         #region membros
@@ -166,6 +160,7 @@ namespace TCC
         //placar desde o Play (somado em todas as pistas), para medir o modelo
         public static int Episodes;
         public static int Wins;
+        public static int Jumps;
         public static float TotalDistance;
         public static float MaxDistance;
 
@@ -174,6 +169,7 @@ namespace TCC
         {
             Episodes = 0;
             Wins = 0;
+            Jumps = 0;
             TotalDistance = 0;
             MaxDistance = 0;
         }
@@ -197,6 +193,7 @@ namespace TCC
         {
             if (!_canJump) return;
             _canJump = false;
+            Jumps++;
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
 

@@ -3,9 +3,7 @@ using UnityEngine.Serialization;
 
 namespace TCC
 {
-    // Adversario da mesa de treino: copia do agente reativo (IaPong).
-    // A diferenca eh que a trajetoria da bola eh calculada por conta (no lugar dos raycasts com a tag "Perigo"
-    // e das variaveis estaticas do BolaPong), para funcionar com varias mesas e dos dois lados.
+    // Adversario da mesa de treino: copia do IaPong, com a trajetoria da bola calculada por conta.
     public class PongTrainingOpponent : MonoBehaviour
     {
         #region membros
@@ -96,8 +94,7 @@ namespace TCC
             }
         }
 
-        // Equivalente aos dois raycasts do BolaPong: reto ate o gol, ou com uma rebatida na parede.
-        // Igual ao original, quando a bola rebate na parede o alvo eh o ponto da parede (_hit.point.z), nn o ponto final.
+        // Igual aos dois raycasts do BolaPong: reto ate o gol, ou ate a parede se rebater antes.
         private bool CalculateDanger(out float pos)
         {
             pos = 0;

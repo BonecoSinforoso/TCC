@@ -11,8 +11,6 @@ using UnityEngine.SceneManagement;
 namespace TCC
 {
     // Monta a cena de treino do Infinity (varias pistas lado a lado) pelo menu TCC > ML-Agents.
-    // O corredor tem as medidas do prefab_obj_ia (colisor 0.5 x 1 x 0.5, pulo 6); os obstaculos sao criados
-    // pelo InfinityTrainingArena ao dar Play.
     public static class InfinityTrainingSceneBuilder
     {
         #region membros

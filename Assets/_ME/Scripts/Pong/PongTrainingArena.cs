@@ -3,10 +3,7 @@ using UnityEngine.Serialization;
 
 namespace TCC
 {
-    // Mesa de Pong usada SO no treino do ML-Agents.
-    // Copia as regras do PongManager / BolaPong, mas sem singleton, sem UI e sem Time.timeScale = 0,
-    // para que varias mesas possam rodar ao mesmo tempo na mesma cena.
-    // Tudo eh calculado em posicao local da mesa (o objeto que tem este script eh o centro dela).
+    // Mesa de Pong usada so no treino. Copia as regras do PongManager / BolaPong, em posicao local da mesa.
     public class PongTrainingArena : MonoBehaviour
     {
         #region membros

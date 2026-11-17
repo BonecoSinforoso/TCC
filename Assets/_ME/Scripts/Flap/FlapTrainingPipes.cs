@@ -3,8 +3,7 @@ using UnityEngine.Serialization;
 
 namespace TCC
 {
-    // Par de canos da arena de treino. Mesma logica do FlapPipeController, mas em posicao local da arena
-    // e sem depender do FlapManager (singleton), para varias arenas rodarem na mesma cena.
+    // Par de canos da arena de treino. Mesma logica do FlapPipeController, em posicao local da arena.
     public class FlapTrainingPipes : MonoBehaviour
     {
         #region membros

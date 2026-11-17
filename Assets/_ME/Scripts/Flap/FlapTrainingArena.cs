@@ -3,9 +3,7 @@ using UnityEngine.Serialization;
 
 namespace TCC
 {
-    // Arena do Flap usada SO no treino do ML-Agents: reinicia os canos a cada episodio.
-    // "movableChance" sorteia, por episodio, se os canos sobem e descem (a variacao "movel" do FlapManager),
-    // para o mesmo modelo aprender as duas dificuldades.
+    // Arena do Flap usada so no treino: reinicia os canos e sorteia se eles se movem.
     public class FlapTrainingArena : MonoBehaviour
     {
         #region membros

@@ -35,11 +35,17 @@ Modelo atual em `Assets/_ME/Models/Flap.onnx`: Flap01 (final). A meta do jogo eh
 | Infinity01 | 2026-11-16 | 400 mil (interrompido; previsto 1 M) | ~11 min | 3 raios (um por faixa) + 5 obs, decisao a cada 5 steps, 1a fileira a 30m | +0.02 por metro, bater -1 | nao aprendeu: recompensa de -0.40 a -0.30, morre na 1a ou 2a fileira (~32m) |
 | Infinity02 | 2026-11-16 | ~100 mil (interrompido; previsto 1 M) | - | igual, com a 1a fileira a 15m | +0.1 por metro, bater -1 | nao aprendeu, igual ao Infinity01 |
 | Infinity03 | 2026-11-17 | 1 M | ~26 min | acao de faixa relativa (fica / uma para a esquerda / uma para a direita), troca de faixa na hora, uma acao por decisao | +0.1 por metro, bater -1 | aprendeu: recompensa de 0,85 para 11,5, ainda subindo no fim |
+| Infinity04 | 2026-11-17 | 1 M (partindo dos pesos do Infinity03) | ~23 min | igual ao Infinity03 | +0.1 por metro, bater -1 | recompensa de ~12 para ~50 a 57 (pico 66), oscilando no fim |
 
 Medicao do Infinity03 (8 pistas da `InfinityTraining`, modelo em inferencia): media de 116 m por tentativa em
 582 tentativas, maximo 807 m, nenhuma chegada aos 1000 m (`_distanceToWin`).
 
-Modelo atual em `Assets/_ME/Models/Infinity.onnx`: Infinity03 (final).
+Medicao do Infinity04 (mesma cena): media de 573 m por tentativa em 225 tentativas, 65 chegadas aos 1000 m (29%).
+Ele pula muito: 16.413 pulos em 128.847 m, cerca de um pulo a cada 8 m (quase um por fileira).
+
+Modelo atual em `Assets/_ME/Models/Infinity.onnx`: Infinity04 (final).
+
+Diferenca para o jogo: na `Scene_InfinityGame` a 1a fileira aparece a 40 m da largada; no treino ela fica a 15 m.
 
 Leitura: o que destravou foi a acao de faixa. Com faixa absoluta (0/1/2) a politica aleatoria do inicio ficava
 oscilando em volta do meio e morria sempre na 1a fileira. A curva nao estabilizou em 1 M, entao mais passos

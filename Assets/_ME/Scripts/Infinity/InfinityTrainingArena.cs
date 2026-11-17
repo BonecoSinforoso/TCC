@@ -3,10 +3,8 @@ using UnityEngine.Serialization;
 
 namespace TCC
 {
-    // Pista do Infinity usada SO no treino do ML-Agents.
-    // Copia a regra de spawn do InfinityManager.SpawnObjects: uma fileira a cada 10m, com 2 das 3 faixas
-    // bloqueadas pelo mesmo tipo de objeto (carro ou onibus), e os objetos andando para tras a 1 m/s (Carro).
-    // No lugar de Instantiate/Destroy, os objetos sao criados uma vez e so reposicionados a cada episodio.
+    // Pista do Infinity usada so no treino. Copia o spawn do InfinityManager:
+    // uma fileira a cada 10m, com 2 das 3 faixas bloqueadas, e os objetos andando para tras.
     public class InfinityTrainingArena : MonoBehaviour
     {
         #region membros

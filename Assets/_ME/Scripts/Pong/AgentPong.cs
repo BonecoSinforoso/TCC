@@ -6,13 +6,8 @@ using UnityEngine.Serialization;
 
 namespace TCC
 {
-    // Agente treinado (ML-Agents) da raquete do Pong.
-    // Funciona dos dois lados da mesa: as observacoes sao espelhadas pelo lado em que a raquete esta.
-    // Na cena de treino quem reinicia a partida eh o PongTrainingArena; na cena do jogo o campo "arena" fica vazio.
-    //
-    // Observacoes (9): z da raquete, x e z da bola, velocidade x e z da bola, diferenca de z bola-raquete,
-    //                  energia, bola vindo na minha direcao, ponto previsto de chegada da bola.
-    // Acao (1 ramo discreto de 3): 0 parado, 1 sobe (+z), 2 desce (-z).
+    // Agente treinado (ML-Agents) da raquete do Pong. Funciona dos dois lados da mesa.
+    // Acao: 0 parado, 1 sobe, 2 desce.
     public class AgentPong : Agent
     {
         #region membros
@@ -118,9 +113,7 @@ namespace TCC
             sensor.AddObservation(Mathf.Clamp(CalculateBallArrival(paddle, ball, ballVel) / (_fieldZ * 2), -1f, 1f));
         }
 
-        // Onde a bola vai cruzar a linha da raquete (ja contando as rebatidas nas paredes), relativo ao z da raquete.
-        // Eh a mesma informacao que o agente reativo tira dos raycasts de trajetoria do BolaPong.
-        // Com a bola indo para o outro lado devolve 0.
+        // Onde a bola vai cruzar a linha da raquete, ja contando as rebatidas nas paredes.
         private float CalculateBallArrival(Vector3 paddle, Vector3 ball, Vector3 ballVel)
         {
             if (ballVel.x * _side <= 0) return 0;
