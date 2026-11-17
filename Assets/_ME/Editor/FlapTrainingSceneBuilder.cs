@@ -1,4 +1,4 @@
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using UnityEditor;
@@ -10,18 +10,18 @@ using UnityEngine.SceneManagement;
 // Os canos e o ponto sao os mesmos prefabs do jogo (mesmos colisores); o passaro tem as medidas do prefab_obj_iaFlap.
 public static class FlapTrainingSceneBuilder
 {
-    const string cenaPath = "Assets/_ME/Scenes/Training/FlapTraining.unity";
-    const string canoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_cano.prefab";
-    const string pontoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_ponto.prefab";
-    const string behaviorName = "Flap";
+    private const string cenaPath = "Assets/_ME/Scenes/Training/FlapTraining.unity";
+    private const string canoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_cano.prefab";
+    private const string pontoPrefabPath = "Assets/_ME/Prefabs/Flap/prefab_obj_ponto.prefab";
+    private const string behaviorName = "Flap";
 
-    const int colunas = 4;
-    const int linhas = 4;
-    const float espacoX = 40f;
-    const float espacoY = 30f;
+    private const int colunas = 4;
+    private const int linhas = 4;
+    private const float espacoX = 40f;
+    private const float espacoY = 30f;
 
     [MenuItem("TCC/ML-Agents/Criar cena de treino - Flap")]
-    static void Cena_Criar()
+    private static void Cena_Criar()
     {
         if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
@@ -64,7 +64,7 @@ public static class FlapTrainingSceneBuilder
         Debug.Log("Cena de treino do Flap criada em " + cenaPath);
     }
 
-    static void Arena_Criar(string _nome, Vector3 _pos, GameObject _canoPrefab, GameObject _pontoPrefab)
+    private static void Arena_Criar(string _nome, Vector3 _pos, GameObject _canoPrefab, GameObject _pontoPrefab)
     {
         GameObject _arena = new GameObject(_nome);
         _arena.transform.position = _pos;
@@ -129,7 +129,7 @@ public static class FlapTrainingSceneBuilder
         _decisao.TakeActionsBetweenDecisions = false;
     }
 
-    static void Cano_Criar(GameObject _canoPrefab, Transform _pai, float _y, float _rotZ)
+    private static void Cano_Criar(GameObject _canoPrefab, Transform _pai, float _y, float _rotZ)
     {
         GameObject _cano = (GameObject)PrefabUtility.InstantiatePrefab(_canoPrefab, _pai);
         _cano.transform.localPosition = new Vector3(0, _y, 0);

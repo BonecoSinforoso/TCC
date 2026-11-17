@@ -1,19 +1,19 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_canosTudo : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
-    [SerializeField] float subidaSpeed;
-    [SerializeField] float posMinX;
-    [SerializeField] GameObject obj_canosOutro;
-    [SerializeField] float alturaMax;
-    [SerializeField] Transform t_ponto;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float subidaSpeed;
+    [SerializeField] private float posMinX;
+    [SerializeField] private GameObject obj_canosOutro;
+    [SerializeField] private float alturaMax;
+    [SerializeField] private Transform t_ponto;
 
-    Rigidbody rb;
-    bool movel;
+    private Rigidbody rb;
+    private bool movel;
     public bool subindo;
 
-    void Start()
+    private void Start()
     {
         movel = Script_FlapManager.instance.movel;
 
@@ -21,7 +21,7 @@ public class Script_canosTudo : MonoBehaviour
         AlturaSet();
     }
 
-    void Update()
+    private void Update()
     {
         rb.linearVelocity = Vector3.left * moveSpeed;
 
@@ -50,7 +50,7 @@ public class Script_canosTudo : MonoBehaviour
         t_ponto.position = transform.position;
     }
 
-    void AlturaSet()
+    private void AlturaSet()
     {
         transform.position = new Vector2(transform.position.x, Random.Range(-alturaMax, alturaMax));
     }

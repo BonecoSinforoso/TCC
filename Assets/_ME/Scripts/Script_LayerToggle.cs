@@ -1,13 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_LayerToggle : MonoBehaviour
 {
-    [SerializeField] int layerIniIndex;
-    [SerializeField] string[] layer;
-    [SerializeField] GameObject[] obj;
-    [SerializeField] int layerAtualIndex;
+    [SerializeField] private int layerIniIndex;
+    [SerializeField] private string[] layer;
+    [SerializeField] private GameObject[] obj;
+    [SerializeField] private int layerAtualIndex;
 
-    void Start()
+    private void Start()
     {
         layerAtualIndex = layerIniIndex;
 
@@ -17,7 +17,7 @@ public class Script_LayerToggle : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -25,7 +25,7 @@ public class Script_LayerToggle : MonoBehaviour
         }
     }
 
-    void Layer_Toggle()
+    private void Layer_Toggle()
     {
         layerAtualIndex = layerAtualIndex == 0 ? 1 : 0;
 

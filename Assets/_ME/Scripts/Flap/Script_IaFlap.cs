@@ -1,37 +1,37 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Script_IaFlap : MonoBehaviour
 {
-    [SerializeField] float puloForca;
-    [SerializeField] float puloCd;
+    [SerializeField] private float puloForca;
+    [SerializeField] private float puloCd;
 
-    [SerializeField] float alturaMin;
-    [SerializeField] float coefY;
+    [SerializeField] private float alturaMin;
+    [SerializeField] private float coefY;
 
-    [SerializeField] Transform[] t_cano;
-    [SerializeField] float distanciaCanoFrente;
+    [SerializeField] private Transform[] t_cano;
+    [SerializeField] private float distanciaCanoFrente;
 
-    [SerializeField] TextMeshProUGUI txt_pontos;
+    [SerializeField] private TextMeshProUGUI txt_pontos;
 
     [Header("Visualizacao")]
-    [SerializeField] LineRenderer lr_canoAlturaDif;
-    [SerializeField] LineRenderer lr_canoDistHor;
-    [SerializeField] LineRenderer lr_chao;
+    [SerializeField] private LineRenderer lr_canoAlturaDif;
+    [SerializeField] private LineRenderer lr_canoDistHor;
+    [SerializeField] private LineRenderer lr_chao;
 
-    int pontos = 0;
-    bool puloPode = true;
-    bool movel; //se canos sao moveis ou nn
+    private int pontos = 0;
+    private bool puloPode = true;
+    private bool movel; //se canos sao moveis ou nn
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
-    void Start()
+    private void Start()
     {
         movel = Script_FlapManager.instance.movel;
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void Update()
     {
         int _canoMaisProximoIndex = -1;
 
@@ -85,7 +85,7 @@ public class Script_IaFlap : MonoBehaviour
         lr_chao.SetPosition(1, new Vector3(transform.position.x, -5, 0));
     }
 
-    void Pulo()
+    private void Pulo()
     {
         if (!puloPode) return;
         puloPode = false;
@@ -95,7 +95,7 @@ public class Script_IaFlap : MonoBehaviour
         Invoke(nameof(PuloPode_Reset), puloCd);
     }
 
-    void PuloPode_Reset()
+    private void PuloPode_Reset()
     {
         puloPode = true;
     }
@@ -122,7 +122,7 @@ public class Script_IaFlap : MonoBehaviour
         }
     }
 
-    void Txt_Pontos_Set()
+    private void Txt_Pontos_Set()
     {
         txt_pontos.text = pontos.ToString();
     }

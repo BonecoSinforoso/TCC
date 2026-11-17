@@ -1,29 +1,29 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Script_PlayerInfinity : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
-    [SerializeField] float moveSpeedX;
-    [SerializeField] float puloForca;
-    [SerializeField] float posLimiteX;
-    [SerializeField] TextMeshProUGUI txt_moveSpeed;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeedX;
+    [SerializeField] private float puloForca;
+    [SerializeField] private float posLimiteX;
+    [SerializeField] private TextMeshProUGUI txt_moveSpeed;
 
-    Rigidbody rb;
-    Animator animator;
+    private Rigidbody rb;
+    private Animator animator;
 
-    int pontos = 0;
-    bool perdeu = false;
-    bool puloPode = false;
+    private int pontos = 0;
+    private bool perdeu = false;
+    private bool puloPode = false;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
 
         animator = transform.GetComponentInChildren<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         if (perdeu) return;
 
@@ -55,14 +55,14 @@ public class Script_PlayerInfinity : MonoBehaviour
         else if (transform.position.x > posLimiteX) transform.position = new Vector3(posLimiteX, transform.position.y, transform.position.z);
     }
 
-    void Pulo()
+    private void Pulo()
     {
         if (!puloPode) return;
         puloPode = false;
         rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
     }
 
-    void Perdeu()
+    private void Perdeu()
     {
         perdeu = true;
         rb.linearVelocity = Vector3.zero;

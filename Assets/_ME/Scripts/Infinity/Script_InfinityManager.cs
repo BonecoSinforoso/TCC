@@ -1,44 +1,44 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Script_InfinityManager : MonoBehaviour
 {
     public static Script_InfinityManager instance;
 
-    [SerializeField] Text[] txt_distancia;
-    [SerializeField] float distanciaGanhar;
+    [SerializeField] private Text[] txt_distancia;
+    [SerializeField] private float distanciaGanhar;
 
-    [SerializeField] GameObject[] obj_jogador;
+    [SerializeField] private GameObject[] obj_jogador;
 
-    [SerializeField] GameObject[] obj_chao_01;
-    [SerializeField] GameObject[] obj_chao_02;
+    [SerializeField] private GameObject[] obj_chao_01;
+    [SerializeField] private GameObject[] obj_chao_02;
 
-    [SerializeField] Transform[] t_camera;
-    [SerializeField] float distanciaZ;
+    [SerializeField] private Transform[] t_camera;
+    [SerializeField] private float distanciaZ;
 
-    [SerializeField] GameObject[] emp_pai;
-    [SerializeField] GameObject[] prefab_obj_objeto;
-    [SerializeField] float posUltima;
+    [SerializeField] private GameObject[] emp_pai;
+    [SerializeField] private GameObject[] prefab_obj_objeto;
+    [SerializeField] private float posUltima;
 
     [Header("Outros")]
-    [SerializeField] GameObject prefab_obj_oculos;
+    [SerializeField] private GameObject prefab_obj_oculos;
 
     [Header("Testes")]
-    [SerializeField] int spawnQuant_edit;
+    [SerializeField] private int spawnQuant_edit;
     [Space]
-    [SerializeField] bool spawnPos_edit;
-    [SerializeField] int spawnPos;
-    [SerializeField] bool objTipo_edit;
-    [SerializeField] int objTipo;
+    [SerializeField] private bool spawnPos_edit;
+    [SerializeField] private int spawnPos;
+    [SerializeField] private bool objTipo_edit;
+    [SerializeField] private int objTipo;
 
-    bool[] perdeu = new bool[3];
+    private bool[] perdeu = new bool[3];
 
-    void Start()
+    private void Start()
     {
         instance = this;
     }
 
-    void Update()
+    private void Update()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -51,7 +51,7 @@ public class Script_InfinityManager : MonoBehaviour
         ChaoPos_Change();
     }
 
-    void ChaoPos_Change() //isso vai dar merda se a diferen�a de posicao for grande -> usar eskema do mario kart... deixo para vc icaro do futuro
+    private void ChaoPos_Change() //isso vai dar merda se a diferença de posicao for grande -> usar eskema do mario kart... deixo para vc icaro do futuro
     {
         bool _spawnar = false;
 
@@ -82,7 +82,7 @@ public class Script_InfinityManager : MonoBehaviour
         if (_spawnar) ObjetosSpawnar(posUltima, spawnQuant_edit <= 0 ? 1 : spawnQuant_edit);
     }
 
-    void ObjetosSpawnar(float _pos, int _quant)
+    private void ObjetosSpawnar(float _pos, int _quant)
     {
         float _posIni = 60;
         float _posCoef = 10;
@@ -136,7 +136,7 @@ public class Script_InfinityManager : MonoBehaviour
         Invoke(nameof(PlayerEnxegar), 5f);
     }
 
-    void PlayerEnxegar()
+    private void PlayerEnxegar()
     {
         t_camera[0].GetComponent<Camera>().farClipPlane = 50;
     }
@@ -150,7 +150,7 @@ public class Script_InfinityManager : MonoBehaviour
         Invoke(nameof(IaEnxergar), 5f);
     }
 
-    void IaEnxergar()
+    private void IaEnxergar()
     {
         t_camera[1].GetComponent<Camera>().farClipPlane = 50;
 

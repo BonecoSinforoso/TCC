@@ -1,29 +1,29 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_FlapManager : MonoBehaviour
 {
     public static Script_FlapManager instance;
 
-    [SerializeField] GameObject obj_player;
-    [SerializeField] GameObject obj_ia;
+    [SerializeField] private GameObject obj_player;
+    [SerializeField] private GameObject obj_ia;
 
-    [SerializeField] GameObject obj_playerClone;
-    [SerializeField] GameObject obj_iaClone;
+    [SerializeField] private GameObject obj_playerClone;
+    [SerializeField] private GameObject obj_iaClone;
 
     public bool movel;
     public int pontuacaoParaVencer;
-    [SerializeField] AudioClip[] ac;
+    [SerializeField] private AudioClip[] ac;
 
-    AudioSource audioSource;
+    private AudioSource audioSource;
 
-    void Start()
+    private void Start()
     {
         instance = this;
 
         audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
+    private void Update()
     {
         obj_playerClone.transform.SetPositionAndRotation(obj_player.transform.position, obj_player.transform.rotation);
 

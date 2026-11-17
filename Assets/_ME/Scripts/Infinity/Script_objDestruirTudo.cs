@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_objDestruirTudo : MonoBehaviour
 {
-    GameObject obj;
+    private GameObject obj;
 
-    void Update()
+    private void Update()
     {
         if (obj == null) return;
         if (transform.position.z + 10 < obj.transform.position.z) Destroy(gameObject);

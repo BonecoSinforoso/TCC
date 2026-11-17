@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,25 +7,25 @@ public class Script_InicioManager : MonoBehaviour
 {
     public static Script_InicioManager script_InicioManager;
 
-    [SerializeField] CanvasGroup cg_creditos;
-    [SerializeField] CanvasGroup cg_tutorial;
-    [SerializeField] TextMeshProUGUI[] txt_fundo;
-    [SerializeField] float txtFundoChangeCd;
-    [SerializeField] TextMeshProUGUI txt_versao;
+    [SerializeField] private CanvasGroup cg_creditos;
+    [SerializeField] private CanvasGroup cg_tutorial;
+    [SerializeField] private TextMeshProUGUI[] txt_fundo;
+    [SerializeField] private float txtFundoChangeCd;
+    [SerializeField] private TextMeshProUGUI txt_versao;
 
-    [SerializeField] Image img_tutorial;
-    [SerializeField] TextMeshProUGUI txt_tutorial;
+    [SerializeField] private Image img_tutorial;
+    [SerializeField] private TextMeshProUGUI txt_tutorial;
 
-    [SerializeField] int jogoId;
-    [SerializeField] int infoId;
-    [SerializeField] Sprite[] spr_infinity;
-    [SerializeField] string[] txt_infinity;
-    [SerializeField] Sprite[] spr_flappy;
-    [SerializeField] string[] txt_flappy;
-    [SerializeField] Sprite[] spr_pong;
-    [SerializeField] string[] txt_pong;
+    [SerializeField] private int jogoId;
+    [SerializeField] private int infoId;
+    [SerializeField] private Sprite[] spr_infinity;
+    [SerializeField] private string[] txt_infinity;
+    [SerializeField] private Sprite[] spr_flappy;
+    [SerializeField] private string[] txt_flappy;
+    [SerializeField] private Sprite[] spr_pong;
+    [SerializeField] private string[] txt_pong;
 
-    void Start()
+    private void Start()
     {
         Application.targetFrameRate = 60;
 
@@ -60,7 +60,7 @@ public class Script_InicioManager : MonoBehaviour
         Application.Quit();
     }
 
-    void TextsFundo_Set()
+    private void TextsFundo_Set()
     {
         foreach (TextMeshProUGUI _txt_fundo in txt_fundo)
         {
@@ -97,7 +97,7 @@ public class Script_InicioManager : MonoBehaviour
         TxtTutorial_Set();
     }
 
-    void ImgTutorial_Set()
+    private void ImgTutorial_Set()
     {
         switch (jogoId)
         {
@@ -113,7 +113,7 @@ public class Script_InicioManager : MonoBehaviour
         }
     }
 
-    void TxtTutorial_Set()
+    private void TxtTutorial_Set()
     {
         switch (jogoId)
         {

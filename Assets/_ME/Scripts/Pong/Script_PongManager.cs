@@ -1,27 +1,27 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Script_PongManager : MonoBehaviour
 {
     public static Script_PongManager instance;
 
-    [SerializeField] GameObject obj_bola;
-    int lado = 0;
-    [SerializeField] float bolaMoveSpeed;
-    [SerializeField] TextMeshPro txt_tempo;
-    [SerializeField] TextMeshPro txt_placar;
-    [SerializeField] TextMeshPro txt_aperte;
-    [SerializeField] TrailRenderer tr_bola;
+    [SerializeField] private GameObject obj_bola;
+    private int lado = 0;
+    [SerializeField] private float bolaMoveSpeed;
+    [SerializeField] private TextMeshPro txt_tempo;
+    [SerializeField] private TextMeshPro txt_placar;
+    [SerializeField] private TextMeshPro txt_aperte;
+    [SerializeField] private TrailRenderer tr_bola;
 
-    [SerializeField] int fbGanharTempo;
+    [SerializeField] private int fbGanharTempo;
 
-    readonly int[] pontos = { 0, 0 };
+    private readonly int[] pontos = { 0, 0 };
 
-    Rigidbody rb_bola;
-    bool bolaMovendo = false;
-    int tempoAtual = 0;
+    private Rigidbody rb_bola;
+    private bool bolaMovendo = false;
+    private int tempoAtual = 0;
 
-    void Start()
+    private void Start()
     {
         instance = this;
 
@@ -30,7 +30,7 @@ public class Script_PongManager : MonoBehaviour
         txt_tempo.text = fbGanharTempo.ToString() + "s";
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -38,7 +38,7 @@ public class Script_PongManager : MonoBehaviour
         }
     }
 
-    void BolaMover(int _lado)
+    private void BolaMover(int _lado)
     {
         if (bolaMovendo) return;
 
@@ -84,12 +84,12 @@ public class Script_PongManager : MonoBehaviour
         TextPlacarSet();
     }
 
-    void TextPlacarSet()
+    private void TextPlacarSet()
     {
         txt_placar.text = pontos[0].ToString() + " x " + pontos[1].ToString();
     }
 
-    void BolaMoveSpeedUp()
+    private void BolaMoveSpeedUp()
     {
         if (Random.Range(0, 2) == 0)
         {
@@ -105,7 +105,7 @@ public class Script_PongManager : MonoBehaviour
         Invoke(nameof(BolaMoveSpeedUp), 10f);
     }
 
-    void TempoSet()
+    private void TempoSet()
     {
         tempoAtual++;
         TextTempoSet();
@@ -117,7 +117,7 @@ public class Script_PongManager : MonoBehaviour
         }
     }
 
-    void TextTempoSet(int _valor = -1)
+    private void TextTempoSet(int _valor = -1)
     {
         if (_valor == -1) txt_tempo.text = (fbGanharTempo - tempoAtual).ToString() + "s";
         else

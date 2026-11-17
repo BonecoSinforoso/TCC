@@ -1,23 +1,23 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Script_playerFlapTudo : MonoBehaviour
 {
-    [SerializeField] float puloForca;
-    [SerializeField] float subidaRot;
-    [SerializeField] float quedaRot;
+    [SerializeField] private float puloForca;
+    [SerializeField] private float subidaRot;
+    [SerializeField] private float quedaRot;
 
-    [SerializeField] TextMeshProUGUI txt_pontos;
-    int pontos = 0;
+    [SerializeField] private TextMeshProUGUI txt_pontos;
+    private int pontos = 0;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -80,7 +80,7 @@ public class Script_playerFlapTudo : MonoBehaviour
         }
     }
 
-    void TextPontosSet()
+    private void TextPontosSet()
     {
         txt_pontos.text = pontos.ToString();
     }

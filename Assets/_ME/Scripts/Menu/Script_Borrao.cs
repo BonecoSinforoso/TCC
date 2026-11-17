@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_Borrao : MonoBehaviour
 {
-    [SerializeField] RectTransform rect_borrao;
-    [SerializeField] float moveSpeed;
-    bool descer = false;
+    [SerializeField] private RectTransform rect_borrao;
+    [SerializeField] private float moveSpeed;
+    private bool descer = false;
 
     private void Update()
     {

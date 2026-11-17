@@ -1,20 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_Carro : Script_ObjDestruir
 {
-    [SerializeField] float moveSpeed;
-    Rigidbody rb;
-    GameObject obj;
-    GameObject obj_player;
+    [SerializeField] private float moveSpeed;
+    private Rigidbody rb;
+    private GameObject obj;
+    private GameObject obj_player;
 
-    void Start()
+    private void Start()
     {
         obj_player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         transform.eulerAngles = new Vector3(0, 180, 0);
     }
 
-    void Update()
+    private void Update()
     {
         if (obj != null) Distancia_Verificar(obj);
         rb.linearVelocity = Vector3.back + new Vector3(0, rb.linearVelocity.y, 0);

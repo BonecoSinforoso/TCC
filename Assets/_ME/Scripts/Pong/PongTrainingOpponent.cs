@@ -1,25 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 // Adversario da mesa de treino: copia do agente reativo (Script_IaPong).
 // A diferenca eh que a trajetoria da bola eh calculada por conta (no lugar dos raycasts com a tag "Perigo"
 // e das variaveis estaticas do Script_BolaPong), para funcionar com varias mesas e dos dois lados.
 public class PongTrainingOpponent : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 7;
-    [SerializeField] Transform t_arena;
-    [SerializeField] Rigidbody rb_bola;
+    [SerializeField] private float moveSpeed = 7;
+    [SerializeField] private Transform t_arena;
+    [SerializeField] private Rigidbody rb_bola;
 
-    [SerializeField] float energiaMax = 100;
-    [SerializeField] float energiaAtual = 100;
-    [SerializeField] float energiaConsumo = 100;
-    [SerializeField] float energiaRecarga = 25;
+    [SerializeField] private float energiaMax = 100;
+    [SerializeField] private float energiaAtual = 100;
+    [SerializeField] private float energiaConsumo = 100;
+    [SerializeField] private float energiaRecarga = 25;
 
     //medidas da cena do jogo: face do col_perigo (x = 9.5) e face interna das paredes (z = 5.5)
-    const float perigoX = 9.5f;
-    const float paredeZ = 5.5f;
+    private const float perigoX = 9.5f;
+    private const float paredeZ = 5.5f;
 
-    Rigidbody rb;
-    float lado; //-1 = esquerda, 1 = direita
+    private Rigidbody rb;
+    private float lado; //-1 = esquerda, 1 = direita
 
     public void Configurar(Transform _t_arena, Rigidbody _rb_bola)
     {
@@ -27,7 +27,7 @@ public class PongTrainingOpponent : MonoBehaviour
         rb_bola = _rb_bola;
     }
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         lado = t_arena.InverseTransformPoint(transform.position).x < 0 ? -1 : 1;
@@ -38,7 +38,7 @@ public class PongTrainingOpponent : MonoBehaviour
         energiaAtual = energiaMax;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         float _z = t_arena.InverseTransformPoint(transform.position).z;
         bool _andou = false;
@@ -83,7 +83,7 @@ public class PongTrainingOpponent : MonoBehaviour
 
     // Equivalente aos dois raycasts do Script_BolaPong: reto ate o gol, ou com uma rebatida na parede.
     // Igual ao original, quando a bola rebate na parede o alvo eh o ponto da parede (_hit.point.z), nn o ponto final.
-    bool Perigo_Calcular(out float _pos)
+    private bool Perigo_Calcular(out float _pos)
     {
         _pos = 0;
 

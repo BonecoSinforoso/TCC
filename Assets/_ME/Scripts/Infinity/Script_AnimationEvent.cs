@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_AnimationEvent : MonoBehaviour
 {
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip[] ac_footstep;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] ac_footstep;
 
     public void AudioClip_Play()
     {

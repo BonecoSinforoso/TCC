@@ -30,4 +30,9 @@ Modelo atual em `Assets/_ME/Models/Flap.onnx`: Flap01 (final). A meta do jogo eh
 
 ## Infinity
 
-Ainda nao treinado.
+| Run | Data | Passos | Tempo | Configuracao | Recompensas | Resultado |
+|---|---|---|---|---|---|---|
+| Infinity01 | 2026-11-16 | 400 mil (interrompido; previsto 1 M) | ~11 min | 3 raios (um por faixa) + 5 obs, decisao a cada 5 steps, 1a fileira a 30m | +0.02 por metro, bater -1 | nao aprendeu: recompensa de -0.40 a -0.30, morre na 1a ou 2a fileira (~32m) |
+| Infinity02 | 2026-11-16 | em andamento (previsto 1 M) | - | igual, com a 1a fileira a 15m | +0.1 por metro, bater -1 | a preencher |
+
+Sem modelo do Infinity em `Assets/_ME/Models/` ainda.

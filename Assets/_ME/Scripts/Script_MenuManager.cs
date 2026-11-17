@@ -1,12 +1,12 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Script_MenuManager : MonoBehaviour
 {
-    [SerializeField] string[] cenaNome;
-    [SerializeField] TextMeshProUGUI txt_flapPontos;
-    int pontos = 0;
+    [SerializeField] private string[] cenaNome;
+    [SerializeField] private TextMeshProUGUI txt_flapPontos;
+    private int pontos = 0;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class Script_MenuManager : MonoBehaviour
         SceneManager.LoadScene(cenaNome[_valor]);
     }
 
-    void PontosSet()
+    private void PontosSet()
     {
         pontos++;
 
@@ -26,7 +26,7 @@ public class Script_MenuManager : MonoBehaviour
         Invoke(nameof(PontosSet), 0.1f);
     }
 
-    void TextFlapPontosSet()
+    private void TextFlapPontosSet()
     {
         txt_flapPontos.text = pontos.ToString();
     }

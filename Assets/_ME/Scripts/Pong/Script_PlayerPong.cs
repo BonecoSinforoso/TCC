@@ -1,27 +1,27 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_PlayerPong : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
+    [SerializeField] private float moveSpeed;
 
-    [SerializeField] float energiaMax;
-    [SerializeField] float energiaAtual;
-    [SerializeField] float energiaConsumo;
-    [SerializeField] float energiaRecarga;
-    [SerializeField] Transform t_energiaBarra;
-    [SerializeField] MeshRenderer mesh_energiaBarra;
-    [SerializeField] Color[] color;
+    [SerializeField] private float energiaMax;
+    [SerializeField] private float energiaAtual;
+    [SerializeField] private float energiaConsumo;
+    [SerializeField] private float energiaRecarga;
+    [SerializeField] private Transform t_energiaBarra;
+    [SerializeField] private MeshRenderer mesh_energiaBarra;
+    [SerializeField] private Color[] color;
 
-    bool travado = false;
+    private bool travado = false;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void Update()
     {
         float _v = Input.GetAxisRaw("Vertical");
         bool _andou = false;
@@ -64,19 +64,19 @@ public class Script_PlayerPong : MonoBehaviour
         EnergiaBarraTamanho_Set();
     }
 
-    void EnergiaBarraTamanho_Set()
+    private void EnergiaBarraTamanho_Set()
     {
         t_energiaBarra.localScale = new Vector3(1, 1, energiaAtual / energiaMax);
     }
 
-    void Travado_Set(bool _valor)
+    private void Travado_Set(bool _valor)
     {
         travado = _valor;
 
         EnergiaBarraCor_Set(_valor);
     }
 
-    void EnergiaBarraCor_Set(bool _valor)
+    private void EnergiaBarraCor_Set(bool _valor)
     {
         Material material = mesh_energiaBarra.material;
         material.EnableKeyword("_EMISSION");

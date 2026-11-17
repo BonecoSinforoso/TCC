@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,15 +7,15 @@ public class Script_GeralManager : MonoBehaviour
 {
     public static Script_GeralManager instance;
 
-    [SerializeField] CanvasGroup cg_pausa;
+    [SerializeField] private CanvasGroup cg_pausa;
 
-    [SerializeField] GameObject obj_fb;
-    [SerializeField] TextMeshProUGUI txt_fb;
-    [SerializeField] Color[] color_fb;
+    [SerializeField] private GameObject obj_fb;
+    [SerializeField] private TextMeshProUGUI txt_fb;
+    [SerializeField] private Color[] color_fb;
 
-    bool pausado = false;    
+    private bool pausado = false;
 
-    void Start()
+    private void Start()
     {
         instance = this;
 
@@ -23,7 +23,7 @@ public class Script_GeralManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P)) //redundancia de aviao para evitar bugs
         {
@@ -71,6 +71,6 @@ public class Script_GeralManager : MonoBehaviour
 
         Time.timeScale = 0;
 
-        txt_fb.text = _valor == 0 ? "VOCÊ PERDEU!" : "VOCÊ GANHOU!";
+        txt_fb.text = _valor == 0 ? "VOCÃŠ PERDEU!" : "VOCÃŠ GANHOU!";
     }
 }

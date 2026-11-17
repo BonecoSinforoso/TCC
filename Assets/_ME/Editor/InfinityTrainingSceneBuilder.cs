@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
@@ -13,17 +13,17 @@ using UnityEngine.SceneManagement;
 // pelo InfinityTrainingArena ao dar Play.
 public static class InfinityTrainingSceneBuilder
 {
-    const string cenaPath = "Assets/_ME/Scenes/Training/InfinityTraining.unity";
-    const string behaviorName = "Infinity";
+    private const string cenaPath = "Assets/_ME/Scenes/Training/InfinityTraining.unity";
+    private const string behaviorName = "Infinity";
 
-    const int pistasQuant = 8;
-    const float espacoX = 20f; //mesma distancia entre as pistas do jogo
-    const float pistaTamanho = 1300f;
-    const float faixaDist = 2.5f;
-    const float raioTamanho = 20f;
+    private const int pistasQuant = 8;
+    private const float espacoX = 20f; //mesma distancia entre as pistas do jogo
+    private const float pistaTamanho = 1300f;
+    private const float faixaDist = 2.5f;
+    private const float raioTamanho = 20f;
 
     [MenuItem("TCC/ML-Agents/Criar cena de treino - Infinity")]
-    static void Cena_Criar()
+    private static void Cena_Criar()
     {
         if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
@@ -53,7 +53,7 @@ public static class InfinityTrainingSceneBuilder
         Debug.Log("Cena de treino do Infinity criada em " + cenaPath);
     }
 
-    static Transform Pista_Criar(string _nome, Vector3 _pos)
+    private static Transform Pista_Criar(string _nome, Vector3 _pos)
     {
         GameObject _pista = new GameObject(_nome);
         _pista.transform.position = _pos;
@@ -111,7 +111,7 @@ public static class InfinityTrainingSceneBuilder
         return _agenteObj.transform;
     }
 
-    static void Sensor_Criar(Transform _pai, string _nome, float _x)
+    private static void Sensor_Criar(Transform _pai, string _nome, float _x)
     {
         GameObject _obj = new GameObject(_nome);
         _obj.transform.SetParent(_pai, false);

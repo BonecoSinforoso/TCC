@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 // Mesa de Pong usada SO no treino do ML-Agents.
 // Copia as regras do Script_PongManager / Script_BolaPong, mas sem singleton, sem UI e sem Time.timeScale = 0,
@@ -6,24 +6,24 @@ using UnityEngine;
 // Tudo eh calculado em posicao local da mesa (o objeto que tem este script eh o centro dela).
 public class PongTrainingArena : MonoBehaviour
 {
-    [SerializeField] Rigidbody rb_bola;
-    [SerializeField] AgentPong agente;
-    [SerializeField] PongTrainingOpponent oponente;
-    [SerializeField] float golX = 11f; //mesmo limite do Script_BolaPong
-    [SerializeField] float bolaAcelerarTempo = 10f; //mesmo intervalo do BolaMoveSpeedUp
-    [SerializeField] float bolaSairTempo = 0.5f; //espera antes da bola sair (no jogo eh a barra de espaco)
+    [SerializeField] private Rigidbody rb_bola;
+    [SerializeField] private AgentPong agente;
+    [SerializeField] private PongTrainingOpponent oponente;
+    [SerializeField] private float golX = 11f; //mesmo limite do Script_BolaPong
+    [SerializeField] private float bolaAcelerarTempo = 10f; //mesmo intervalo do BolaMoveSpeedUp
+    [SerializeField] private float bolaSairTempo = 0.5f; //espera antes da bola sair (no jogo eh a barra de espaco)
 
-    float agenteLado; //-1 = agente na esquerda, 1 = agente na direita
-    float tempoSair;
-    float tempoAcelerar;
-    bool bolaMovendo;
+    private float agenteLado; //-1 = agente na esquerda, 1 = agente na direita
+    private float tempoSair;
+    private float tempoAcelerar;
+    private bool bolaMovendo;
 
     //placar desde o Play (somado em todas as mesas), para medir o agente contra o adversario reativo
     public static int GolsFeitos;
     public static int GolsSofridos;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void Placar_Reset()
+    private static void Placar_Reset()
     {
         GolsFeitos = 0;
         GolsSofridos = 0;
@@ -36,7 +36,7 @@ public class PongTrainingArena : MonoBehaviour
         oponente = _oponente;
     }
 
-    void Awake()
+    private void Awake()
     {
         agenteLado = transform.InverseTransformPoint(agente.transform.position).x < 0 ? -1 : 1;
     }
@@ -53,7 +53,7 @@ public class PongTrainingArena : MonoBehaviour
         if (oponente != null) oponente.EnergiaReset();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!bolaMovendo)
         {
@@ -84,7 +84,7 @@ public class PongTrainingArena : MonoBehaviour
         }
     }
 
-    void BolaMover() //mesma conta do Script_PongManager.BolaMover
+    private void BolaMover() //mesma conta do Script_PongManager.BolaMover
     {
         float _bolaMoveSpeedX = Random.Range(5, 8);
         float _bolaMoveSpeedY = 5 + (5 - _bolaMoveSpeedX);
@@ -97,7 +97,7 @@ public class PongTrainingArena : MonoBehaviour
         tempoAcelerar = bolaAcelerarTempo;
     }
 
-    void BolaAcelerar() //mesma conta do Script_PongManager.BolaMoveSpeedUp
+    private void BolaAcelerar() //mesma conta do Script_PongManager.BolaMoveSpeedUp
     {
         if (Random.Range(0, 2) == 0)
         {

@@ -1,42 +1,42 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Script_IaInfinity : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
-    [SerializeField] float puloForca;
-    [SerializeField] float puloDist;
-    [SerializeField] float t;
-    [SerializeField] TextMeshProUGUI txt_moveSpeed;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float puloForca;
+    [SerializeField] private float puloDist;
+    [SerializeField] private float t;
+    [SerializeField] private TextMeshProUGUI txt_moveSpeed;
 
-    Rigidbody rb;
-    Animator animator;
+    private Rigidbody rb;
+    private Animator animator;
 
-    int pontos = 0;
-    bool perdeu = false;
-    bool puloPode = false;
+    private int pontos = 0;
+    private bool perdeu = false;
+    private bool puloPode = false;
 
-    [SerializeField] bool esq = false;
-    [SerializeField] bool cen = false;
-    [SerializeField] bool dir = false;
+    [SerializeField] private bool esq = false;
+    [SerializeField] private bool cen = false;
+    [SerializeField] private bool dir = false;
 
-    [SerializeField] bool bloq_esq;
-    [SerializeField] bool bloq_cen;
-    [SerializeField] bool bloq_dir;
+    [SerializeField] private bool bloq_esq;
+    [SerializeField] private bool bloq_cen;
+    [SerializeField] private bool bloq_dir;
 
-    [SerializeField] LineRenderer[] lr;
+    [SerializeField] private LineRenderer[] lr;
 
-    bool sentidoMudarPode = true;
+    private bool sentidoMudarPode = true;
 
-    [SerializeField] float raioFrenteTamanho;
+    [SerializeField] private float raioFrenteTamanho;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = transform.GetComponentInChildren<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         if (perdeu) return;
 
@@ -179,21 +179,21 @@ public class Script_IaInfinity : MonoBehaviour
         }
     }
 
-    void Pulo()
+    private void Pulo()
     {
         if (!puloPode) return;
         puloPode = false;
         rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
     }
 
-    void Perdeu()
+    private void Perdeu()
     {
         perdeu = true;
         rb.linearVelocity = Vector3.zero;
         Script_InfinityManager.instance.Perdeu_Set(1);
     }
 
-    void Raio_Draw() //aqui eh onde os raios sao desenhados para o jogador
+    private void Raio_Draw() //aqui eh onde os raios sao desenhados para o jogador
     {
         lr[0].startColor = bloq_esq ? Color.red : Color.green;
         lr[0].endColor = bloq_esq ? Color.red : Color.green;

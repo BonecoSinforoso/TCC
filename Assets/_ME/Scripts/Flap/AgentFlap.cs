@@ -1,4 +1,4 @@
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -15,29 +15,29 @@ public class AgentFlap : Agent
     public const int observacoesQuant = 8;
     public const int acoesQuant = 2;
 
-    [SerializeField] float puloForca = 5;
-    [SerializeField] float puloCd = 0.2f;
-    [SerializeField] Transform[] t_cano;
-    [SerializeField] float chaoY = -5f;
-    [SerializeField] float tetoY = 7f; //acima disso conta como batida (evita passar por cima dos canos)
+    [SerializeField] private float puloForca = 5;
+    [SerializeField] private float puloCd = 0.2f;
+    [SerializeField] private Transform[] t_cano;
+    [SerializeField] private float chaoY = -5f;
+    [SerializeField] private float tetoY = 7f; //acima disso conta como batida (evita passar por cima dos canos)
 
     [Header("Treino")]
-    [SerializeField] FlapTrainingArena arena;
-    [SerializeField] float recompensaPonto = 1f;
-    [SerializeField] float recompensaBater = -1f;
-    [SerializeField] float recompensaPorDecisao = 0.002f;
+    [SerializeField] private FlapTrainingArena arena;
+    [SerializeField] private float recompensaPonto = 1f;
+    [SerializeField] private float recompensaBater = -1f;
+    [SerializeField] private float recompensaPorDecisao = 0.002f;
 
     //normalizacao das observacoes
-    const float alturaNorm = 5f;
-    const float velocidadeNorm = 10f;
-    const float canoDistNorm = 6f; //distancia entre dois canos
-    const float canoPassou = 1f; //meia largura do cano + raio do passaro
+    private const float alturaNorm = 5f;
+    private const float velocidadeNorm = 10f;
+    private const float canoDistNorm = 6f; //distancia entre dois canos
+    private const float canoPassou = 1f; //meia largura do cano + raio do passaro
 
-    Rigidbody rb;
-    Transform t_centro; //a arena no treino, o mundo no jogo
-    float puloTempo;
-    float[] canoAlturaAnterior;
-    float[] canoVelocidadeY;
+    private Rigidbody rb;
+    private Transform t_centro; //a arena no treino, o mundo no jogo
+    private float puloTempo;
+    private float[] canoAlturaAnterior;
+    private float[] canoVelocidadeY;
 
     public int Pontos { get; private set; }
     public bool Morreu { get; private set; }
@@ -107,7 +107,7 @@ public class AgentFlap : Agent
     }
 
     // Proximo cano = o mais perto que ainda nn ficou para tras; seguinte = o que vem depois dele.
-    void CanosProximos_Get(float _x, out int _cano1, out int _cano2)
+    private void CanosProximos_Get(float _x, out int _cano1, out int _cano2)
     {
         _cano1 = -1;
         _cano2 = -1;
@@ -150,7 +150,7 @@ public class AgentFlap : Agent
         _acoes[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (puloTempo > 0) puloTempo -= Time.fixedDeltaTime;
 
@@ -164,7 +164,7 @@ public class AgentFlap : Agent
         if (!Morreu && PosLocal(transform.position).y > tetoY) Bateu();
     }
 
-    void Pulo()
+    private void Pulo()
     {
         if (puloTempo > 0) return;
         puloTempo = puloCd;
@@ -179,14 +179,14 @@ public class AgentFlap : Agent
     public static int PontosMax;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void Placar_Reset()
+    private static void Placar_Reset()
     {
         Episodios = 0;
         PontosTotal = 0;
         PontosMax = 0;
     }
 
-    void Bateu()
+    private void Bateu()
     {
         Episodios++;
         PontosTotal += Pontos;
@@ -218,12 +218,12 @@ public class AgentFlap : Agent
         }
     }
 
-    Vector3 PosLocal(Vector3 _pos)
+    private Vector3 PosLocal(Vector3 _pos)
     {
         return t_centro != null ? t_centro.InverseTransformPoint(_pos) : _pos;
     }
 
-    Vector3 PosMundo(Vector3 _pos)
+    private Vector3 PosMundo(Vector3 _pos)
     {
         return t_centro != null ? t_centro.TransformPoint(_pos) : _pos;
     }

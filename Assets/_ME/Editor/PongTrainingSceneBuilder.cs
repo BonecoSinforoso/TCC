@@ -1,4 +1,4 @@
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using UnityEditor;
@@ -10,16 +10,16 @@ using UnityEngine.SceneManagement;
 // As medidas sao as mesmas da Scene_gamePong: raquetes em x = +-9, paredes em z = +-6, bola com raio 0.25.
 public static class PongTrainingSceneBuilder
 {
-    const string cenaPath = "Assets/_ME/Scenes/Training/PongTraining.unity";
-    const string behaviorName = "Pong";
+    private const string cenaPath = "Assets/_ME/Scenes/Training/PongTraining.unity";
+    private const string behaviorName = "Pong";
 
-    const int colunas = 4;
-    const int linhas = 3;
-    const float espacoX = 32f;
-    const float espacoZ = 14f;
+    private const int colunas = 4;
+    private const int linhas = 3;
+    private const float espacoX = 32f;
+    private const float espacoZ = 14f;
 
     [MenuItem("TCC/ML-Agents/Criar cena de treino - Pong")]
-    static void Cena_Criar()
+    private static void Cena_Criar()
     {
         if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
@@ -53,7 +53,7 @@ public static class PongTrainingSceneBuilder
         Debug.Log("Cena de treino do Pong criada em " + cenaPath);
     }
 
-    static void Arena_Criar(string _nome, Vector3 _pos)
+    private static void Arena_Criar(string _nome, Vector3 _pos)
     {
         GameObject _arena = new GameObject(_nome);
         _arena.transform.position = _pos;
@@ -98,7 +98,7 @@ public static class PongTrainingSceneBuilder
         _arenaScript.Configurar(_rb_bola, _agente, _oponente);
     }
 
-    static void Parede_Criar(Transform _pai, float _z)
+    private static void Parede_Criar(Transform _pai, float _z)
     {
         GameObject _parede = GameObject.CreatePrimitive(PrimitiveType.Cube);
         _parede.name = "col_parede";
@@ -108,7 +108,7 @@ public static class PongTrainingSceneBuilder
         _parede.transform.localScale = new Vector3(30, 1, 1);
     }
 
-    static GameObject Raquete_Criar(Transform _pai, string _nome, string _tag, float _x)
+    private static GameObject Raquete_Criar(Transform _pai, string _nome, string _tag, float _x)
     {
         GameObject _raquete = new GameObject(_nome) { tag = _tag };
         _raquete.transform.SetParent(_pai, false);
@@ -125,7 +125,7 @@ public static class PongTrainingSceneBuilder
         return _raquete;
     }
 
-    static void Mesh_Criar(Transform _pai, PrimitiveType _tipo, Vector3 _escala)
+    private static void Mesh_Criar(Transform _pai, PrimitiveType _tipo, Vector3 _escala)
     {
         GameObject _mesh = GameObject.CreatePrimitive(_tipo);
         _mesh.name = "mesh";

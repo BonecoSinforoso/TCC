@@ -1,25 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_IaPong : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
-    [SerializeField] Transform t_bola;
-    [SerializeField] Rigidbody rb_bola;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private Transform t_bola;
+    [SerializeField] private Rigidbody rb_bola;
 
-    [SerializeField] float energiaMax;
-    [SerializeField] float energiaAtual;
-    [SerializeField] float energiaConsumo;
-    [SerializeField] float energiaRecarga;
-    [SerializeField] Transform t_energiaBarra;
+    [SerializeField] private float energiaMax;
+    [SerializeField] private float energiaAtual;
+    [SerializeField] private float energiaConsumo;
+    [SerializeField] private float energiaRecarga;
+    [SerializeField] private Transform t_energiaBarra;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void Update()
     {
         bool _andou = false;
 
@@ -63,7 +63,7 @@ public class Script_IaPong : MonoBehaviour
         EnergiaBarraTamanho_Set();
     }
 
-    void EnergiaBarraTamanho_Set()
+    private void EnergiaBarraTamanho_Set()
     {
         t_energiaBarra.localScale = new Vector3(1, 1, energiaAtual / energiaMax);
     }

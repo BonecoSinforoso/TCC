@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 // Pista do Infinity usada SO no treino do ML-Agents.
 // Copia a regra de spawn do Script_InfinityManager.ObjetosSpawnar: uma fileira a cada 10m, com 2 das 3 faixas
@@ -6,24 +6,24 @@ using UnityEngine;
 // No lugar de Instantiate/Destroy, os objetos sao criados uma vez e so reposicionados a cada episodio.
 public class InfinityTrainingArena : MonoBehaviour
 {
-    [SerializeField] float fileiraPrimeiraZ = 30f;
-    [SerializeField] float fileiraDist = 10f; //_posCoef do Script_InfinityManager
-    [SerializeField] int fileirasQuant = 110; //cobre os 1000m mesmo com os objetos andando para tras
-    [SerializeField] float faixaDist = 2.5f;
-    [SerializeField] float objetoSpeed = 1f; //Vector3.back do Script_Carro
-    [Range(0, 1)] [SerializeField] float onibusChance = 0.5f;
+    [SerializeField] private float fileiraPrimeiraZ = 15f;
+    [SerializeField] private float fileiraDist = 10f; //_posCoef do Script_InfinityManager
+    [SerializeField] private int fileirasQuant = 110; //cobre os 1000m mesmo com os objetos andando para tras
+    [SerializeField] private float faixaDist = 2.5f;
+    [SerializeField] private float objetoSpeed = 1f; //Vector3.back do Script_Carro
+    [Range(0, 1)][SerializeField] private float onibusChance = 0.5f;
 
-    const int layerObstaculo = 3;
+    private const int layerObstaculo = 3;
 
     //medidas dos colisores dos prefabs prefab_obj_carro e prefab_obj_onibus
-    static readonly Vector3 carroTamanho = new Vector3(1, 0.7f, 1);
-    static readonly Vector3 onibusTamanho = new Vector3(1, 1.1f, 4);
+    private static readonly Vector3 carroTamanho = new Vector3(1, 0.7f, 1);
+    private static readonly Vector3 onibusTamanho = new Vector3(1, 1.1f, 4);
 
-    Transform t_objetos;
-    BoxCollider[] objeto; //2 por fileira
-    Transform[] objetoMesh;
+    private Transform t_objetos;
+    private BoxCollider[] objeto; //2 por fileira
+    private Transform[] objetoMesh;
 
-    void Awake()
+    private void Awake()
     {
         t_objetos = new GameObject("emp_objetos").transform;
         t_objetos.SetParent(transform, false);
@@ -66,7 +66,7 @@ public class InfinityTrainingArena : MonoBehaviour
         }
     }
 
-    void Objeto_Set(int _indice, bool _onibus, Vector3 _pos)
+    private void Objeto_Set(int _indice, bool _onibus, Vector3 _pos)
     {
         Vector3 _tamanho = _onibus ? onibusTamanho : carroTamanho;
         GameObject _obj = objeto[_indice].gameObject;
@@ -82,7 +82,7 @@ public class InfinityTrainingArena : MonoBehaviour
         objetoMesh[_indice].localPosition = Vector3.up * (_tamanho.y / 2);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         t_objetos.localPosition += objetoSpeed * Time.fixedDeltaTime * Vector3.back;
     }

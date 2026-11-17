@@ -1,4 +1,4 @@
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -15,36 +15,36 @@ public class AgentPong : Agent
     public const int observacoesQuant = 9;
     public const int acoesQuant = 3;
 
-    [SerializeField] float moveSpeed = 7;
-    [SerializeField] float posLimiteZ = 3.5f;
-    [SerializeField] Transform t_bola;
-    [SerializeField] Rigidbody rb_bola;
+    [SerializeField] private float moveSpeed = 7;
+    [SerializeField] private float posLimiteZ = 3.5f;
+    [SerializeField] private Transform t_bola;
+    [SerializeField] private Rigidbody rb_bola;
 
     [Header("Energia (mesmas regras do Script_IaPong)")]
-    [SerializeField] float energiaMax = 100;
-    [SerializeField] float energiaAtual = 100;
-    [SerializeField] float energiaConsumo = 100;
-    [SerializeField] float energiaRecarga = 25;
-    [SerializeField] float energiaMinMover = 5;
-    [SerializeField] Transform t_energiaBarra;
+    [SerializeField] private float energiaMax = 100;
+    [SerializeField] private float energiaAtual = 100;
+    [SerializeField] private float energiaConsumo = 100;
+    [SerializeField] private float energiaRecarga = 25;
+    [SerializeField] private float energiaMinMover = 5;
+    [SerializeField] private Transform t_energiaBarra;
 
     [Header("Treino")]
-    [SerializeField] PongTrainingArena arena;
-    [SerializeField] float recompensaRebater = 1f;
-    [SerializeField] float recompensaGolSofrido = -1f;
-    [SerializeField] float recompensaGolFeito = 1f;
-    [SerializeField] float recompensaPorStep = 0f; //penalidade por existir (opcional); ligada ela premia tomar gol logo
+    [SerializeField] private PongTrainingArena arena;
+    [SerializeField] private float recompensaRebater = 1f;
+    [SerializeField] private float recompensaGolSofrido = -1f;
+    [SerializeField] private float recompensaGolFeito = 1f;
+    [SerializeField] private float recompensaPorStep = 0f; //penalidade por existir (opcional); ligada ela premia tomar gol logo
 
     //normalizacao das observacoes
-    const float campoX = 11f;
-    const float campoZ = 5.5f;
-    const float bolaSpeedMax = 12f;
-    const float bolaLimiteZ = 5.25f; //parede (5.5) menos o raio da bola (0.25)
+    private const float campoX = 11f;
+    private const float campoZ = 5.5f;
+    private const float bolaSpeedMax = 12f;
+    private const float bolaLimiteZ = 5.25f; //parede (5.5) menos o raio da bola (0.25)
 
-    Rigidbody rb;
-    Transform t_centro; //referencia do meio da mesa (a arena no treino, o mundo no jogo)
-    float lado; //-1 = raquete da esquerda, 1 = raquete da direita
-    int acaoAtual;
+    private Rigidbody rb;
+    private Transform t_centro; //referencia do meio da mesa (a arena no treino, o mundo no jogo)
+    private float lado; //-1 = raquete da esquerda, 1 = raquete da direita
+    private int acaoAtual;
 
     public override void Initialize()
     {
@@ -97,7 +97,7 @@ public class AgentPong : Agent
     // Onde a bola vai cruzar a linha da raquete (ja contando as rebatidas nas paredes), relativo ao z da raquete.
     // Eh a mesma informacao que o agente reativo tira dos raycasts de trajetoria do Script_BolaPong.
     // Com a bola indo para o outro lado devolve 0.
-    float BolaChegada_Calcular(Vector3 _raquete, Vector3 _bola, Vector3 _bolaVel)
+    private float BolaChegada_Calcular(Vector3 _raquete, Vector3 _bola, Vector3 _bolaVel)
     {
         if (_bolaVel.x * lado <= 0) return 0;
 
@@ -126,7 +126,7 @@ public class AgentPong : Agent
         _acoes[0] = _v > 0 ? 1 : _v < 0 ? 2 : 0;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         float _z = PosLocal(transform.position).z;
         bool _andou = false;
@@ -179,12 +179,12 @@ public class AgentPong : Agent
         EndEpisode();
     }
 
-    Vector3 PosLocal(Vector3 _pos)
+    private Vector3 PosLocal(Vector3 _pos)
     {
         return t_centro != null ? t_centro.InverseTransformPoint(_pos) : _pos;
     }
 
-    Vector3 PosMundo(Vector3 _pos)
+    private Vector3 PosMundo(Vector3 _pos)
     {
         return t_centro != null ? t_centro.TransformPoint(_pos) : _pos;
     }

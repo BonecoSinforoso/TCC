@@ -1,21 +1,21 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_BolaPong : MonoBehaviour
 {
-    [SerializeField] Transform t_move;
+    [SerializeField] private Transform t_move;
     public AudioClip[] audioClip;
-    [SerializeField] string debug_01;
-    [SerializeField] string debug_02;
+    [SerializeField] private string debug_01;
+    [SerializeField] private string debug_02;
 
-    Rigidbody rb;
-    AudioSource audioSource;
-    [SerializeField] LayerMask layerMask;
+    private Rigidbody rb;
+    private AudioSource audioSource;
+    [SerializeField] private LayerMask layerMask;
     public static bool perigo;
     public static float pos;
 
-    [SerializeField] LineRenderer lr;
+    [SerializeField] private LineRenderer lr;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
@@ -130,12 +130,12 @@ public class Script_BolaPong : MonoBehaviour
         }
     }
 
-    void MoveSpeedHorizontal_Toggle()
+    private void MoveSpeedHorizontal_Toggle()
     {
         rb.linearVelocity = new Vector3(-rb.linearVelocity.x, 0, rb.linearVelocity.z);
     }
 
-    void MoveSpeedVertical_Toggle()
+    private void MoveSpeedVertical_Toggle()
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, -rb.linearVelocity.z);
     }
