@@ -22,14 +22,14 @@ public class Script_playerFlapTudo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (transform.eulerAngles.z < 5) transform.eulerAngles += Vector3.forward * 10;
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
 
             Script_FlapManager.instance.AS_Play(0);
         }
 
-        if (rb.velocity.y < 0) transform.eulerAngles += quedaRot * Time.deltaTime * Vector3.forward;
-        if (rb.velocity.y > 0) transform.eulerAngles += subidaRot * Time.deltaTime * Vector3.forward;
+        if (rb.linearVelocity.y < 0) transform.eulerAngles += quedaRot * Time.deltaTime * Vector3.forward;
+        if (rb.linearVelocity.y > 0) transform.eulerAngles += subidaRot * Time.deltaTime * Vector3.forward;
 
         if (transform.eulerAngles.z > 300)
         {

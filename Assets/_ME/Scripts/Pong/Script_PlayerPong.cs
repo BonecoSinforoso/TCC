@@ -41,11 +41,11 @@ public class Script_PlayerPong : MonoBehaviour
             if (energiaAtual > energiaConsumo * Time.deltaTime)
             {
                 _andou = _v != 0;
-                rb.velocity = _v * moveSpeed * Vector3.forward;
+                rb.linearVelocity = _v * moveSpeed * Vector3.forward;
             }
             else
             {
-                rb.velocity = Vector3.zero;
+                rb.linearVelocity = Vector3.zero;
                 Travado_Set(true);
             }
 

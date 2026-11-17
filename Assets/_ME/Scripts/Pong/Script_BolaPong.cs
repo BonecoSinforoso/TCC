@@ -25,7 +25,7 @@ public class Script_BolaPong : MonoBehaviour
     {
         perigo = false;
 
-        if (rb.velocity != Vector3.zero) t_move.forward = transform.position + (new Vector3(rb.velocity.x, 0, rb.velocity.z) * 10);
+        if (rb.linearVelocity != Vector3.zero) t_move.forward = transform.position + (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z) * 10);
 
         Vector3 _direcao = t_move.forward;
 
@@ -106,8 +106,8 @@ public class Script_BolaPong : MonoBehaviour
         {
             MoveSpeedHorizontal_Toggle();
             if (transform.position.x < -8.7f) MoveSpeedVertical_Toggle();
-            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVertical_Toggle();
-            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVertical_Toggle();
+            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.linearVelocity.z > 0) MoveSpeedVertical_Toggle();
+            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.linearVelocity.z < 0) MoveSpeedVertical_Toggle();
 
             audioSource.Play();
         }
@@ -116,8 +116,8 @@ public class Script_BolaPong : MonoBehaviour
         {
             MoveSpeedHorizontal_Toggle();
             if (transform.position.x > 8.7f) MoveSpeedVertical_Toggle();
-            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.velocity.z > 0) MoveSpeedVertical_Toggle();
-            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.velocity.z < 0) MoveSpeedVertical_Toggle();
+            if (transform.position.z + 0.5f < other.gameObject.transform.position.z && rb.linearVelocity.z > 0) MoveSpeedVertical_Toggle();
+            if (transform.position.z - 0.5f > other.gameObject.transform.position.z && rb.linearVelocity.z < 0) MoveSpeedVertical_Toggle();
 
             audioSource.Play();
         }
@@ -132,11 +132,11 @@ public class Script_BolaPong : MonoBehaviour
 
     void MoveSpeedHorizontal_Toggle()
     {
-        rb.velocity = new Vector3(-rb.velocity.x, 0, rb.velocity.z);
+        rb.linearVelocity = new Vector3(-rb.linearVelocity.x, 0, rb.linearVelocity.z);
     }
 
     void MoveSpeedVertical_Toggle()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0, -rb.velocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, -rb.linearVelocity.z);
     }
 }

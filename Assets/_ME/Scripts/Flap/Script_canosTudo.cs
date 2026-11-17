@@ -23,7 +23,7 @@ public class Script_canosTudo : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = Vector3.left * moveSpeed;
+        rb.linearVelocity = Vector3.left * moveSpeed;
 
         if (transform.position.x < posMinX)
         {

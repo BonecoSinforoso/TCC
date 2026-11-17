@@ -39,7 +39,7 @@ public class Script_PlayerInfinity : MonoBehaviour
         txt_moveSpeed.text = moveSpeed + "m/s";
 
         //rb.velocity = Vector3.forward * moveSpeed + new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeedX, rb.velocity.y, 0);
-        rb.velocity = Vector3.forward * moveSpeed + Vector3.up * rb.velocity.y;
+        rb.linearVelocity = Vector3.forward * moveSpeed + Vector3.up * rb.linearVelocity.y;
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -65,7 +65,7 @@ public class Script_PlayerInfinity : MonoBehaviour
     void Perdeu()
     {
         perdeu = true;
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         Script_InfinityManager.instance.Perdeu_Set(0);
     }
 

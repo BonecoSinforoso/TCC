@@ -56,8 +56,8 @@ public class Script_PongManager : MonoBehaviour
         bolaMovendo = true;
         _lado = _lado == 0 ? Random.Range(1, 3) : _lado;
 
-        if (_lado == 1) rb_bola.velocity = Vector3.left * _bolaMoveSpeedX + ((Random.Range(0, 2) == 0 ? -1 : 1) * _bolaMoveSpeedY) * Vector3.forward;
-        else rb_bola.velocity = Vector3.right * _bolaMoveSpeedX + ((Random.Range(0, 2) == 0 ? -1 : 1) * _bolaMoveSpeedY) * Vector3.forward;
+        if (_lado == 1) rb_bola.linearVelocity = Vector3.left * _bolaMoveSpeedX + ((Random.Range(0, 2) == 0 ? -1 : 1) * _bolaMoveSpeedY) * Vector3.forward;
+        else rb_bola.linearVelocity = Vector3.right * _bolaMoveSpeedX + ((Random.Range(0, 2) == 0 ? -1 : 1) * _bolaMoveSpeedY) * Vector3.forward;
     }
 
     public void BolaReset(int _lado) //recebe 1 ou 2
@@ -70,7 +70,7 @@ public class Script_PongManager : MonoBehaviour
         bolaMovendo = false;
         lado = _lado;
         obj_bola.transform.position = Vector3.zero;
-        rb_bola.velocity = Vector3.zero;
+        rb_bola.linearVelocity = Vector3.zero;
         rb_bola.isKinematic = true;
         tr_bola.emitting = false;
 
@@ -93,13 +93,13 @@ public class Script_PongManager : MonoBehaviour
     {
         if (Random.Range(0, 2) == 0)
         {
-            if (rb_bola.velocity.x > 0) rb_bola.velocity += Vector3.right;
-            else rb_bola.velocity += Vector3.left;
+            if (rb_bola.linearVelocity.x > 0) rb_bola.linearVelocity += Vector3.right;
+            else rb_bola.linearVelocity += Vector3.left;
         }
         else
         {
-            if (rb_bola.velocity.z > 0) rb_bola.velocity += Vector3.forward;
-            else rb_bola.velocity += Vector3.back;
+            if (rb_bola.linearVelocity.z > 0) rb_bola.linearVelocity += Vector3.forward;
+            else rb_bola.linearVelocity += Vector3.back;
         }
 
         Invoke(nameof(BolaMoveSpeedUp), 10f);

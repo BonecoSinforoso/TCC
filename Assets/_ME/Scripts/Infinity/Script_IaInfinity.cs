@@ -46,7 +46,7 @@ public class Script_IaInfinity : MonoBehaviour
         moveSpeed = moveSpeed > 8 ? 8 : moveSpeed;
         txt_moveSpeed.text = moveSpeed + "m/s";
 
-        rb.velocity = Vector3.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
+        rb.linearVelocity = Vector3.forward * moveSpeed + new Vector3(0, rb.linearVelocity.y, 0);
 
         Debug.DrawRay(new Vector3(17.5f, 0.5f, transform.position.z), Vector3.forward * 5f, Color.red);
         Debug.DrawRay(new Vector3(17.5f, 2f, transform.position.z), Vector3.down * 2f, Color.red);
@@ -75,13 +75,13 @@ public class Script_IaInfinity : MonoBehaviour
 
         bool _carro = false;
 
-        // Raycast emitido a partir da base do personagem, posicionado próximo ao chão
-        // Sua função é detectar obstáculos quando o personagem está caindo após um pulo        
+        // Raycast emitido a partir da base do personagem, posicionado prï¿½ximo ao chï¿½o
+        // Sua funï¿½ï¿½o ï¿½ detectar obstï¿½culos quando o personagem estï¿½ caindo apï¿½s um pulo        
         if (Physics.Raycast(new Vector3(transform.position.x, 0, transform.position.z) + Vector3.forward, Vector3.forward, out RaycastHit _hit, 5f))
         {
             if (_hit.collider.CompareTag("Carro"))
             {
-                if (rb.velocity.z > 8.5f && !puloPode)
+                if (rb.linearVelocity.z > 8.5f && !puloPode)
                 {
                     if (transform.position.x < 19) bloq_esq = true;
                     else if (transform.position.x < 21) bloq_cen = true;
@@ -189,7 +189,7 @@ public class Script_IaInfinity : MonoBehaviour
     void Perdeu()
     {
         perdeu = true;
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         Script_InfinityManager.instance.Perdeu_Set(1);
     }
 

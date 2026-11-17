@@ -89,7 +89,7 @@ public class Script_IaFlap : MonoBehaviour
     {
         if (!puloPode) return;
         puloPode = false;
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         rb.AddForce(Vector3.up * puloForca, ForceMode.Impulse);
 
         Invoke(nameof(PuloPode_Reset), puloCd);

@@ -24,7 +24,7 @@ public class Script_mlInfinityTudo : MonoBehaviour
 
         animator.SetBool("_jump", !puloPode);
 
-        rb.velocity = Vector3.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
+        rb.linearVelocity = Vector3.forward * moveSpeed + new Vector3(0, rb.linearVelocity.y, 0);
     }
 
     void Pulo()
@@ -36,7 +36,7 @@ public class Script_mlInfinityTudo : MonoBehaviour
     void Perdeu()
     {
         perdeu = true;
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         Script_InfinityManager.instance.Perdeu_Set(2);
     }
 

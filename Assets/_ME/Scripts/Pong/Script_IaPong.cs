@@ -25,22 +25,22 @@ public class Script_IaPong : MonoBehaviour
 
         if (energiaAtual > 5) //verifica a energia
         {
-            if (Script_BolaPong.perigo) //verifica se a bola oferece perigo (no caso se está indo em direcao ao gol)
+            if (Script_BolaPong.perigo) //verifica se a bola oferece perigo (no caso se estï¿½ indo em direcao ao gol)
             {
-                if (transform.position.z + 1 < Script_BolaPong.pos) //verifica se a bola está acima da raquete
+                if (transform.position.z + 1 < Script_BolaPong.pos) //verifica se a bola estï¿½ acima da raquete
                 {
                     if (transform.position.z < 3.5f)
                     {
-                        rb.velocity = Vector3.forward * moveSpeed;
+                        rb.linearVelocity = Vector3.forward * moveSpeed;
                         _andou = true;
                     }
                 }
 
-                if (transform.position.z - 1 > Script_BolaPong.pos) //verifica se a bola está abaixo da raquete
+                if (transform.position.z - 1 > Script_BolaPong.pos) //verifica se a bola estï¿½ abaixo da raquete
                 {
                     if (transform.position.z > -3.5f)
                     {
-                        rb.velocity = Vector3.back * moveSpeed;
+                        rb.linearVelocity = Vector3.back * moveSpeed;
                         _andou = true;
                     }
                 }
@@ -57,7 +57,7 @@ public class Script_IaPong : MonoBehaviour
             energiaAtual += energiaRecarga * Time.deltaTime;
             if (energiaAtual > energiaMax) energiaAtual = energiaMax;
 
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
         }
 
         EnergiaBarraTamanho_Set();

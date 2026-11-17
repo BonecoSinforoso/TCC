@@ -17,11 +17,11 @@ public class Script_Carro : Script_ObjDestruir
     void Update()
     {
         if (obj != null) Distancia_Verificar(obj);
-        rb.velocity = Vector3.back + new Vector3(0, rb.velocity.y, 0);
+        rb.linearVelocity = Vector3.back + new Vector3(0, rb.linearVelocity.y, 0);
 
         if (transform.position.y < -2f)
         {
-            rb.velocity = new Vector3(0, 0, rb.velocity.z);
+            rb.linearVelocity = new Vector3(0, 0, rb.linearVelocity.z);
             transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
         }
 
