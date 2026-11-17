@@ -1,0 +1,3 @@
+﻿es;Español
+Jogar;Jugar
+Sair;Salir

@@ -1,0 +1,3 @@
+﻿fr;Français
+Jogar;Jouer
+Sair;Sortir
